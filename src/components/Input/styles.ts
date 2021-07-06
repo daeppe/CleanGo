@@ -8,8 +8,6 @@ export const InputStyled = styled.input`
   font-size: 1rem;
   font-family: var(--font-standard);
   padding: 0.5rem;
-  width: 240px;
-  height: 40px;
   ::placeholder {
     color: var(--gray);
   }
@@ -26,7 +24,6 @@ export const LabelStyled = styled.label`
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 2rem;
 `;
 export const ErrorMessage = styled.span`
   font-family: var(--font-standard);
