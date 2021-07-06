@@ -8,17 +8,18 @@ export const ContainerForm = styled.div`
   flex-direction: column;
   h2 {
     text-align: center;
-    font-size: 36px;
+    font-size: 2rem;
     font-style: normal;
     font-weight: normal;
+    margin-bottom: 1rem;
     @media only screen and (min-width: 768px) {
-      font-size: 48px;
+      font-size: 2.2rem;
     }
   }
   p {
     font-style: normal;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 0.8rem;
     text-align: start;
     margin-bottom: 20px;
     #link {

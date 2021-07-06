@@ -12,7 +12,6 @@ export const HeaderBar = styled.header`
   align-items: center;
   justify-content: space-between;
   background: transparent;
-
   img {
     height: 48px;
   }
