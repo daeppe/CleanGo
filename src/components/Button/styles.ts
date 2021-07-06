@@ -5,6 +5,9 @@ interface ButtonStyledProps {
 }
 
 export const ButtonItem = styled.button`
+  cursor: pointer;
+  outline: none;
+  border: none;
   background: var(--green);
   color: var(--white);
   ${(props: ButtonStyledProps) =>
