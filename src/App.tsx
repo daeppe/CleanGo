@@ -1,12 +1,10 @@
 import GlobalStyle from "./style/global";
-import Header from "./components/Header";
-import FormLogin from "./components/FormLogin";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
     <>
-      <Header>{}</Header>
-      <FormLogin />
+      <LoginPage />
       <GlobalStyle />
     </>
   );
