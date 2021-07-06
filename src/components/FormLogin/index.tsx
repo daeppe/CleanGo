@@ -14,7 +14,7 @@ interface FormValues {
 
 function FormLogin() {
   const schema = yup.object().shape({
-    username: yup.string().required("Campo obrigatório"),
+    email: yup.string().required("Campo obrigatório"),
     password: yup
       .string()
       .min(6, "Mínimo de 6 dígitos")
