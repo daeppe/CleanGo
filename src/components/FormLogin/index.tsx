@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { Link } from "react-router-dom";
 import Input from "../Input";
 import Button from "../Button";
-
+import { ContainerForm } from "./styles";
 interface FormValues {
   email: string;
   password: string;
@@ -33,8 +33,9 @@ export default function FormLogin() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+    <ContainerForm>
+      <h2>Faça seu login</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputType="text"
           label="Email"
@@ -43,16 +44,20 @@ export default function FormLogin() {
           error={!errors?.email}
           errorMessage={errors.email?.message}
         />
-      </div>
-      <div>
-        <label>Senha</label>
-        <input {...register("password")} placeholder="Digite seu senha" />
-      </div>
-      <p>
-        Ainda não possui cadastro? <Link to="/">Clique aqui</Link> para se
-        cadastrar.
-      </p>
-      <Button whiteSchema={false}>ENTRAR</Button>
-    </form>
+        <Input
+          inputType="password"
+          label="Senha"
+          {...register("password")}
+          placeholder="Digite sua senha"
+          error={!errors?.password}
+          errorMessage={errors.password?.message}
+        />
+        <p>
+          Ainda não possui cadastro? <Link to="/">Clique aqui</Link> para se
+          cadastrar.
+        </p>
+        <Button whiteSchema={false}>ENTRAR</Button>
+      </form>
+    </ContainerForm>
   );
 }

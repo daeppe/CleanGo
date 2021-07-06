@@ -5,10 +5,12 @@ interface ButtonProps {
   onClickFunc?: () => void;
   whiteSchema?: boolean;
   children: ReactNode;
+  type?: string;
 }
 
 const Button = ({
   onClickFunc,
+  type,
   whiteSchema = false,
   children,
   ...rest
