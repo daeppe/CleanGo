@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { ButtonItem } from "./styles";
 
 interface ButtonProps {
-  onClickFunc: () => void;
+  onClickFunc?: () => void;
   whiteSchema?: boolean;
   children: ReactNode;
 }
