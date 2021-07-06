@@ -7,6 +7,8 @@ export default createGlobalStyle`
   --green: #546652;
   --gray: #CFCFCF;
   --white: #FFFFFF;
+  --light-gray: #E7E7E7;
+  --dark-gray: #676767;
   --font-standard: "Lato", sans-serif;
   --font-secondary: 'Oswald', sans-serif;
 }
