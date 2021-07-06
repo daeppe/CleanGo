@@ -24,7 +24,6 @@ export const LabelStyled = styled.label`
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 2rem;
 `;
 export const ErrorMessage = styled.span`
   font-family: var(--font-standard);

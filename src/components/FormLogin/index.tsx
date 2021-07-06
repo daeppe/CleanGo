@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
+
 interface FormValues {
   email: string;
   password: string;
 }
 
-export default function FormLogin() {
+function FormLogin() {
   const schema = yup.object().shape({
     username: yup.string().required("Campo obrigatório"),
     password: yup
@@ -53,13 +54,19 @@ export default function FormLogin() {
           errorMessage={errors.password?.message}
         />
         <p>
-          Ainda não possui cadastro? <Link to="/">Clique aqui</Link> para se
-          cadastrar.
+          Ainda não possui cadastro?{" "}
+          <Link id="link" to="/">
+            Clique aqui
+          </Link>{" "}
+          para se cadastrar.
         </p>
-        <Button type="submit" whiteSchema={false}>
-          ENTRAR
-        </Button>
+        <div className="containerButton">
+          <Button type="submit" whiteSchema={false}>
+            ENTRAR
+          </Button>
+        </div>
       </form>
     </ContainerForm>
   );
 }
+export default FormLogin;
