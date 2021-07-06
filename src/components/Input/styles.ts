@@ -8,8 +8,6 @@ export const InputStyled = styled.input`
   font-size: 1rem;
   font-family: var(--font-standard);
   padding: 0.5rem;
-  width: 240px;
-  height: 40px;
   ::placeholder {
     color: var(--gray);
   }

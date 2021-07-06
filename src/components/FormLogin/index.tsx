@@ -4,8 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import Input from "../Input";
-import Button from "../Button";
 import { ContainerForm } from "./styles";
+import Button from "../Button";
 interface FormValues {
   email: string;
   password: string;
@@ -56,7 +56,9 @@ export default function FormLogin() {
           Ainda não possui cadastro? <Link to="/">Clique aqui</Link> para se
           cadastrar.
         </p>
-        <Button whiteSchema={false}>ENTRAR</Button>
+        <Button type="submit" whiteSchema={false}>
+          ENTRAR
+        </Button>
       </form>
     </ContainerForm>
   );
