@@ -1,6 +1,6 @@
 import { HeaderBar } from "./styles";
-import LogoGreen from "../../images/logo-2.svg";
-import LogoWhite from "../../images/logo-1.svg";
+import LogoGreen from "../../asssets/svg/logo-2.svg";
+import LogoWhite from "../../asssets/svg/logo-1.svg";
 import { ReactNode } from "react";
 
 interface HeaderProps {
