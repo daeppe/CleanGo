@@ -9,7 +9,10 @@ display: flex;
 justify-content: space-between;
 background: transparent;
 
-button{
+
+nav{
     margin-right: 50px;
+    display: flex;
+    justify-content: space-between;
 }
 `;

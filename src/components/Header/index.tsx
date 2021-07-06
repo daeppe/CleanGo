@@ -1,12 +1,20 @@
 import { HeaderBar } from "./styles";
-import Logo from "../../images/logo-2.svg";
+import LogoGreen from "../../images/logo-2.svg";
+import LogoWhite from "../../images/logo-1.svg";
+import { ReactNode } from "react";
 
-const Header = () => {
+interface HeaderProps {
+  children: ReactNode;
+  whiteSchema?: boolean;
+}
+
+const Header = ({ children, whiteSchema }: HeaderProps) => {
   return (
     <HeaderBar>
       <figure>
-        <img src={Logo} alt="Logo" />
+        <img src={whiteSchema ? LogoWhite : LogoGreen} alt="Logo" />
       </figure>
+      <nav>{children}</nav>
     </HeaderBar>
   );
 };
