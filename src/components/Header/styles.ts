@@ -11,7 +11,6 @@ export const HeaderBar = styled.header`
   display: flex;
   justify-content: space-between;
   background: transparent;
-
   img {
     height: 48px;
   }

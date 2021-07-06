@@ -14,10 +14,10 @@ export const ContainerLogin = styled.div`
   }
 `;
 export const ContainerLoginForm = styled.div`
-  flex: 7;
+  flex: 8;
 `;
 export const ContainerDescription = styled.div`
-  flex: 8;
+  flex: 7;
   background-image: url(${imageLogin});
   background-repeat: no-repeat;
   background-size: 100% 100%;
