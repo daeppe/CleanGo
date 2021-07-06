@@ -11,7 +11,7 @@ interface InputProps {
   errorMessage: string;
   placeholder: string;
   error?: boolean;
-  onChange: (param: any) => void;
+  onChange?: (param: any) => void;
 }
 
 const Input = ({

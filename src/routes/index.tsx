@@ -4,6 +4,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import Dashboard from "../pages/Dashboard";
 import Route from "./route";
+import ProfessionalRegister from "../pages/ProfessionalRegister";
 
 const Routes = () => {
   return (
@@ -11,6 +12,11 @@ const Routes = () => {
       <Route path="/" exact component={HomePage} />
       <Route path="/login" exact component={LoginPage} />
       <Route path="/register" exact component={RegisterPage} />
+      <Route
+        path="/profissionalregister"
+        exact
+        component={ProfessionalRegister}
+      />
       <Route isPrivate path="/dashboard" exact component={Dashboard} />
     </Switch>
   );
