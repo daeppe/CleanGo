@@ -19,14 +19,13 @@ export const ContainerForm = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
   p {
     font-style: normal;
     font-weight: normal;
     font-size: 0.8rem;
     text-align: start;
-    margin-bottom: 20px;
+    margin: 20px 0;
     #link {
       font-style: normal;
       font-weight: bold;

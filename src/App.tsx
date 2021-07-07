@@ -1,11 +1,10 @@
 import GlobalStyle from "./style/global";
-import LoginPage from "./pages/LoginPage";
-import WorkWithUs from "./pages/WorkWithUs";
+import Routes from "./routes";
+
 function App() {
   return (
     <>
-      {/* <LoginPage /> */}
-      <WorkWithUs />
+      <Routes />
       <GlobalStyle />
     </>
   );
