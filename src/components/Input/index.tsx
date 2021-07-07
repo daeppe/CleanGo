@@ -1,3 +1,5 @@
+import React, { forwardRef } from "react";
+
 import {
   InputStyled,
   LabelStyled,
@@ -21,6 +23,7 @@ const Input = ({
   placeholder,
   error = false,
   onChange,
+  ...rest
 }: InputProps) => {
   return (
     <ContainerInput>
@@ -29,9 +32,11 @@ const Input = ({
         type={inputType}
         onChange={onChange}
         placeholder={placeholder}
+        {...rest}
       />
       {error && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </ContainerInput>
   );
 };
-export default Input;
+
+export default forwardRef(Input);

@@ -8,16 +8,25 @@ import { ContainerForm } from "./styles";
 import Button from "../Button";
 
 interface FormValues {
+  name: string;
   email: string;
+  cpf: string;
   password: string;
+  passwordConfirm: string;
 }
 
-function FormLogin() {
+function FormRegister() {
   const schema = yup.object().shape({
+    name: yup.string().required("Campo obrigatório"),
     email: yup.string().required("Campo obrigatório"),
+    cpf: yup.string().required("Campo obrigatório"),
     password: yup
       .string()
       .min(6, "Mínimo de 6 dígitos")
+      .required("Campo obrigatório"),
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Campo obrigatório"),
   });
 
@@ -35,8 +44,17 @@ function FormLogin() {
 
   return (
     <ContainerForm>
-      <h2>Faça seu login</h2>
+      <h2>Faça seu cadastro</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          inputType="text"
+          label="Nome"
+          {...register("name")}
+          placeholder="Digite seu nome"
+          error={!!errors.name}
+          errorMessage={errors.name?.message}
+        />
+
         <Input
           inputType="email"
           label="Email"
@@ -46,6 +64,15 @@ function FormLogin() {
           errorMessage={errors.email?.message}
         />
         <Input
+          inputType="text"
+          label="CPF"
+          {...register("cpf")}
+          placeholder="Digite seu CPF"
+          error={!!errors.cpf}
+          errorMessage={errors.cpf?.message}
+        />
+
+        <Input
           inputType="password"
           label="Senha"
           {...register("password")}
@@ -53,20 +80,30 @@ function FormLogin() {
           error={!!errors.password}
           errorMessage={errors.password?.message}
         />
+        <Input
+          inputType="password"
+          label="Confirmar senha"
+          {...register("passwordConfirm")}
+          placeholder="Confirme sua senha"
+          error={!!errors.passwordConfirm}
+          errorMessage={errors.passwordConfirm?.message}
+        />
+
         <p>
-          Ainda não possui cadastro?{" "}
-          <Link id="link" to="/register">
+          Já possui conta?
+          <Link id="link" to="/login">
+            {" "}
             Clique aqui
           </Link>{" "}
-          para se cadastrar.
+          para entrar.
         </p>
         <div className="containerButton">
           <Button type="submit" whiteSchema={false}>
-            ENTRAR
+            CADASTRAR
           </Button>
         </div>
       </form>
     </ContainerForm>
   );
 }
-export default FormLogin;
+export default FormRegister;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import imageLogin from "../../asssets/images/image-login.png";
+import imageRegister from "../../asssets/images/image-register.png";
 
-export const ContainerLogin = styled.div`
+export const ContainerRegister = styled.div`
   margin-top: -77px;
   min-height: 100vh;
   display: flex;
@@ -15,21 +15,21 @@ export const ContainerLogin = styled.div`
   }
 `;
 
-export const ContainerLoginForm = styled.div`
+export const ContainerRegisterForm = styled.div`
   flex: 8;
   align-self: center;
 `;
 
 export const ContainerDescription = styled.div`
   flex: 7;
-  background-image: url(${imageLogin});
+  background-image: url(${imageRegister});
   background-repeat: no-repeat;
   background-size: 100% 100%;
   div {
-    text-align: right;
-    width: 400px;
+    text-align: left;
+    width: 500px;
     padding: 0 20px;
-    margin: 110px 66px auto auto;
+    margin: 110px auto auto 66px;
 
     h2 {
       font-family: Oswald;
