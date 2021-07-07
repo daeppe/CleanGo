@@ -2,33 +2,48 @@ import Header from "../../components/Header";
 import {
   Container,
   ContainerInner,
-  SectionStyled,
+  SectionReasons,
   SectionPartner,
+  SectionWhowItWorks,
   Title,
   Description,
 } from "./styles";
 import Button from "../../components/Button";
+import { useHistory } from "react-router";
+import { History } from "history";
+import CardWorkWithUs from "../../components/CardWorkWithUs";
+import CardReasons from "../../components/CardReasons";
+
 const WorkWithUs = () => {
+  const history: History = useHistory();
+  const handleClick = (): void => {
+    history.push("/profissionalregister");
+  };
   return (
     <>
       <Header whiteSchema>teste</Header>
       <Container>
         <SectionPartner>
           <ContainerInner>
-            <Title>Seja um parceiro CleanGo</Title>
+            <Title id="BeAPartner">Seja um parceiro CleanGo</Title>
             <Description>
               Entre para o CleanGo, veja seu número de clientes multiplicarem,
               trabalhe de forma prática, segura e eficiente. Com ganhos acima da
               média do mercado!
             </Description>
-            <Button type="button">Cadastre-se como profissional</Button>
+            <Button type="button" onClickFunc={handleClick}>
+              Cadastre-se como profissional
+            </Button>
           </ContainerInner>
         </SectionPartner>
-        <SectionStyled>
-          <p>as</p>
-          <p>as</p>
-          <p>as</p>
-        </SectionStyled>
+        <SectionWhowItWorks>
+          <Title id="whowItWorks">Como funciona</Title>
+          <CardWorkWithUs />
+        </SectionWhowItWorks>
+        <SectionReasons>
+          <Title>Por que ser um parceiro CleanGo?</Title>
+          <CardReasons />
+        </SectionReasons>
       </Container>
     </>
   );
