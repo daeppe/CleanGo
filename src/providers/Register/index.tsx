@@ -33,10 +33,10 @@ export const RegisterProvider = ({ children }: RegisterProviderProps) => {
   ) => {
     api
       .post("register", userData)
-      .then((_) => {
+      .then(() => {
         history.push("/login");
       })
-      .catch((_) => setError(true));
+      .catch(() => setError(true));
   };
 
   return (

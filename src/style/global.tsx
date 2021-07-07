@@ -34,7 +34,7 @@ time, mark, audio, video {
   
    body {
       background: var(--white);
-      font-family: var(---font-standard);
+      font-family: var(--font-standard);
       padding-top: 77px;
     }    
   

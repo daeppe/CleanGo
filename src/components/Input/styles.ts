@@ -5,11 +5,16 @@ export const InputStyled = styled.input`
   border: 2px solid #313630;
   box-sizing: border-box;
   border-radius: 4px;
+  width: 100%;
   font-size: 1rem;
   font-family: var(--font-standard);
   padding: 0.5rem;
-  ::placeholder {
+  &::placeholder {
     color: var(--gray);
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0.4;
   }
 `;
 export const LabelStyled = styled.label`
