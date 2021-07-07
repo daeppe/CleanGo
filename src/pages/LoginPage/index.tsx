@@ -9,12 +9,20 @@ import {
 const LoginPage = () => {
   return (
     <>
-      <Header>{"Teste"}</Header>
+      <Header>{}</Header>
       <ContainerLogin>
-        <ContainerLoginForm id="form">
+        <ContainerLoginForm>
           <FormLogin />
         </ContainerLoginForm>
-        <ContainerDescription id="description"></ContainerDescription>
+        <ContainerDescription id="description">
+          <div>
+            <h2>Te conectamos aos melhores profissionais</h2>
+            <p>
+              Facilitamos a vida de milhares de pessoas, levando comodidade e
+              praticidade para seus afazeres do lar!
+            </p>
+          </div>
+        </ContainerDescription>
       </ContainerLogin>
     </>
   );

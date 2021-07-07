@@ -38,11 +38,11 @@ function FormLogin() {
       <h2>Faça seu login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          inputType="text"
+          inputType="email"
           label="Email"
           {...register("email")}
           placeholder="Digite seu email"
-          error={!errors?.email}
+          error={!!errors.email}
           errorMessage={errors.email?.message}
         />
         <Input
@@ -50,12 +50,12 @@ function FormLogin() {
           label="Senha"
           {...register("password")}
           placeholder="Digite sua senha"
-          error={!errors?.password}
+          error={!!errors.password}
           errorMessage={errors.password?.message}
         />
         <p>
           Ainda não possui cadastro?{" "}
-          <Link id="link" to="/">
+          <Link id="link" to="/register">
             Clique aqui
           </Link>{" "}
           para se cadastrar.

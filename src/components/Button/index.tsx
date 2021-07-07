@@ -5,7 +5,7 @@ interface ButtonProps {
   onClickFunc?: () => void;
   whiteSchema?: boolean;
   children: ReactNode;
-  type?: string;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 const Button = ({
@@ -16,7 +16,12 @@ const Button = ({
   ...rest
 }: ButtonProps) => {
   return (
-    <ButtonItem whiteSchema={whiteSchema} onClick={onClickFunc} {...rest}>
+    <ButtonItem
+      type={type}
+      whiteSchema={whiteSchema}
+      onClick={onClickFunc}
+      {...rest}
+    >
       {children}
     </ButtonItem>
   );
