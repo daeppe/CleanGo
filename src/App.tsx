@@ -1,10 +1,10 @@
 import GlobalStyle from "./style/global";
-import LoginPage from "./pages/LoginPage";
+import Routes from "./routes";
 
 function App() {
   return (
     <>
-      <LoginPage />
+      <Routes />
       <GlobalStyle />
     </>
   );

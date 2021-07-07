@@ -1,3 +1,5 @@
+import React, { forwardRef } from "react";
+
 import {
   InputStyled,
   LabelStyled,
@@ -36,4 +38,5 @@ const Input = ({
     </ContainerInput>
   );
 };
-export default Input;
+
+export default forwardRef(Input);
