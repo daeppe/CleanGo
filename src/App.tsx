@@ -1,10 +1,11 @@
 import GlobalStyle from "./style/global";
 import LoginPage from "./pages/LoginPage";
-
+import WorkWithUs from "./pages/WorkWithUs";
 function App() {
   return (
     <>
-      <LoginPage />
+      {/* <LoginPage /> */}
+      <WorkWithUs />
       <GlobalStyle />
     </>
   );
