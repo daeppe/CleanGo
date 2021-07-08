@@ -43,6 +43,21 @@ export const ServicesContext = createContext<ServicesProviderData>(
 export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const token = ""; // pegar do provider token
   const [services, setServices] = useState<ServiceData[]>([]);
+  setServices([
+    ...services,
+    {
+      userId: 2,
+      date: "01010100",
+      price: 200.0,
+      serviceDetails: {
+        hours: 2,
+        class: "passadoria",
+      },
+      opened: true,
+      completed: false,
+      partnerId: 0,
+    },
+  ]);
   const newService = (
     serviceData: ServiceData,
     setError: Dispatch<SetStateAction<boolean>>

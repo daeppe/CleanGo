@@ -2,8 +2,13 @@ export interface ServiceData {
   userId: number;
   date: string;
   price: number;
-  serviceDetails: {};
-  details: string;
+  serviceDetails: {
+    class: string;
+    hours: number;
+    type?: string;
+    bedroom?: number;
+    bathroom?: number;
+  };
   opened: boolean;
   completed: boolean;
   partnerId: number;
