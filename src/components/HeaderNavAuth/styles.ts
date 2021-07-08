@@ -20,7 +20,7 @@ export const Container = styled.div`
     display: none;
   }
 
-  @media screen and (min-width: 540px) {
+  @media screen and (min-width: 420px) {
     span {
       display: block;
       margin-bottom: 0px;

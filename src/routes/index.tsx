@@ -2,7 +2,7 @@ import { Switch } from "react-router-dom";
 import HomePage from "../pages/Home";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/DashboardPartner";
 import Route from "./route";
 import ProfessionalRegister from "../pages/ProfessionalRegister";
 
@@ -17,7 +17,7 @@ const Routes = () => {
         exact
         component={ProfessionalRegister}
       />
-      <Route isPrivate path="/dashboard" exact component={Dashboard} />
+      <Route isPrivate path="/dashboardpartner" component={Dashboard} />
     </Switch>
   );
 };
