@@ -6,7 +6,7 @@ import { createContext } from "react";
 import api from "../../services/api";
 import { FeedData } from "../../types/UserData";
 import jwt_decode from "jwt-decode";
-import { useAuth } from "../Auth";
+// import { useAuth } from "../Auth";
 
 interface ProviderProps {
   children: ReactNode;
@@ -21,7 +21,8 @@ interface ProviderData {
 const FeedContext = createContext<ProviderData>({} as ProviderData);
 
 export const FeedProvider = ({ children }: ProviderProps) => {
-  const { auth } = useAuth();
+  // const { auth } = useAuth();
+  const auth = "";
   const userId = jwt_decode(auth);
   const [userFeed, setUserFeed] = useState<Array<FeedData>>([]);
 
