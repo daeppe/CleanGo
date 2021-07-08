@@ -1,5 +1,15 @@
+import Header from "../../components/Header";
+import HeaderNav from "../../components/HeaderNav";
+
 const HomePage = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <Header>
+        <HeaderNav />
+      </Header>
+      <div>Home</div>
+    </>
+  );
 };
 
 export default HomePage;
