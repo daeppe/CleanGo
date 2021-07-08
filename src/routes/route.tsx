@@ -15,7 +15,7 @@ const Route = ({
 }: RouteProps) => {
   // const {token} = useAuth()
   // apos criado o provider de token descomentar
-  const token: boolean = true;
+  const token = false;
   return (
     <ReactDOMRoute
       {...rest}
