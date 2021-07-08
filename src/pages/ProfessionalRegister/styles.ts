@@ -11,11 +11,18 @@ interface WrapperTabsProps {
   sectionForm: number;
 }
 
+interface TextAreaStyledProps {
+  error: boolean;
+}
+
 export const Container = styled.main`
   padding-top: 77px;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 100;
 `;
 
 export const WrapperForm = styled.section`
@@ -223,8 +230,22 @@ export const ContainerSelect = styled.div`
 `;
 export const ErrorMessage = styled.span`
   font-family: var(--font-standard);
+  font-size: 0.8rem;
   color: tomato;
-  padding: 0.5rem;
+
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  animation: appear 300ms forwards ease-in-out;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export const WrapperInputsRadio = styled.div`
@@ -241,17 +262,20 @@ export const ContainerTextArea = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+  position: relative;
 `;
 
 export const TextAreaStyled = styled.textarea`
   background: rgba(255, 255, 255, 0.75);
-  border: 2px solid #313630;
+  border: 2px solid
+    ${(props: TextAreaStyledProps) => (props.error ? "tomato" : "var(--green)")};
   box-sizing: border-box;
   border-radius: 4px;
   width: 100%;
   font-size: 1rem;
   font-family: var(--font-standard);
   padding: 0.5rem;
+  transition: all 300ms;
 
   &::placeholder {
     color: var(--gray);
