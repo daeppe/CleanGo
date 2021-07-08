@@ -25,7 +25,7 @@ const FeedbackContext = createContext<FeedbackProviderData>(
   {} as FeedbackProviderData
 );
 export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
-  const { token } = useClients();
+  const token = localStorage.getItem("token");
 
   const newFeedback = (feedbackData: FeedBackData) => {
     api

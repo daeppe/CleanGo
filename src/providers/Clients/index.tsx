@@ -12,6 +12,8 @@ interface ClientProviderData {
   clientLogin: (clientData: ClientLogin) => void;
   deleteClient: (idClient: number) => void;
   editClient: (clientData: ClientLogin) => void;
+
+  searchClient: (idClient: number) => void;
   token: string;
   setAuth: (value: React.SetStateAction<string>) => void;
   idClient: number;
@@ -42,7 +44,6 @@ const ClientContext = createContext<ClientProviderData>(
 
 export const ClientProvider = ({ children }: ClientProviderProps) => {
   // registrar cliente
-
   const newClient = (clientData: ClientData) => {
     api
       .post("register", clientData)
@@ -55,6 +56,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
   const convertStringToNumber = (str: string): number => {
     return parseInt(str);
   };
+
   //  login de cliente
   const token = localStorage.getItem("token") || "";
   const [auth, setAuth] = useState<string>(token);
@@ -80,10 +82,19 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
           Authorization: "Bearer " + token,
         },
       })
+      .then((response) => console.log(response.status))
+      .catch((err) => console.log(err));
+  };
+  const searchClient = (idClient: number) => {
+    api
+      .get(`users/${idClient}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
   };
-
   const deleteClient = (idClient: number) => {
     api
       .delete(`users/${idClient}`, {
@@ -106,6 +117,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         idClient,
         setIdClient,
         deleteClient,
+        searchClient,
       }}
     >
       {children}
