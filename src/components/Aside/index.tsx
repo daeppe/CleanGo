@@ -23,14 +23,33 @@ const Aside = () => {
   };
 
   useEffect(() => {
-    getDimensions();
+    let timeoutId: NodeJS.Timeout;
+
+    const resizeListener = () => {
+      // prevent execution of previous setTimeout
+
+      clearTimeout(timeoutId);
+      // change width from the state object after 150 milliseconds
+      timeoutId = setTimeout(() => getDimensions(), 150);
+    };
+
+    resizeListener();
+
+    // set resize listener
+    window.onresize = () => {
+      resizeListener();
+    };
+
+    // clean up function
+    return () => {
+      // remove resize listener
+      window.onresize = () => {
+        resizeListener();
+      };
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
-
-  window.onresize = () => {
-    getDimensions();
-  };
 
   return (
     <AsideContainer>
