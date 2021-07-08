@@ -1,5 +1,6 @@
 import { ServiceData } from "../../types/ServiceData";
 import { Container } from "./styles";
+import formatValue from "../../utils/formatedPrice";
 interface CardProps {
   service: ServiceData;
 }
@@ -14,7 +15,7 @@ const CardService = ({ service }: CardProps) => {
       <h3>{service.serviceDetails.hours} horas</h3>
       <div>
         <span>Valor</span>
-        <h3 className="price">{service.price}</h3>
+        <h3 className="price">{formatValue(service.price)}</h3>
       </div>
     </Container>
   );

@@ -12,6 +12,7 @@ export interface ServiceData {
   opened: boolean;
   completed: boolean;
   partnerId: number;
+  formatedPrice?: string;
 }
 export interface AcceptService {
   partnerId: number;
