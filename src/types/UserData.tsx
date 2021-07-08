@@ -12,6 +12,7 @@ export interface UserData {
 
 export interface FeedData {
   userId: number;
-  score: number;
-  feedback: string;
+  likesFeed: number;
+  bodyFeed: string;
+  dataFeed: string;
 }
