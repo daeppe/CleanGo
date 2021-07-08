@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
+interface InputStyledProps {
+  error: boolean;
+}
+
 export const InputStyled = styled.input`
   background: rgba(255, 255, 255, 0.75);
-  border: 2px solid #313630;
+  border: 2px solid
+    ${(props: InputStyledProps) => (props.error ? "tomato" : "var(--green)")};
   box-sizing: border-box;
   border-radius: 4px;
   width: 100%;
   font-size: 1rem;
   font-family: var(--font-standard);
   padding: 0.5rem;
+  transition: all 300ms;
+
   &::placeholder {
     color: var(--gray);
   }
@@ -29,9 +36,24 @@ export const LabelStyled = styled.label`
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 export const ErrorMessage = styled.span`
   font-family: var(--font-standard);
+  font-size: 0.8rem;
   color: tomato;
-  padding: 0.5rem;
+
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  animation: appear 300ms forwards ease-in-out;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
