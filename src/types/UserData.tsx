@@ -9,3 +9,9 @@ export interface UserData {
   feedback: Array<string>[];
   favorit: Array<string>[];
 }
+
+export interface FeedData {
+  userId: number;
+  score: number;
+  feedback: string;
+}
