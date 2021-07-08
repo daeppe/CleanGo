@@ -3,12 +3,11 @@ import { ReactNode } from "react";
 
 import { Item, RadioButton, CardCategory, CustomText } from "./style";
 
-interface InputRadioProps {
+interface InputRadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   value: string;
   selected: boolean;
   children: ReactNode;
-  handleSelectChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputRadio = ({
@@ -16,13 +15,11 @@ const InputRadio = ({
   value,
   selected,
   children,
-  handleSelectChange,
   ...rest
 }: InputRadioProps) => {
   return (
     <Item>
       <RadioButton
-        onChange={(e) => handleSelectChange(e)}
         type="radio"
         name={name}
         value={value}
