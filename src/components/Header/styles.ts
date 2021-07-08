@@ -18,9 +18,18 @@ export const HeaderBar = styled.header`
   align-items: center;
   justify-content: space-between;
   background: transparent;
+
   img {
     height: 48px;
   }
+
+  ${(props: HeaderBarProps) =>
+    props.isAuth &&
+    css`
+      img {
+        height: 38px;
+      }
+    `}
 
   nav.desktop {
     display: none;
@@ -35,6 +44,16 @@ export const HeaderBar = styled.header`
     @media screen and (min-width: 840px) {
       display: flex;
     }
+  }
+
+  @media screen and (min-width: 720px) {
+    ${(props: HeaderBarProps) =>
+      props.isAuth &&
+      css`
+        img {
+          display: none;
+        }
+      `}
   }
 `;
 
