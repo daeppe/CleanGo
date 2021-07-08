@@ -71,6 +71,7 @@ function FormRegister() {
           label="CPF"
           {...register("cpf")}
           placeholder="Digite seu CPF"
+          data-mask="000.000.000-00"
           error={!!errors.cpf}
           errorMessage={errors.cpf?.message}
         />

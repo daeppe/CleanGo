@@ -10,11 +10,12 @@ interface ClientProviderProps {
 interface ClientProviderData {
   newClient: (clientData: ClientData) => void;
   clientLogin: (clientData: ClientLogin) => void;
+  deleteClient: (idClient: number) => void;
   editClient: (clientData: ClientLogin) => void;
   token: string;
   setAuth: (value: React.SetStateAction<string>) => void;
-  idClient: string;
-  setIdClient: (value: React.SetStateAction<string>) => void;
+  idClient: number;
+  setIdClient: (value: React.SetStateAction<number>) => void;
 }
 
 interface ClientLogin {
@@ -28,7 +29,6 @@ interface EditClient {
   cpf?: string;
   password?: string;
 }
-
 interface DecodeToken {
   sub: string;
   iat: number;
@@ -46,27 +46,29 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
   const newClient = (clientData: ClientData) => {
     api
       .post("register", clientData)
-      .then((response) => {
-        console.log(response.data);
-        // history.push("/login");
+      .then(() => {
+        console.log("Cadastrou novo usuário");
       })
       .catch((err) => console.log(err));
   };
 
+  const convertStringToNumber = (str: string): number => {
+    return parseInt(str);
+  };
   //  login de cliente
   const token = localStorage.getItem("token") || "";
   const [auth, setAuth] = useState<string>(token);
-  const [idClient, setIdClient] = useState<string>("");
+  const [idClient, setIdClient] = useState<number>(0);
   const clientLogin = (clientData: ClientLogin) => {
     api
       .post("login", clientData)
       .then((response) => {
+        console.log("Entrou na aplicação");
         localStorage.setItem("token", response.data.accessToken);
         const decodedToken: DecodeToken = jwt_decode(response.data.accessToken);
         localStorage.setItem("idClient", decodedToken.sub);
-        setIdClient(decodedToken.sub);
+        setIdClient(convertStringToNumber(decodedToken.sub));
         setAuth(response.data.accessToken);
-        // history.push("/dashboard");
       })
       .catch((err) => console.log(err));
   };
@@ -82,6 +84,17 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
       .catch((err) => console.log(err));
   };
 
+  const deleteClient = (idClient: number) => {
+    api
+      .delete(`users/${idClient}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => console.log(response.status))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <ClientContext.Provider
       value={{
@@ -92,6 +105,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         editClient,
         idClient,
         setIdClient,
+        deleteClient,
       }}
     >
       {children}
