@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
+import { useClients } from "../../providers/Clients";
 
 interface FormValues {
   email: string;
@@ -13,6 +14,7 @@ interface FormValues {
 }
 
 function FormLogin() {
+  const { clientLogin } = useClients();
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório"),
     password: yup
@@ -30,7 +32,7 @@ function FormLogin() {
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
+    clientLogin(data);
   };
 
   return (
