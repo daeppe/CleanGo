@@ -57,7 +57,7 @@ const WeekService = () => {
 
                   return (
                     <Task past={date < now}>
-                      <p>{service.title}</p>
+                      <p>{service.serviceDetails.class}</p>
                     </Task>
                   );
                 })}
@@ -77,7 +77,7 @@ const WeekService = () => {
 
                   return (
                     <Task past={date < now}>
-                      <p>{service.title}</p>
+                      <p>{service.serviceDetails.class}</p>
                     </Task>
                   );
                 })}
@@ -97,7 +97,7 @@ const WeekService = () => {
 
                   return (
                     <Task past={date < now}>
-                      <p>{service.title}</p>
+                      <p>{service.serviceDetails.class}</p>
                     </Task>
                   );
                 })}
@@ -117,7 +117,7 @@ const WeekService = () => {
 
                   return (
                     <Task past={date < now}>
-                      <p>{service.title}</p>
+                      <p>{service.serviceDetails.class}</p>
                     </Task>
                   );
                 })}
@@ -137,7 +137,7 @@ const WeekService = () => {
 
                   return (
                     <Task past={date < now}>
-                      <p>{service.title}</p>
+                      <p>{service.serviceDetails.class}</p>
                     </Task>
                   );
                 })}
@@ -157,7 +157,7 @@ const WeekService = () => {
 
                   return (
                     <Task past={date < now}>
-                      <p>{service.title}</p>
+                      <p>{service.serviceDetails.class}</p>
                     </Task>
                   );
                 })}
@@ -177,7 +177,7 @@ const WeekService = () => {
 
                   return (
                     <Task past={date < now}>
-                      <p>{service.title}</p>
+                      <p>{service.serviceDetails.class}</p>
                     </Task>
                   );
                 })}

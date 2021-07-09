@@ -1,19 +1,18 @@
-interface ServiceDetailProps {
-  type?: string;
-  bedroom?: string;
-  bathroom?: string;
-  hours: number;
-}
-
 export interface ServiceData {
   userId: number;
   date: string;
   price: number;
-  serviceDetails: ServiceDetailProps;
-  title: string;
+  serviceDetails: {
+    class: string;
+    hours: number;
+    type?: string;
+    bedroom?: number;
+    bathroom?: number;
+  };
   opened: boolean;
   completed: boolean;
   partnerId: number;
+  formatedPrice?: string;
 }
 export interface AcceptService {
   partnerId: number;

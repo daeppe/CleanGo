@@ -8,7 +8,7 @@ import Header from "../../components/Header";
 import HeaderNavAuth from "../../components/HeaderNavAuth";
 import Complaints from "./Complaints";
 import Settings from "./Settings";
-
+import Services from "./Services";
 const Dashboard = () => {
   return (
     <>
@@ -30,6 +30,11 @@ const Dashboard = () => {
           isPrivate
           path="/dashboardpartner/settings"
           component={Settings}
+        />
+        <Route
+          isPrivate
+          path="/dashboardpartner/services"
+          component={Services}
         />
       </Switch>
     </>
