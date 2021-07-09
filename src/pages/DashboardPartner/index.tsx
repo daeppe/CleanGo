@@ -9,9 +9,12 @@ import HeaderNavAuth from "../../components/HeaderNavAuth";
 import Complaints from "./Complaints";
 import Settings from "./Settings";
 import Services from "./Services";
+import TitlePage from "../../components/TitlePage";
 const Dashboard = () => {
   return (
     <>
+      <TitlePage />
+
       <Header auth={true}>
         <HeaderNavAuth name={"Mockado"} />
       </Header>
