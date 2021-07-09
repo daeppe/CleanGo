@@ -1,6 +1,7 @@
 import FormRegister from "../../components/FormRegister";
 import Header from "../../components/Header";
 import HeaderNav from "../../components/HeaderNav";
+import TitlePage from "../../components/TitlePage";
 import {
   ContainerRegisterForm,
   ContainerRegister,
@@ -10,6 +11,7 @@ import {
 const RegisterPage = () => {
   return (
     <>
+      <TitlePage />
       <Header>
         <HeaderNav />
       </Header>
