@@ -10,7 +10,7 @@ const HeaderNavAuth = ({ name }: HeaderNavAuthProps) => {
   return (
     <Container>
       <span>{name}</span>
-      <Links to="/professionalregister">
+      <Links to="/cadastroparceiro" onClick={() => localStorage.clear()}>
         <IoExitOutline />
       </Links>
     </Container>
