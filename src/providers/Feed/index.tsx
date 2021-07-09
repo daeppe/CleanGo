@@ -5,7 +5,6 @@ import { useState } from "react";
 import { createContext } from "react";
 import api from "../../services/api";
 import { FeedData } from "../../types/UserData";
-import jwt_decode from "jwt-decode";
 import { useAuth } from "../Auth";
 
 interface ProviderProps {
@@ -21,15 +20,14 @@ interface ProviderData {
 const FeedContext = createContext<ProviderData>({} as ProviderData);
 
 export const FeedProvider = ({ children }: ProviderProps) => {
-  const { auth } = useAuth();
-  const userId = jwt_decode(auth);
+  const { idClient, token } = useAuth();
   const [userFeed, setUserFeed] = useState<Array<FeedData>>([]);
 
   useEffect(() => {
-    if (auth) {
-      api.get(`feed/${userId}`).then((res) => setUserFeed(res.data.token));
+    if (token) {
+      api.get(`feed/${idClient}`).then((res) => setUserFeed(res.data.token));
     }
-  }, [auth]);
+  }, [token]);
 
   const feedPost = (feedData: FeedData) => {
     api.post(`feed`, feedData);

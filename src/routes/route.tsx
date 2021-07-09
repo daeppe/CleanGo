@@ -1,5 +1,5 @@
 import { Redirect, Route as ReactDOMRoute } from "react-router-dom";
-// import {useAuth} from "../providers/Auth"
+import { useAuth } from "../providers/Auth";
 // apos criado o provider descomentar
 interface RouteProps {
   isPrivate?: boolean;
@@ -13,9 +13,8 @@ const Route = ({
   component: Component,
   ...rest
 }: RouteProps) => {
-  // const {token} = useAuth()
+  const { token } = useAuth();
   // apos criado o provider de token descomentar
-  const token = false;
   return (
     <ReactDOMRoute
       {...rest}
