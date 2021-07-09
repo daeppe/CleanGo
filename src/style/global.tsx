@@ -1,14 +1,20 @@
 import { createGlobalStyle } from "styled-components";
 
+interface GlobalProps {
+  backgroundGray: boolean;
+}
+
 export default createGlobalStyle`
 :root{
   --black: #0C090B;
   --dark-green: #313630;
   --green: #546652;
+  --red: #A62E2E;
   --gray: #CFCFCF;
   --white: #FFFFFF;
   --light-gray: #E7E7E7;
   --dark-gray: #676767;
+  --shadow:  2px 0px 10px -1px rgba(0, 0, 0, 0.3);
   --font-standard: "Lato", sans-serif;
   --font-secondary: 'Oswald', sans-serif;
 }
@@ -24,7 +30,7 @@ fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
+menu, main, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
     padding: 0;
@@ -33,7 +39,8 @@ time, mark, audio, video {
    }
   
    body {
-      background: var(--white);
+      background: ${(props: GlobalProps) =>
+        props.backgroundGray ? "var(--light-gray)" : "var(--white)"};
       font-family: var(--font-standard);
       padding-top: 77px;
     }    

@@ -57,7 +57,7 @@ function FormLogin() {
         />
         <p>
           Ainda não possui cadastro?{" "}
-          <Link id="link" to="/register">
+          <Link id="link" to="/cadastro">
             Clique aqui
           </Link>{" "}
           para se cadastrar.
