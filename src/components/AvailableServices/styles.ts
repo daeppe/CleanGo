@@ -18,7 +18,7 @@ export const Container = styled.section`
     padding: 0.5rem 0;
   }
 
-  h3 {
+  > h3 {
     height: 230px;
     width: 100%;
     border-radius: 8px;
