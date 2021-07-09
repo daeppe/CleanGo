@@ -7,10 +7,7 @@ import Route from "./route";
 import ProfessionalRegister from "../pages/ProfessionalRegister";
 import { useAuth } from "../providers/Auth";
 const Routes = () => {
-  // const { token } = useAuth();
-
-  const token = true;
-
+  const { token } = useAuth();
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />

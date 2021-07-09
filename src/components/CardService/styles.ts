@@ -13,10 +13,13 @@ export const Container = styled.div`
   margin: 8px auto;
   padding: 16px;
   h2 {
-    font-family: var(--font-standard);
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: capitalize;
+    width: 100%;
+    font-family: var(--font-secondary);
+    font-size: 1.3rem;
+    color: var(--dark-gray);
+    font-weight: 500;
+    text-align: left;
+    padding: 0.5rem 0;
   }
   h3 {
     font-family: var(--font-standard);
