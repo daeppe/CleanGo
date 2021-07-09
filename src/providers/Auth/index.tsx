@@ -9,6 +9,8 @@ import {
 import { History } from "history";
 import jwt_decode from "jwt-decode";
 import api from "../../services/api";
+import { notification } from "antd";
+import { FaTimesCircle, FaTimes, FaCheckCircle } from "react-icons/fa";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -63,9 +65,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.setItem("idClient", decodedToken.sub);
         setIdClient(convertStringToNumber(decodedToken.sub));
         setAuth(response.data.accessToken);
-        history.push("/dashboard");
+        history.push("/login");
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            fontFamily: "Roboto",
+            backgroundColor: "var(--gray)",
+            WebkitBorderRadius: 4,
+          },
+          description: "Login efetuado",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        });
       })
-      .catch(() => setError(true));
+      .catch((_) =>
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          style: {
+            fontFamily: "Roboto",
+            backgroundColor: "var(--gray)",
+            WebkitBorderRadius: 4,
+          },
+          description: "Erro ao realizar login.",
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        })
+      );
   };
 
   return (
