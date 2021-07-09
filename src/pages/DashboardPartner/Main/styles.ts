@@ -33,3 +33,9 @@ export const FeedColumn = styled.div`
   justify-content: center;
   width: 100%;
 `;
+
+export const WrapperSections = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

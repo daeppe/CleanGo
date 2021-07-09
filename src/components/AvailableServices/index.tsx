@@ -1,10 +1,12 @@
-import React from "react";
-import Slider from "react-slick";
+import React, { useEffect, useState } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import CardService from "../CardService";
+import AliceCarousel from "react-alice-carousel";
 
+import "react-alice-carousel/lib/alice-carousel.css";
 import { Container } from "./styles";
 import { SliderWrapper } from "./styles";
+import { useServices } from "../../providers/Services";
 
 const servico: ServiceData[] = [
   {
@@ -93,24 +95,50 @@ const servico: ServiceData[] = [
   },
 ];
 
+const responsive = {
+  0: { items: 1 },
+  350: { items: 1.5 },
+  720: { items: 1 },
+  968: { items: 2 },
+  1200: { items: 3 },
+  1600: { items: 4.5 },
+};
+
 const AvailableServices = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-  };
+  const { getServices, services } = useServices();
+  const [error, setError] = useState(false);
+  const [items, setItems] = useState<JSX.Element[]>();
+
+  useEffect(() => {
+    getServices(setError);
+  }, [getServices]);
+
+  useEffect(() => {
+    if (services && services.length > 0) {
+      const itens = services.map((service) => (
+        <div>
+          <CardService service={service} />
+        </div>
+      ));
+
+      setItems(itens);
+    } else {
+      setError(true);
+    }
+  }, [services]);
 
   return (
     <Container>
       <h2>Serviços disponíveis</h2>
       <SliderWrapper>
-        <Slider {...settings}>
-          {servico.map((service) => (
-            <CardService service={service} />
-          ))}
-        </Slider>
+        <AliceCarousel
+          mouseTracking
+          disableDotsControls
+          responsive={responsive}
+          items={items}
+          paddingLeft={20}
+          paddingRight={20}
+        />
       </SliderWrapper>
     </Container>
   );

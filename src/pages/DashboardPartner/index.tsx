@@ -9,7 +9,18 @@ import HeaderNavAuth from "../../components/HeaderNavAuth";
 import Complaints from "./Complaints";
 import Settings from "./Settings";
 import Services from "./Services";
+import { useRegister } from "../../providers/Register";
+import { useEffect } from "react";
+
 const Dashboard = () => {
+  const { handleBackground } = useRegister();
+
+  useEffect(() => {
+    handleBackground(true);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Header auth={true}>

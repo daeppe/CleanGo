@@ -97,7 +97,7 @@ export const DayTasks = styled.div`
     background: linear-gradient(13deg, #546652 14%, #313630 64%);
   }
   ::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: #d3d3d3;
     border-radius: 10px;
     box-shadow: inset 8.2px 10px 12px 0px #f0f0f0;
   }

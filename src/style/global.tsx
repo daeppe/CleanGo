@@ -1,5 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
+interface GlobalProps {
+  backgroundGray: boolean;
+}
+
 export default createGlobalStyle`
 :root{
   --black: #0C090B;
@@ -35,7 +39,8 @@ time, mark, audio, video {
    }
   
    body {
-      background: var(--white);
+      background: ${(props: GlobalProps) =>
+        props.backgroundGray ? "var(--light-gray)" : "var(--white)"};
       font-family: var(--font-standard);
       padding-top: 77px;
     }    

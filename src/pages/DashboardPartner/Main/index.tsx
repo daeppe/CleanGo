@@ -1,8 +1,13 @@
 import React from "react";
 import AvailableServices from "../../../components/AvailableServices";
-import BackgroundGray from "../../../components/BackgroundGray";
+import LastGains from "../../../components/LastGains";
 import WeekService from "../../../components/WeekService";
-import { Container, FeaturesColumn, FeedColumn } from "./styles";
+import {
+  Container,
+  FeaturesColumn,
+  FeedColumn,
+  WrapperSections,
+} from "./styles";
 
 const Main = () => {
   return (
@@ -10,6 +15,9 @@ const Main = () => {
       <FeaturesColumn>
         <AvailableServices />
         <WeekService />
+        <WrapperSections>
+          <LastGains total={2500} />
+        </WrapperSections>
       </FeaturesColumn>
       <FeedColumn>
         <p>
