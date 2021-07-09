@@ -27,7 +27,7 @@ export const FeedProvider = ({ children }: ProviderProps) => {
     if (token) {
       api.get(`feed/${idClient}`).then((res) => setUserFeed(res.data.token));
     }
-  }, []);
+  }, [token]);
 
   const feedPost = (feedData: FeedData) => {
     api.post(`feed`, feedData);

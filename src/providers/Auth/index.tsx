@@ -9,8 +9,6 @@ import {
 import { History } from "history";
 import jwt_decode from "jwt-decode";
 import api from "../../services/api";
-import { notification } from "antd";
-import { FaTimesCircle, FaTimes, FaCheckCircle } from "react-icons/fa";
 
 interface AuthProviderProps {
   children: ReactNode;
