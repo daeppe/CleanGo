@@ -2,25 +2,25 @@ import { ReactNode } from "react";
 import { ClientProvider } from "./Clients";
 import { AuthProvider } from "./Auth";
 import { FeedbackProvider } from "./Feedbacks";
-import { PartnersProvider } from "./Partners";
-import { RegisterProvider } from "./Register";
 import { ServiceProvider } from "./Services";
+import { RegisterProvider } from "./Register";
+import { PartnersProvider } from "./Partners";
 interface ProvidersProps {
   children: ReactNode;
 }
 const Providers = ({ children }: ProvidersProps) => {
   return (
-    <RegisterProvider>
-      <AuthProvider>
-        <PartnersProvider>
-          <ClientProvider>
-            {/* <ServiceProvider> */}
-            <FeedbackProvider>{children}</FeedbackProvider>
-            {/* </ServiceProvider> */}
-          </ClientProvider>
-        </PartnersProvider>
-      </AuthProvider>
-    </RegisterProvider>
+    <AuthProvider>
+      <ClientProvider>
+        <FeedbackProvider>
+          <ServiceProvider>
+            <RegisterProvider>
+              <PartnersProvider>{children}</PartnersProvider>
+            </RegisterProvider>
+          </ServiceProvider>
+        </FeedbackProvider>
+      </ClientProvider>
+    </AuthProvider>
   );
 };
 

@@ -23,6 +23,8 @@ import {
   TextAreaStyled,
   ErrorMessage,
 } from "./styles";
+import { truncate } from "fs";
+import TitlePage from "../../components/TitlePage";
 
 interface Partner {
   name?: string;
@@ -262,6 +264,7 @@ const ProfessionalRegister = () => {
 
   return (
     <BackgroundGray logo={true}>
+      <TitlePage />
       <Container>
         <WrapperForm>
           <TitleForm>Cadastro de profissionais</TitleForm>

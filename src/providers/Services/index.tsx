@@ -48,25 +48,9 @@ export const ServicesContext = createContext<ServicesProviderData>(
 );
 
 export const ServiceProvider = ({ children }: ServicesProviderProps) => {
-  const { token } = useAuth(); // pegar do provider token
+  const { token } = useAuth();
   const [services, setServices] = useState<ServiceData[]>([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
-
-  setServices([
-    ...services,
-    {
-      userId: 2,
-      date: 1625795778898,
-      price: 200.0,
-      serviceDetails: {
-        hours: 2,
-        class: "passadoria",
-      },
-      opened: true,
-      completed: false,
-      partnerId: 0,
-    },
-  ]);
 
   const newService = (
     serviceData: ServiceData,

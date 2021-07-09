@@ -4,7 +4,7 @@ import { useAuth } from "../providers/Auth";
 interface RouteProps {
   isPrivate?: boolean;
   component: React.ComponentType;
-  path: string;
+  path?: string;
   exact?: boolean;
 }
 

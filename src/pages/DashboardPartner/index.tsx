@@ -12,6 +12,7 @@ import Services from "./Services";
 import { useRegister } from "../../providers/Register";
 import { useEffect } from "react";
 
+import TitlePage from "../../components/TitlePage";
 const Dashboard = () => {
   const { handleBackground } = useRegister();
 
@@ -23,6 +24,8 @@ const Dashboard = () => {
 
   return (
     <>
+      <TitlePage />
+
       <Header auth={true}>
         <HeaderNavAuth name={"Mockado"} />
       </Header>

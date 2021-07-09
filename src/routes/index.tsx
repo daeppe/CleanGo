@@ -17,6 +17,7 @@ const Routes = () => {
         exact
         component={ProfessionalRegister}
       />
+      {/* <Route component={() => <h1>Rota não encontrada</h1>} /> */}
       <Route isPrivate path="/dashboardpartner" component={Dashboard} />
     </Switch>
   );
