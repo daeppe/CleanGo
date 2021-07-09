@@ -1,6 +1,7 @@
 import FormLogin from "../../components/FormLogin";
 import Header from "../../components/Header";
 import HeaderNav from "../../components/HeaderNav";
+import TitlePage from "../../components/TitlePage";
 import {
   ContainerLoginForm,
   ContainerLogin,
@@ -10,6 +11,7 @@ import {
 const LoginPage = () => {
   return (
     <>
+      <TitlePage />
       <Header>
         <HeaderNav />
       </Header>
