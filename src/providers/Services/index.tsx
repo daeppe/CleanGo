@@ -42,6 +42,8 @@ interface ServicesProviderData {
   services: ServiceData[];
   servicesAccept: ServiceData[];
   setServices: Dispatch<SetStateAction<ServiceData[]>>;
+  filterServices: (filter: string) => void;
+  filteredServices: ServiceData[];
 }
 export const ServicesContext = createContext<ServicesProviderData>(
   {} as ServicesProviderData
@@ -50,6 +52,7 @@ export const ServicesContext = createContext<ServicesProviderData>(
 export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const { token } = useAuth();
   const [services, setServices] = useState<ServiceData[]>([]);
+  const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
 
   const newService = (
@@ -126,6 +129,14 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     setServicesAccept(servicesAcc);
     return servicesAcc;
   };
+  const filterServices = (filter: string) => {
+    api
+      .get<ServiceData[]>(`services?serviceDetails.class=${filter}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => setFilteredServices(response.data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <ServicesContext.Provider
@@ -139,6 +150,8 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         servicesAccept,
         setServices,
         getServicesAccepted,
+        filterServices,
+        filteredServices,
       }}
     >
       {children}

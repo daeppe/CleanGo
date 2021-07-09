@@ -12,6 +12,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   inputType: string;
   errorMessage?: string;
   error?: boolean;
+  className?: string;
 }
 
 const Input = ({
@@ -20,12 +21,16 @@ const Input = ({
   errorMessage,
   placeholder,
   error = false,
+  className,
   ...rest
 }: InputProps) => {
   return (
-    <ContainerInput>
-      <LabelStyled htmlFor="">{label}</LabelStyled>
+    <ContainerInput className={className}>
+      <LabelStyled htmlFor="" className={className}>
+        {label}
+      </LabelStyled>
       <InputStyled
+        className={className}
         type={inputType}
         placeholder={placeholder}
         {...rest}
