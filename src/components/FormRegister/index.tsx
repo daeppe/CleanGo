@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
@@ -37,12 +37,13 @@ function FormRegister() {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
-
+  const [error, setError] = useState(false);
+  const history = useHistory();
   const { newClient } = useClients();
 
   const onSubmit = ({ cpf, email, name, password }: FormData) => {
     const data: ClientData = { cpf, email, name, password };
-    newClient(data);
+    newClient(data, setError, history);
   };
 
   return (

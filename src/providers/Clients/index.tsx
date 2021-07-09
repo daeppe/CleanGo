@@ -1,15 +1,30 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 import { ClientData } from "../../types/clientData";
 import api from "../../services/api";
 import jwt_decode from "jwt-decode";
+import { History } from "history";
 
 interface ClientProviderProps {
   children: ReactNode;
 }
 
 interface ClientProviderData {
-  newClient: (clientData: ClientData) => void;
-  clientLogin: (clientData: ClientLogin) => void;
+  newClient: (
+    clientData: ClientData,
+    setError: Dispatch<boolean>,
+    history: History
+  ) => void;
+  clientLogin: (
+    clientData: ClientLogin,
+    setError: Dispatch<boolean>,
+    history: History
+  ) => void;
   deleteClient: (idClient: number) => void;
   editClient: (clientData: ClientLogin) => void;
 
@@ -44,13 +59,18 @@ const ClientContext = createContext<ClientProviderData>(
 
 export const ClientProvider = ({ children }: ClientProviderProps) => {
   // registrar cliente
-  const newClient = (clientData: ClientData) => {
+  const newClient = (
+    clientData: ClientData,
+    setError: Dispatch<boolean>,
+    history: History
+  ) => {
     api
       .post("register", clientData)
       .then(() => {
         console.log("Cadastrou novo usuário");
+        history.push("/dashboard");
       })
-      .catch((err) => console.log(err));
+      .catch(() => setError(true));
   };
 
   const convertStringToNumber = (str: string): number => {
@@ -61,7 +81,11 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
   const token = localStorage.getItem("token") || "";
   const [auth, setAuth] = useState<string>(token);
   const [idClient, setIdClient] = useState<number>(0);
-  const clientLogin = (clientData: ClientLogin) => {
+  const clientLogin = (
+    clientData: ClientLogin,
+    setError: Dispatch<boolean>,
+    history: History
+  ) => {
     api
       .post("login", clientData)
       .then((response) => {
@@ -71,8 +95,9 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         localStorage.setItem("idClient", decodedToken.sub);
         setIdClient(convertStringToNumber(decodedToken.sub));
         setAuth(response.data.accessToken);
+        history.push("/dashboard");
       })
-      .catch((err) => console.log(err));
+      .catch(() => setError(true));
   };
 
   const editClient = (clientData: EditClient) => {

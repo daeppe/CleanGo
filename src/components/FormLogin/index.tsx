@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
@@ -30,9 +30,9 @@ function FormLogin() {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-
+  const history = useHistory();
   const onSubmit = (data: FormValues) => {
-    clientLogin(data);
+    clientLogin(data, history);
   };
 
   return (

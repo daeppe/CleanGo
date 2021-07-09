@@ -2,7 +2,6 @@ import { createContext, ReactNode, useContext } from "react";
 
 import { FeedBackData } from "../../types/feedbackData";
 import api from "../../services/api";
-import { useClients } from "../Clients";
 
 interface FeedbackProviderProps {
   children: ReactNode;
@@ -25,7 +24,7 @@ const FeedbackContext = createContext<FeedbackProviderData>(
   {} as FeedbackProviderData
 );
 export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token") || "";
 
   const newFeedback = (feedbackData: FeedBackData) => {
     api
