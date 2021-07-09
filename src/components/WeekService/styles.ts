@@ -22,9 +22,12 @@ export const Container = styled.section`
 
 export const CalendarWrapper = styled.div`
   width: 100%;
-  max-width: 840px;
+  /* max-width: 840px; */
   display: flex;
+  padding: 12px;
   overflow-x: scroll;
+  border-radius: 8px;
+  box-shadow: inset 14px 14px 28px #d2d2d2, inset -14px -14px 28px #fcfcfc;
 
   ::-webkit-scrollbar {
     width: 6px;
@@ -46,14 +49,15 @@ export const CalendarWrapper = styled.div`
 
 export const Calendar = styled.div`
   width: 100%;
+  min-width: 700px;
+
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  padding-bottom: 1rem;
 `;
 
 export const WeekDay = styled.div`
-  width: 100px;
-  height: 220px;
+  width: 100%;
+  height: 200px;
   border-right: 1px solid var(--gray);
 
   &:last-child {
@@ -71,8 +75,8 @@ export const WeekDay = styled.div`
   }
 
   @media screen and (min-width: 720px) {
-    width: 120px;
-    height: 270px;
+    /* width: 120px; */
+    height: 220px;
   }
 `;
 
@@ -81,7 +85,7 @@ export const DayTasks = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(220px - 57px);
+  height: calc(200px - 57px);
   padding: 12px 0;
   overflow-y: auto;
 
@@ -103,7 +107,7 @@ export const DayTasks = styled.div`
   }
 
   @media screen and (min-width: 720px) {
-    height: calc(270px - 57px);
+    height: calc(230px - 57px);
   }
 `;
 

@@ -5,6 +5,7 @@ export const Container = styled.main`
   padding: 0 1rem 100px;
   display: grid;
   grid-template-columns: 90vw;
+  justify-items: center;
   transition: all 350ms;
   grid-gap: 3rem;
 
@@ -24,6 +25,7 @@ export const FeaturesColumn = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 900px;
 `;
 
 export const FeedColumn = styled.div`
@@ -32,10 +34,13 @@ export const FeedColumn = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 700px;
 `;
 
 export const WrapperSections = styled.div`
+  margin: 2rem 0 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
 `;

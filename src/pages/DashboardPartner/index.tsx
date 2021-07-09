@@ -31,23 +31,27 @@ const Dashboard = () => {
       </Header>
       <Aside />
       <Switch>
-        <Route isPrivate path="/dashboardpartner/" exact component={Main} />
-        <Route isPrivate path="/dashboardpartner/gains" component={Gains} />
-        <Route isPrivate path="/dashboardpartner/reviews" component={Reviews} />
+        <Route isPrivate path="/dashboardparceiro/" exact component={Main} />
+        <Route isPrivate path="/dashboardparceiro/receita" component={Gains} />
         <Route
           isPrivate
-          path="/dashboardpartner/complaints
+          path="/dashboardparceiro/avaliacoes"
+          component={Reviews}
+        />
+        <Route
+          isPrivate
+          path="/dashboardparceiro/reclamacoes
           "
           component={Complaints}
         />
         <Route
           isPrivate
-          path="/dashboardpartner/settings"
+          path="/dashboardparceiro/configuracoes"
           component={Settings}
         />
         <Route
           isPrivate
-          path="/dashboardpartner/services"
+          path="/dashboardparceiro/servicos"
           component={Services}
         />
       </Switch>

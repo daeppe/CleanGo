@@ -1,6 +1,7 @@
 import React from "react";
 import AvailableServices from "../../../components/AvailableServices";
 import LastGains from "../../../components/LastGains";
+import ReviewsTotal from "../../../components/ReviewsTotal";
 import WeekService from "../../../components/WeekService";
 import {
   Container,
@@ -17,6 +18,7 @@ const Main = () => {
         <WeekService />
         <WrapperSections>
           <LastGains total={2500} />
+          <ReviewsTotal total={4.35} />
         </WrapperSections>
       </FeaturesColumn>
       <FeedColumn>

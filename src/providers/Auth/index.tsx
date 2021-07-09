@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.setItem("idClient", decodedToken.sub);
         setIdClient(convertStringToNumber(decodedToken.sub));
         setAuth(response.data.accessToken);
-        history.push("/dashboardpartner");
+        history.push("/dashboardparceiro");
       })
       .catch(() => setError(true));
   };

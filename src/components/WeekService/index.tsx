@@ -136,7 +136,6 @@ const WeekService = () => {
               {services
                 .filter((service) => {
                   let date = new Date(service.date);
-                  console.log(date.getDay());
                   return date.getDay() === 1;
                 })
                 .map((service) => {

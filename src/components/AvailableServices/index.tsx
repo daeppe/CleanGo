@@ -130,16 +130,20 @@ const AvailableServices = () => {
   return (
     <Container>
       <h2>Serviços disponíveis</h2>
-      <SliderWrapper>
-        <AliceCarousel
-          mouseTracking
-          disableDotsControls
-          responsive={responsive}
-          items={items}
-          paddingLeft={20}
-          paddingRight={20}
-        />
-      </SliderWrapper>
+      {error ? (
+        <h3>Não há serviços em aberto</h3>
+      ) : (
+        <SliderWrapper>
+          <AliceCarousel
+            mouseTracking
+            disableDotsControls
+            responsive={responsive}
+            items={items}
+            paddingLeft={20}
+            paddingRight={20}
+          />
+        </SliderWrapper>
+      )}
     </Container>
   );
 };

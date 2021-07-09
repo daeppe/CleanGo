@@ -17,6 +17,18 @@ export const Container = styled.section`
     text-align: left;
     padding: 0.5rem 0;
   }
+
+  h3 {
+    height: 230px;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    font-size: 1rem;
+    font-weight: 400;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 14px 14px 28px #d2d2d2, inset -14px -14px 28px #fcfcfc;
+  }
 `;
 
 export const SliderWrapper = styled.div`

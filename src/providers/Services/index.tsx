@@ -98,7 +98,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .delete(`services/${serviceId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(() => history.push("/dashboard"))
+      .then(() => history.push("/dashboardparceiro"))
       .catch((err) => setError(true));
   };
   const getServices = (setError: Dispatch<SetStateAction<boolean>>) => {
