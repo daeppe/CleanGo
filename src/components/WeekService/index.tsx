@@ -14,6 +14,93 @@ import {
   Task,
 } from "./styles";
 
+const servico: ServiceData[] = [
+  {
+    userId: 2,
+    date: 1625795778898,
+    price: 200.0,
+    serviceDetails: {
+      hours: 2,
+      class: "Limpeza residencial",
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  },
+  {
+    userId: 2,
+    date: 1625795778898,
+    price: 200.0,
+    serviceDetails: {
+      hours: 2,
+      class: "Limpeza residencial",
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  },
+  {
+    userId: 2,
+    date: 1625795778898,
+    price: 200.0,
+    serviceDetails: {
+      hours: 2,
+      class: "Limpeza residencial",
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  },
+  {
+    userId: 2,
+    date: 1625795778898,
+    price: 200.0,
+    serviceDetails: {
+      hours: 2,
+      class: "Limpeza residencial",
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  },
+  {
+    userId: 2,
+    date: 1625905948898,
+    price: 200.0,
+    serviceDetails: {
+      hours: 2,
+      class: "Limpeza residencial",
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  },
+  {
+    userId: 2,
+    date: 1625805778898,
+    price: 200.0,
+    serviceDetails: {
+      hours: 2,
+      class: "Passadoria",
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  },
+  {
+    userId: 2,
+    date: 1625915879898,
+    price: 200.0,
+    serviceDetails: {
+      hours: 2,
+      class: "Passadoria",
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  },
+];
+
 const WeekService = () => {
   const [error, setError] = useState(false);
   const [services, setServices] = useState<ServiceData[]>([]);
@@ -21,20 +108,20 @@ const WeekService = () => {
   const { getServicesAccepted, servicesAccept } = useServices();
 
   useEffect(() => {
-    getServicesAccepted(setError, 1);
+    // getServicesAccepted(setError, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     let now: number | Date = new Date();
     let month = now.getMonth();
-
-    const servicesFiltered = servicesAccept.filter((service) => {
+    console.log(now.getTime());
+    const servicesFiltered = servico.filter((service) => {
       let date = new Date(service.date);
-
+      console.log(month);
       return date.getMonth() === month;
     });
-
+    console.log(servicesFiltered);
     setServices([...servicesFiltered]);
   }, [servicesAccept]);
 
@@ -49,6 +136,7 @@ const WeekService = () => {
               {services
                 .filter((service) => {
                   let date = new Date(service.date);
+                  console.log(date.getDay());
                   return date.getDay() === 1;
                 })
                 .map((service) => {
@@ -109,7 +197,7 @@ const WeekService = () => {
               {services
                 .filter((service) => {
                   let date = new Date(service.date);
-                  return date.getDay() === 5;
+                  return date.getDay() === 4;
                 })
                 .map((service) => {
                   let date = new Date(service.date).getTime();

@@ -1,19 +1,20 @@
-import { ServiceProvider } from "./Services";
+import { ReactNode } from "react";
+import { ClientProvider } from "./Clients";
+import { AuthProvider } from "./Auth";
+import { FeedbackProvider } from "./Feedbacks";
 import { PartnersProvider } from "./Partners";
-import { FeedProvider } from "./Feed";
-import React, { ReactNode } from "react";
-
-interface Props {
+interface ProvidersProps {
   children: ReactNode;
 }
-
-const Providers = ({ children }: Props) => {
+const Providers = ({ children }: ProvidersProps) => {
   return (
-    <PartnersProvider>
-      <ServiceProvider>
-        <FeedProvider>{children}</FeedProvider>
-      </ServiceProvider>
-    </PartnersProvider>
+    <AuthProvider>
+      <PartnersProvider>
+        <ClientProvider>
+          <FeedbackProvider>{children}</FeedbackProvider>
+        </ClientProvider>
+      </PartnersProvider>
+    </AuthProvider>
   );
 };
 

@@ -23,7 +23,6 @@ import {
   TextAreaStyled,
   ErrorMessage,
 } from "./styles";
-import { truncate } from "fs";
 
 interface Partner {
   name?: string;

@@ -1,4 +1,5 @@
 import React from "react";
+import AvailableServices from "../../../components/AvailableServices";
 import BackgroundGray from "../../../components/BackgroundGray";
 import WeekService from "../../../components/WeekService";
 import { Container, FeaturesColumn, FeedColumn } from "./styles";
@@ -7,6 +8,7 @@ const Main = () => {
   return (
     <Container>
       <FeaturesColumn>
+        <AvailableServices />
         <WeekService />
       </FeaturesColumn>
       <FeedColumn>

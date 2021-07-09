@@ -1,19 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
-
-interface FormValues {
-  name: string;
-  email: string;
-  cpf: string;
-  password: string;
-  passwordConfirm: string;
-}
+import { useClients } from "../../providers/Clients";
+import { ClientData } from "../../types/clientData";
 
 function FormRegister() {
   const schema = yup.object().shape({
@@ -29,17 +23,27 @@ function FormRegister() {
       .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Campo obrigatório"),
   });
-
+  interface FormData {
+    name: string;
+    email: string;
+    cpf: string;
+    password: string;
+    passwordConfirm: string;
+  }
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
+  const [error, setError] = useState(false);
+  const history = useHistory();
+  const { newClient } = useClients();
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const onSubmit = ({ cpf, email, name, password }: FormData) => {
+    const data: ClientData = { cpf, email, name, password };
+    newClient(data, setError, history);
   };
 
   return (
@@ -68,6 +72,7 @@ function FormRegister() {
           label="CPF"
           {...register("cpf")}
           placeholder="Digite seu CPF"
+          data-mask="000.000.000-00"
           error={!!errors.cpf}
           errorMessage={errors.cpf?.message}
         />
@@ -83,8 +88,8 @@ function FormRegister() {
         <Input
           inputType="password"
           label="Confirmar senha"
-          {...register("passwordConfirm")}
           placeholder="Confirme sua senha"
+          {...register("passwordConfirm")}
           error={!!errors.passwordConfirm}
           errorMessage={errors.passwordConfirm?.message}
         />

@@ -9,7 +9,7 @@ const Services = () => {
   const servico: ServiceData[] = [
     {
       userId: 2,
-      date: "01010100",
+      date: 1625795778898,
       price: 200.0,
       serviceDetails: {
         hours: 2,
@@ -21,7 +21,7 @@ const Services = () => {
     },
     {
       userId: 2,
-      date: "01010100",
+      date: 1625795778898,
       price: 200.0,
       serviceDetails: {
         hours: 2,
@@ -33,7 +33,7 @@ const Services = () => {
     },
     {
       userId: 2,
-      date: "01010100",
+      date: 1625795778898,
       price: 200.0,
       serviceDetails: {
         hours: 2,

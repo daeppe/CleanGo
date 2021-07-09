@@ -9,6 +9,7 @@ import {
 } from "react";
 import { ServiceData, AcceptService } from "../../types/ServiceData";
 import { useState } from "react";
+import { useAuth } from "../Auth";
 
 interface ServicesProviderProps {
   children: ReactNode;
@@ -47,7 +48,7 @@ export const ServicesContext = createContext<ServicesProviderData>(
 );
 
 export const ServiceProvider = ({ children }: ServicesProviderProps) => {
-  const token = ""; // pegar do provider token
+  const { token } = useAuth(); // pegar do provider token
   const [services, setServices] = useState<ServiceData[]>([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
 
@@ -55,7 +56,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     ...services,
     {
       userId: 2,
-      date: "01010100",
+      date: 1625795778898,
       price: 200.0,
       serviceDetails: {
         hours: 2,
