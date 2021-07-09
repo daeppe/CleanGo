@@ -38,7 +38,7 @@ const Aside = () => {
       <div>
         <MenuWrapper topIndicator={topIndicator} leftIndicator={leftIndicator}>
           <NavLink
-            to="/dashboardpartner/"
+            to="/dashboardparceiro/"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -46,7 +46,7 @@ const Aside = () => {
             <span>Dashboard</span>
           </NavLink>
           <NavLink
-            to="/dashboardpartner/services"
+            to="/dashboardparceiro/servicos"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -54,7 +54,7 @@ const Aside = () => {
             <span>Serviços</span>
           </NavLink>
           <NavLink
-            to="/dashboardpartner/gains"
+            to="/dashboardparceiro/receita"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -62,7 +62,7 @@ const Aside = () => {
             <span>Ganhos</span>
           </NavLink>
           <NavLink
-            to="/dashboardpartner/reviews"
+            to="/dashboardparceiro/avaliacoes"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -70,7 +70,7 @@ const Aside = () => {
             <span>Avaliações</span>
           </NavLink>
           <NavLink
-            to="/dashboardpartner/complaints"
+            to="/dashboardparceiro/reclamacoes"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -78,7 +78,7 @@ const Aside = () => {
             <span>Reclamações</span>
           </NavLink>
           {/* <NavLink
-            to="/dashboardpartner/settings"
+            to="/dashboardparceiro/configuracoes"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
