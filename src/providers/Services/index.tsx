@@ -10,6 +10,7 @@ import {
 import { ServiceData, AcceptService } from "../../types/ServiceData";
 import { useState } from "react";
 import { useAuth } from "../Auth";
+
 interface ServicesProviderProps {
   children: ReactNode;
 }
@@ -34,7 +35,12 @@ interface ServicesProviderData {
     setError: Dispatch<SetStateAction<boolean>>
   ) => void;
   getServices: (setError: Dispatch<SetStateAction<boolean>>) => void;
+  getServicesAccepted: (
+    setError: Dispatch<SetStateAction<boolean>>,
+    partnerId: number
+  ) => void;
   services: ServiceData[];
+  servicesAccept: ServiceData[];
   setServices: Dispatch<SetStateAction<ServiceData[]>>;
 }
 export const ServicesContext = createContext<ServicesProviderData>(
@@ -44,6 +50,8 @@ export const ServicesContext = createContext<ServicesProviderData>(
 export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const { token } = useAuth();
   const [services, setServices] = useState<ServiceData[]>([]);
+  const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
+
   const newService = (
     serviceData: ServiceData,
     setError: Dispatch<SetStateAction<boolean>>
@@ -101,6 +109,24 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response) => setServices(response.data))
       .catch((err) => setError(true));
   };
+
+  const getServicesAccepted = (
+    setError: Dispatch<SetStateAction<boolean>>,
+    partnerId: number
+  ) => {
+    let servicesAcc: ServiceData[] = [];
+
+    api
+      .get<ServiceData[]>(`services?partnerId=${partnerId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => (servicesAcc = [...response.data]))
+      .catch((err) => setError(true));
+
+    setServicesAccept(servicesAcc);
+    return servicesAcc;
+  };
+
   return (
     <ServicesContext.Provider
       value={{
@@ -110,7 +136,9 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         finishService,
         newService,
         services,
+        servicesAccept,
         setServices,
+        getServicesAccepted,
       }}
     >
       {children}

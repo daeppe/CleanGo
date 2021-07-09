@@ -1,4 +1,3 @@
-import { screen } from "@testing-library/react";
 import styled from "styled-components";
 
 import ArrowDown from "../../asssets/svg/arrowdown.svg";

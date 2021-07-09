@@ -1,12 +1,15 @@
 import GlobalStyle from "./style/global";
-
 import Routes from "./routes";
 
+import { useRegister } from "./providers/Register";
+
 function App() {
+  const { backgroundGray } = useRegister();
+
   return (
     <>
       <Routes />
-      <GlobalStyle />
+      <GlobalStyle backgroundGray={backgroundGray} />
     </>
   );
 }

@@ -7,7 +7,10 @@ import Route from "./route";
 import ProfessionalRegister from "../pages/ProfessionalRegister";
 import { useAuth } from "../providers/Auth";
 const Routes = () => {
-  const { token } = useAuth();
+  // const { token } = useAuth();
+
+  const token = true;
+
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />
@@ -19,6 +22,7 @@ const Routes = () => {
       ) : (
         <Redirect to="/" />
       )}
+
       {/* <Route component={() => <h1>Rota não encontrada</h1>} /> */}
     </Switch>
   );

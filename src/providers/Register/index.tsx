@@ -8,6 +8,7 @@ import {
 import { UserData } from "../../types/UserData";
 import { History } from "history";
 import api from "../../services/api";
+import { useState } from "react";
 
 interface RegisterProviderProps {
   children: ReactNode;
@@ -19,6 +20,8 @@ interface RegisterProviderData {
     setError: Dispatch<SetStateAction<boolean>>,
     history: History
   ) => void;
+  backgroundGray: boolean;
+  handleBackground: (condition: boolean) => void;
 }
 
 const RegisterContext = createContext<RegisterProviderData>(
@@ -26,6 +29,12 @@ const RegisterContext = createContext<RegisterProviderData>(
 );
 
 export const RegisterProvider = ({ children }: RegisterProviderProps) => {
+  const [backgroundGray, setBackgroundGray] = useState(false);
+
+  const handleBackground = (condition: boolean) => {
+    setBackgroundGray(condition);
+  };
+
   const userRegister = (
     userData: UserData,
     setError: Dispatch<SetStateAction<boolean>>,
@@ -40,7 +49,9 @@ export const RegisterProvider = ({ children }: RegisterProviderProps) => {
   };
 
   return (
-    <RegisterContext.Provider value={{ userRegister }}>
+    <RegisterContext.Provider
+      value={{ userRegister, handleBackground, backgroundGray }}
+    >
       {children}
     </RegisterContext.Provider>
   );

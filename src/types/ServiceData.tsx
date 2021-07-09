@@ -1,6 +1,6 @@
 export interface ServiceData {
   userId: number;
-  date: string;
+  date: number;
   price: number;
   serviceDetails: {
     class: string;
