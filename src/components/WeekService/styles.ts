@@ -22,12 +22,10 @@ export const Container = styled.section`
 
 export const CalendarWrapper = styled.div`
   width: 100%;
-  /* max-width: 840px; */
   display: flex;
   padding: 12px;
   overflow-x: scroll;
   border-radius: 8px;
-  box-shadow: inset 14px 14px 28px #d2d2d2, inset -14px -14px 28px #fcfcfc;
 
   ::-webkit-scrollbar {
     width: 6px;
