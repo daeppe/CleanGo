@@ -1,4 +1,3 @@
-import Aside from "../../components/Aside";
 import Header from "../../components/Header";
 import HeaderNav from "../../components/HeaderNav";
 
@@ -8,7 +7,6 @@ const HomePage = () => {
       <Header>
         <HeaderNav />
       </Header>
-      <Aside />
       <div>Home</div>
     </>
   );
