@@ -1,4 +1,4 @@
-import { Switch } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import HomePage from "../pages/Home";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
@@ -14,8 +14,10 @@ const Routes = () => {
       <Route path="/login" exact component={LoginPage} />
       <Route path="/cadastro" exact component={RegisterPage} />
       <Route path="/cadastroparceiro" exact component={ProfessionalRegister} />
-      {token && (
+      {token ? (
         <Route isPrivate path="/dashboardparceiro" component={Dashboard} />
+      ) : (
+        <Redirect to="/" />
       )}
       {/* <Route component={() => <h1>Rota não encontrada</h1>} /> */}
     </Switch>
