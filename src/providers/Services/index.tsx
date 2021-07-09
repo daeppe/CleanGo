@@ -44,6 +44,7 @@ interface ServicesProviderData {
   setServices: Dispatch<SetStateAction<ServiceData[]>>;
   filterServices: (filter: string) => void;
   filteredServices: ServiceData[];
+  getServicesPaginated: (pageNumber: number, limit?: number) => void;
 }
 export const ServicesContext = createContext<ServicesProviderData>(
   {} as ServicesProviderData
@@ -137,7 +138,12 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response) => setFilteredServices(response.data))
       .catch((err) => console.log(err));
   };
-
+  const getServicesPaginated = (pageNumber: number, limit?: number) => {
+    api
+      .get<ServiceData[]>(`services?_page=${pageNumber}&_limit=${limit}`)
+      .then((response) => setServices(response.data))
+      .catch((err) => console.log(err));
+  };
   return (
     <ServicesContext.Provider
       value={{
@@ -152,6 +158,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         getServicesAccepted,
         filterServices,
         filteredServices,
+        getServicesPaginated,
       }}
     >
       {children}
