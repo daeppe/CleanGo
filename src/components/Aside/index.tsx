@@ -38,7 +38,7 @@ const Aside = () => {
       <div>
         <MenuWrapper topIndicator={topIndicator} leftIndicator={leftIndicator}>
           <NavLink
-            to="/dashboard"
+            to="/dashboardpartner/"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -46,7 +46,7 @@ const Aside = () => {
             <span>Dashboard</span>
           </NavLink>
           <NavLink
-            to="/gains"
+            to="/dashboardpartner/gains"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -54,7 +54,7 @@ const Aside = () => {
             <span>Ganhos</span>
           </NavLink>
           <NavLink
-            to="/reviews"
+            to="/dashboardpartner/reviews"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -62,7 +62,7 @@ const Aside = () => {
             <span>Avaliações</span>
           </NavLink>
           <NavLink
-            to="/complaint"
+            to="/dashboardpartner/complaints"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
@@ -70,7 +70,7 @@ const Aside = () => {
             <span>Reclamações</span>
           </NavLink>
           <NavLink
-            to="/configurations"
+            to="/dashboardpartner/settings"
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >

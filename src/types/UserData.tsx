@@ -9,3 +9,10 @@ export interface UserData {
   feedback: Array<string>[];
   favorit: Array<string>[];
 }
+
+export interface FeedData {
+  userId: number;
+  likesFeed: number;
+  bodyFeed: string;
+  dataFeed: string;
+}

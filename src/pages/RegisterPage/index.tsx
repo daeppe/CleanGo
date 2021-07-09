@@ -1,5 +1,6 @@
 import FormRegister from "../../components/FormRegister";
 import Header from "../../components/Header";
+import HeaderNav from "../../components/HeaderNav";
 import {
   ContainerRegisterForm,
   ContainerRegister,
@@ -9,7 +10,9 @@ import {
 const RegisterPage = () => {
   return (
     <>
-      <Header>{}</Header>
+      <Header>
+        <HeaderNav />
+      </Header>
       <ContainerRegister>
         <ContainerDescription id="description">
           <div>

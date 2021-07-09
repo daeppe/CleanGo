@@ -65,32 +65,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.setItem("idClient", decodedToken.sub);
         setIdClient(convertStringToNumber(decodedToken.sub));
         setAuth(response.data.accessToken);
-        history.push("/login");
-        notification.open({
-          message: "Sucesso",
-          closeIcon: <FaTimes />,
-          style: {
-            fontFamily: "Roboto",
-            backgroundColor: "var(--gray)",
-            WebkitBorderRadius: 4,
-          },
-          description: "Login efetuado",
-          icon: <FaCheckCircle style={{ color: "green" }} />,
-        });
+        history.push("/dashboardpartner");
       })
-      .catch((_) =>
-        notification.open({
-          message: "Erro.",
-          closeIcon: <FaTimes />,
-          style: {
-            fontFamily: "Roboto",
-            backgroundColor: "var(--gray)",
-            WebkitBorderRadius: 4,
-          },
-          description: "Erro ao realizar login.",
-          icon: <FaTimesCircle style={{ color: "red" }} />,
-        })
-      );
+      .catch(() => setError(true));
   };
 
   return (
