@@ -1,43 +1,11 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useContext,
-  useState,
-} from "react";
+import { createContext, Dispatch, ReactNode, useContext } from "react";
 import { ClientData } from "../../types/clientData";
 import api from "../../services/api";
-import jwt_decode from "jwt-decode";
 import { History } from "history";
+import { useAuth } from "../Auth";
 
 interface ClientProviderProps {
   children: ReactNode;
-}
-
-interface ClientProviderData {
-  newClient: (
-    clientData: ClientData,
-    setError: Dispatch<boolean>,
-    history: History
-  ) => void;
-  clientLogin: (
-    clientData: ClientLogin,
-    setError: Dispatch<boolean>,
-    history: History
-  ) => void;
-  deleteClient: (idClient: number) => void;
-  editClient: (clientData: ClientLogin) => void;
-
-  searchClient: (idClient: number) => void;
-  token: string;
-  setAuth: (value: React.SetStateAction<string>) => void;
-  idClient: number;
-  setIdClient: (value: React.SetStateAction<number>) => void;
-}
-
-interface ClientLogin {
-  email: string;
-  password: string;
 }
 interface EditClient {
   partner?: boolean;
@@ -46,11 +14,18 @@ interface EditClient {
   cpf?: string;
   password?: string;
 }
-interface DecodeToken {
-  sub: string;
-  iat: number;
-  email: string;
-  exp: number;
+
+interface ClientProviderData {
+  newClient: (
+    clientData: ClientData,
+    setError: Dispatch<boolean>,
+    history: History
+  ) => void;
+
+  deleteClient: (idClient: number) => void;
+  editClient: (clientData: EditClient) => void;
+
+  searchClient: (idClient: number) => void;
 }
 
 const ClientContext = createContext<ClientProviderData>(
@@ -58,6 +33,7 @@ const ClientContext = createContext<ClientProviderData>(
 );
 
 export const ClientProvider = ({ children }: ClientProviderProps) => {
+  const { token, idClient } = useAuth();
   // registrar cliente
   const newClient = (
     clientData: ClientData,
@@ -68,34 +44,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
       .post("register", clientData)
       .then(() => {
         console.log("Cadastrou novo usuário");
-        history.push("/dashboard");
-      })
-      .catch(() => setError(true));
-  };
-
-  const convertStringToNumber = (str: string): number => {
-    return parseInt(str);
-  };
-
-  //  login de cliente
-  const token = localStorage.getItem("token") || "";
-  const [auth, setAuth] = useState<string>(token);
-  const [idClient, setIdClient] = useState<number>(0);
-  const clientLogin = (
-    clientData: ClientLogin,
-    setError: Dispatch<boolean>,
-    history: History
-  ) => {
-    api
-      .post("login", clientData)
-      .then((response) => {
-        console.log("Entrou na aplicação");
-        localStorage.setItem("token", response.data.accessToken);
-        const decodedToken: DecodeToken = jwt_decode(response.data.accessToken);
-        localStorage.setItem("idClient", decodedToken.sub);
-        setIdClient(convertStringToNumber(decodedToken.sub));
-        setAuth(response.data.accessToken);
-        history.push("/dashboard");
+        history.push("/login");
       })
       .catch(() => setError(true));
   };
@@ -134,13 +83,8 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
   return (
     <ClientContext.Provider
       value={{
-        token: auth,
-        setAuth,
         newClient,
-        clientLogin,
         editClient,
-        idClient,
-        setIdClient,
         deleteClient,
         searchClient,
       }}

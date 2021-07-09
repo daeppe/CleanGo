@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
-import { useClients } from "../../providers/Clients";
+import { useAuth } from "../../providers/Auth";
 
 interface FormValues {
   email: string;
@@ -14,7 +14,8 @@ interface FormValues {
 }
 
 function FormLogin() {
-  const { clientLogin } = useClients();
+  const { clientLogin } = useAuth();
+  const [error, setError] = useState<boolean>(false);
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório"),
     password: yup
@@ -22,7 +23,6 @@ function FormLogin() {
       .min(6, "Mínimo de 6 dígitos")
       .required("Campo obrigatório"),
   });
-
   const {
     register,
     handleSubmit,
@@ -32,7 +32,7 @@ function FormLogin() {
   });
   const history = useHistory();
   const onSubmit = (data: FormValues) => {
-    clientLogin(data, history);
+    clientLogin(data, setError, history);
   };
 
   return (
