@@ -5,9 +5,11 @@ export const ContainerLogin = styled.div`
   margin-top: -77px;
   min-height: 100vh;
   display: flex;
+
   #description {
     display: none;
   }
+
   @media only screen and (min-width: 768px) {
     #description {
       display: block;
@@ -16,18 +18,24 @@ export const ContainerLogin = styled.div`
 `;
 
 export const ContainerLoginForm = styled.div`
-  flex: 8;
+  flex: 9;
   align-self: center;
+  padding: 77px 0;
+
+  @media screen and (min-width: 1024px) {
+    flex: 7;
+  }
 `;
 
 export const ContainerDescription = styled.div`
   flex: 7;
   background-image: url(${imageLogin});
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
+  background-position: center right;
   div {
     text-align: right;
-    width: 400px;
+    max-width: 400px;
     padding: 0 20px;
     margin: 110px 66px auto auto;
 

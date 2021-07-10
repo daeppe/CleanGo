@@ -25,23 +25,30 @@ import {
 } from "./styles";
 import { truncate } from "fs";
 import TitlePage from "../../components/TitlePage";
+import Header from "../../components/Header";
+import HeaderNav from "../../components/HeaderNav";
+import { useTheme } from "../../providers/Theme";
+import { useEffect } from "react";
+import { usePartners } from "../../providers/Partners";
+import { PartnerData } from "../../types/partnerData";
 
-interface Partner {
-  name?: string;
-  email?: string;
-  cpf?: string;
-  birthday?: string;
-  gender?: string;
-  phone?: string;
-  cep?: string;
-  uf?: string;
-  address?: string;
-  bairro?: string;
-  city?: string;
-  complement?: string;
-  services?: string;
-  about?: string;
-}
+// interface Partner {
+//   name?: string;
+//   email?: string;
+//   cpf?: string;
+//   birthday?: string;
+//   gender?: string;
+//   phone?: string;
+//   cep?: string;
+//   uf?: string;
+//   address?: string;
+//   bairro?: string;
+//   city?: string;
+//   district? : string;
+//   complement?: string;
+//   services?: string;
+//   about?: string;
+// }
 
 const ProfessionalRegister = () => {
   const [sectionForm, setSectionForm] = useState<number>(1);
@@ -76,7 +83,16 @@ const ProfessionalRegister = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
 
-  const [newPartner, setNewPartner] = useState<Partner>({} as Partner);
+  const [newPartnerState, setNewPartnerState] = useState<PartnerData>(
+    {} as PartnerData
+  );
+
+  const { handleBackground } = useTheme();
+  const { newPartner } = usePartners();
+
+  useEffect(() => {
+    handleBackground(true);
+  }, [handleBackground]);
 
   function testarCPF(strCPF: string) {
     var Soma;
@@ -176,7 +192,10 @@ const ProfessionalRegister = () => {
     await firstSchema
       .validate({ ...partner })
       .then((v) => {
-        setNewPartner({ ...v });
+        const { birthday } = v;
+        let birthdayFormatted = new Date(birthday).getTime();
+
+        setNewPartnerState({ ...v, birthday: birthdayFormatted });
         setSectionForm(2);
       })
       .catch((err) => {
@@ -212,7 +231,7 @@ const ProfessionalRegister = () => {
     await secondSchema
       .validate({ ...partner })
       .then((v) => {
-        setNewPartner({ ...newPartner, ...v });
+        setNewPartnerState({ ...newPartnerState, ...v });
         setSectionForm(3);
       })
       .catch((err) => {
@@ -238,7 +257,7 @@ const ProfessionalRegister = () => {
       about: yup.string().required("Todos os campos são obrigatórios"),
       password: yup
         .string()
-        .min(8, "Mínimo de 8 digitos")
+        .min(6, "Mínimo de 8 digitos")
         .required("Todos os campos são obrigatórios!"),
       confirmPassword: yup
         .string()
@@ -249,10 +268,10 @@ const ProfessionalRegister = () => {
     await thirtySchema
       .validate({ ...partner })
       .then((v) => {
-        setNewPartner({ ...newPartner, ...v });
-      })
-      .then((v) => {
-        console.log(newPartner);
+        const { password, about, service } = v;
+        console.log("ok");
+        setNewPartnerState({ ...newPartnerState, password, about, service });
+        newPartner({ ...newPartnerState, password, about, service });
       })
       .catch((err) => {
         about === "" && setAboutError(true);
@@ -263,7 +282,10 @@ const ProfessionalRegister = () => {
   };
 
   return (
-    <BackgroundGray logo={true}>
+    <>
+      <Header>
+        <HeaderNav />
+      </Header>
       <TitlePage />
       <Container>
         <WrapperForm>
@@ -594,7 +616,7 @@ const ProfessionalRegister = () => {
           )}
         </WrapperForm>
       </Container>
-    </BackgroundGray>
+    </>
   );
 };
 

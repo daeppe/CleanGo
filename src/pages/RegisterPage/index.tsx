@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import FormRegister from "../../components/FormRegister";
 import Header from "../../components/Header";
 import HeaderNav from "../../components/HeaderNav";
 import TitlePage from "../../components/TitlePage";
+import { useTheme } from "../../providers/Theme";
 import {
   ContainerRegisterForm,
   ContainerRegister,
@@ -9,6 +11,12 @@ import {
 } from "./styles";
 
 const RegisterPage = () => {
+  const { handleBackground } = useTheme();
+
+  useEffect(() => {
+    handleBackground(false);
+  }, [handleBackground]);
+
   return (
     <>
       <TitlePage />

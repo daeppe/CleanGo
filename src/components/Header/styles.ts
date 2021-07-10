@@ -41,7 +41,7 @@ export const HeaderBar = styled.header`
         display: flex;
       `}
 
-    @media screen and (min-width: 840px) {
+    @media screen and (min-width: 920px) {
       display: flex;
     }
   }
@@ -60,14 +60,14 @@ export const HeaderBar = styled.header`
 export const ResponsiveMenu = styled.div`
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  grid-gap: 6px;
+  grid-gap: 5px;
   position: relative;
   z-index: 2000;
   cursor: pointer;
 
   .bars {
-    width: 1.75rem;
-    height: 0.25rem;
+    width: 1.5rem;
+    height: 0.2rem;
     border-radius: 10px;
     background-color: var(--black);
     transform-origin: 2px;
@@ -89,7 +89,7 @@ export const ResponsiveMenu = styled.div`
       `}
   }
 
-  @media screen and (min-width: 840px) {
+  @media screen and (min-width: 920px) {
     display: none;
   }
 `;
@@ -116,7 +116,7 @@ export const ResponsiveMenuContent = styled.nav`
       opacity: 0;
     `}
 
-  @media screen and (min-width: 840px) {
+  @media screen and (min-width: 920px) {
     display: none;
   }
 `;

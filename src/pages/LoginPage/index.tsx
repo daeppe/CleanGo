@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import FormLogin from "../../components/FormLogin";
 import Header from "../../components/Header";
 import HeaderNav from "../../components/HeaderNav";
 import TitlePage from "../../components/TitlePage";
+import { useTheme } from "../../providers/Theme";
 import {
   ContainerLoginForm,
   ContainerLogin,
@@ -9,6 +11,12 @@ import {
 } from "./styles";
 
 const LoginPage = () => {
+  const { handleBackground } = useTheme();
+
+  useEffect(() => {
+    handleBackground(false);
+  }, [handleBackground]);
+
   return (
     <>
       <TitlePage />

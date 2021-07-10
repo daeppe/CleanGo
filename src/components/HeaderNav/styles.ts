@@ -26,6 +26,11 @@ export const Links = styled(NavLink)`
   margin: 0rem 0 0.5rem;
   text-align: right;
   border-bottom: 1px solid var(--gray);
+  transition: all 350ms;
+
+  &:hover {
+    color: var(--green);
+  }
 
   @media screen and (min-width: 840px) {
     margin-bottom: 0px;

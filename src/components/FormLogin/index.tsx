@@ -14,7 +14,7 @@ interface FormValues {
 }
 
 function FormLogin() {
-  const { clientLogin } = useAuth();
+  const { userLogin } = useAuth();
   const [error, setError] = useState<boolean>(false);
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório"),
@@ -31,8 +31,9 @@ function FormLogin() {
     resolver: yupResolver(schema),
   });
   const history = useHistory();
+
   const onSubmit = (data: FormValues) => {
-    clientLogin(data, setError, history);
+    userLogin(data, setError, history);
   };
 
   return (

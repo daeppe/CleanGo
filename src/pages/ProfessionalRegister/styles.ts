@@ -15,13 +15,11 @@ interface TextAreaStyledProps {
 }
 
 export const Container = styled.main`
-  padding-top: 77px;
-  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 100;
+  margin: 2rem 0;
 `;
 
 export const WrapperForm = styled.section`

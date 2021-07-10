@@ -16,18 +16,24 @@ export const ContainerRegister = styled.div`
 `;
 
 export const ContainerRegisterForm = styled.div`
-  flex: 8;
+  flex: 9;
   align-self: center;
+  padding: 77px 0;
+
+  @media screen and (min-width: 1024px) {
+    flex: 7;
+  }
 `;
 
 export const ContainerDescription = styled.div`
   flex: 7;
   background-image: url(${imageRegister});
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
+  background-position: bottom center;
   div {
     text-align: left;
-    width: 500px;
+    max-width: 500px;
     padding: 0 20px;
     margin: 110px auto auto 66px;
 

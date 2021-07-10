@@ -3,6 +3,8 @@ import { ClientData } from "../../types/clientData";
 import api from "../../services/api";
 import { History } from "history";
 import { useAuth } from "../Auth";
+import { notification } from "antd";
+import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 
 interface ClientProviderProps {
   children: ReactNode;
@@ -34,19 +36,47 @@ const ClientContext = createContext<ClientProviderData>(
 
 export const ClientProvider = ({ children }: ClientProviderProps) => {
   const { token, idClient } = useAuth();
+
   // registrar cliente
   const newClient = (
     clientData: ClientData,
     setError: Dispatch<boolean>,
     history: History
   ) => {
+    const client: ClientData = {
+      ...clientData,
+      partner: false,
+    };
+
     api
-      .post("register", clientData)
+      .post("register", client)
       .then(() => {
-        console.log("Cadastrou novo usuário");
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description: "Usuário criado com sucesso! Faça login agora mesmo.",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        });
+
         history.push("/login");
       })
-      .catch(() => setError(true));
+      .catch(() => {
+        setError(true);
+
+        notification.open({
+          message: "Erro",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description:
+            "Erro ao realizar cadastro. Verifique sua conexão e tente novamente.",
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
 
   const editClient = (clientData: EditClient) => {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 export const ContainerForm = styled.div`
-  width: 410px;
+  max-width: 510px;
+  min-width: 280px;
   margin: 0 auto;
   padding: 0px 37px;
   display: flex;
@@ -8,12 +9,13 @@ export const ContainerForm = styled.div`
   flex-direction: column;
   h2 {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: normal;
     margin-bottom: 1rem;
+    font-weight: 700;
     @media only screen and (min-width: 768px) {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
     }
   }
   form {

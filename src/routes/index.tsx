@@ -6,6 +6,7 @@ import Dashboard from "../pages/DashboardPartner";
 import Route from "./route";
 import ProfessionalRegister from "../pages/ProfessionalRegister";
 import { useAuth } from "../providers/Auth";
+import HomePartner from "../pages/HomePartner";
 const Routes = () => {
   // const { token } = useAuth();
 
@@ -14,6 +15,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />
+      <Route path="/sejaumparceiro" component={HomePartner} />
       <Route path="/login" exact component={LoginPage} />
       <Route path="/cadastro" exact component={RegisterPage} />
       <Route path="/cadastroparceiro" exact component={ProfessionalRegister} />

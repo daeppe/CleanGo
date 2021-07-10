@@ -2,6 +2,7 @@ import { HeaderBar, ResponsiveMenu, ResponsiveMenuContent } from "./styles";
 import LogoGreen from "../../asssets/svg/logo-2.svg";
 import LogoWhite from "../../asssets/svg/logo-1.svg";
 import React, { ReactNode, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   auth?: boolean;
@@ -14,9 +15,11 @@ const Header = ({ children, whiteSchema, auth = false }: HeaderProps) => {
 
   return (
     <HeaderBar isAuth={auth}>
-      <figure>
-        <img src={whiteSchema ? LogoWhite : LogoGreen} alt="Logo" />
-      </figure>
+      <Link to="/">
+        <figure>
+          <img src={whiteSchema ? LogoWhite : LogoGreen} alt="Logo" />
+        </figure>
+      </Link>
       <nav className="desktop">{children}</nav>
       {!auth && (
         <>
