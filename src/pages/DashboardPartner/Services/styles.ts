@@ -2,14 +2,8 @@ import styled from "styled-components";
 import Input from "../../../components/Input";
 import ArrowDown from "../../../asssets/svg/arrowdown.svg";
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
-  grid-template-rows: 80px 1fr;
-  gap: 0px 0px;
-
-  grid-template-areas:
-    "inputArea inputArea btnMobile btnMobile"
-    "btnBack services services btnNext";
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
   justify-items: center;
@@ -29,35 +23,10 @@ export const InputSearch = styled(Input)`
 `;
 
 export const ContainerServices = styled.div`
-  display: grid;
-  grid-area: services;
-  gap: 10px 10px;
-  justify-content: center;
-  align-content: space-evenly;
+  display: flex;
   justify-items: center;
   align-items: center;
-
-  @media only screen and (max-width: 425px) {
-    grid-template-columns: repeat(2, 170px);
-    grid-template-rows: repeat(3, 250px);
-    gap: 0 0;
-  }
-  @media only screen and (min-width: 768px) {
-    grid-template-columns: repeat(3, 170px);
-    grid-template-rows: repeat(3, 250px);
-  }
-  @media only screen and (min-width: 1024px) {
-    grid-template-columns: repeat(4, 170px);
-    grid-template-rows: repeat(3, 250px);
-  }
-  @media only screen and (min-width: 1440px) {
-    grid-template-columns: repeat(6, 170px);
-    grid-template-rows: repeat(3, 250px);
-  }
-  @media only screen and (min-width: 1920px) {
-    grid-template-columns: repeat(9, 170px);
-    grid-template-rows: repeat(3, 250px);
-  }
+  width: 60%;
 `;
 export const SelectStyled = styled.select`
   background: rgba(255, 255, 255, 0.5);

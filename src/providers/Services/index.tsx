@@ -34,7 +34,11 @@ interface ServicesProviderData {
     history: History,
     setError: Dispatch<SetStateAction<boolean>>
   ) => void;
-  getServices: (setError: Dispatch<SetStateAction<boolean>>) => void;
+  getServices: (
+    setError: Dispatch<SetStateAction<boolean>>,
+    page?: number,
+    limit?: number
+  ) => void;
   getServicesAccepted: (
     setError: Dispatch<SetStateAction<boolean>>,
     partnerId: number
@@ -105,13 +109,24 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then(() => history.push("/dashboardparceiro"))
       .catch((err) => setError(true));
   };
-  const getServices = (setError: Dispatch<SetStateAction<boolean>>) => {
-    api
-      .get<ServiceData[]>("services", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => setServices(response.data))
-      .catch((err) => setError(true));
+  const getServices = (
+    setError: Dispatch<SetStateAction<boolean>>,
+    page?: number,
+    limit?: number
+  ) => {
+    page && limit
+      ? api
+          .get<ServiceData[]>(`services?_page=${page}&_limit=${limit}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => setServices(response.data))
+          .catch((err) => setError(true))
+      : api
+          .get<ServiceData[]>(`services`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => setServices(response.data))
+          .catch((err) => setError(true));
   };
 
   const getServicesAccepted = (

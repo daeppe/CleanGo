@@ -4,9 +4,9 @@ import { BtnLink, Container, Links } from "./styles";
 const HeaderNav = () => {
   return (
     <Container>
-      <Links to="/professionalregister">Trabalhe com a CleanGo</Links>
+      <Links to="/cadastroparceiro">Trabalhe com a CleanGo</Links>
       <Links to="/login">Login</Links>
-      <BtnLink to="/service">Solicite um serviço</BtnLink>
+      <BtnLink to="/servicos">Solicite um serviço</BtnLink>
     </Container>
   );
 };

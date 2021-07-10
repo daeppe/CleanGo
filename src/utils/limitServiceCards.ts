@@ -2,7 +2,7 @@ const limitServiceCards = (): number => {
   const width: number = window.innerWidth;
 
   if (width <= 425) {
-    return 6;
+    return 4;
   }
   if (width >= 768) {
     return 9;
