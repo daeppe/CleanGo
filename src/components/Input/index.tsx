@@ -8,7 +8,7 @@ import {
 } from "./styles";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   inputType: string;
   errorMessage?: string;
   error?: boolean;
@@ -25,10 +25,8 @@ const Input = ({
   ...rest
 }: InputProps) => {
   return (
-    <ContainerInput className={className}>
-      <LabelStyled htmlFor="" className={className}>
-        {label}
-      </LabelStyled>
+    <ContainerInput>
+      {label && <LabelStyled htmlFor="">{label}</LabelStyled>}
       <InputStyled
         className={className}
         type={inputType}
