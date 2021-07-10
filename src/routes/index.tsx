@@ -6,6 +6,7 @@ import Dashboard from "../pages/DashboardPartner";
 import Route from "./route";
 import ProfessionalRegister from "../pages/ProfessionalRegister";
 import { useAuth } from "../providers/Auth";
+import DashboardClient from "../pages/DashboardClient";
 const Routes = () => {
   // const { token } = useAuth();
 
@@ -21,6 +22,7 @@ const Routes = () => {
       {token && (
         <Route isPrivate path="/dashboardparceiro" component={Dashboard} />
       )}
+      <Route isPrivate path="/dashboard" component={DashboardClient} />
 
       {/* <Route component={() => <h1>Rota não encontrada</h1>} /> */}
     </Switch>
