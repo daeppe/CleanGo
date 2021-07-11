@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,8 +7,6 @@ import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
-import gsap from "gsap";
-import { useRef } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 interface FormValues {
