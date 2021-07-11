@@ -1,4 +1,4 @@
-import { Switch } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import HomePage from "../pages/Home";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
@@ -11,10 +11,7 @@ import EnterPage from "../pages/EnterPage";
 
 import DashboardClient from "../pages/DashboardClient";
 const Routes = () => {
-  // const { token } = useAuth();
-
-  const token = true;
-
+  const { token } = useAuth();
   return (
     <Switch>
       <Route path="/" exact component={HomePage} />
@@ -24,9 +21,10 @@ const Routes = () => {
 
       <Route path="/cadastro" exact component={RegisterPage} />
       <Route path="/cadastroparceiro" exact component={ProfessionalRegister} />
-
-      {token && (
+      {token ? (
         <Route isPrivate path="/dashboardparceiro" component={Dashboard} />
+      ) : (
+        <Redirect to="/" />
       )}
       <Route isPrivate path="/dashboardcliente" component={DashboardClient} />
 

@@ -7,7 +7,7 @@ const HeaderNav = () => {
       <Links to="/sejaumparceiro">Trabalhe com a CleanGo</Links>
       <Links to="/login">Login</Links>
       <Links to="/cadastro">Cadastro</Links>
-      <BtnLink to="/service">Solicite um serviço</BtnLink>
+      <BtnLink to="/servicos">Solicite um serviço</BtnLink>
     </Container>
   );
 };
