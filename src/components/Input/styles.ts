@@ -13,8 +13,9 @@ export const InputStyled = styled.input`
   width: 100%;
   font-size: 1rem;
   font-family: var(--font-standard);
-  padding: 0.5rem;
+  padding: 8px 16px;
   transition: all 300ms;
+  box-shadow: var(--shadow);
 
   &::placeholder {
     color: var(--gray);

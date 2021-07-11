@@ -9,12 +9,12 @@ import HeaderNavAuth from "../../components/HeaderNavAuth";
 import Complaints from "./Complaints";
 import Settings from "./Settings";
 import Services from "./Services";
-import { useRegister } from "../../providers/Register";
+import { useTheme } from "../../providers/Theme";
 import { useEffect } from "react";
 
 import TitlePage from "../../components/TitlePage";
 const Dashboard = () => {
-  const { handleBackground } = useRegister();
+  const { handleBackground } = useTheme();
 
   useEffect(() => {
     handleBackground(true);

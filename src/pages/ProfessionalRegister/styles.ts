@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import ArrowDown from "../../asssets/svg/arrowdown.svg";
 import LineDivisor from "../../asssets/svg/horizontal-line.svg";
+import LogoBack from "../../asssets/svg/logobackground.svg";
 
 interface NavigationTabProps {
   active: boolean;
@@ -9,19 +9,25 @@ interface NavigationTabProps {
 interface WrapperTabsProps {
   sectionForm: number;
 }
-
-interface TextAreaStyledProps {
-  error: boolean;
+interface FormsContainerProps {
+  section: number;
 }
 
 export const Container = styled.main`
-  padding-top: 77px;
-  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 100;
+  margin: 2rem 0;
+
+  &::before {
+    content: "";
+    width: 392px;
+    height: 444px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-image: url(${LogoBack});
+  }
 `;
 
 export const WrapperForm = styled.section`
@@ -50,14 +56,15 @@ export const TitleForm = styled.h1`
   font-family: var(--font-secondary);
   margin-bottom: 2rem;
   transition: all 400ms;
+  opacity: 0;
 
   @media screen and (min-width: 600px) {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 3rem;
   }
 `;
 
-export const WrapperTabs = styled.section`
+export const WrapperTabs = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +74,8 @@ export const WrapperTabs = styled.section`
   position: absolute;
   left: 64px;
   top: 140px;
-  transition: all 400ms;
+  transition: all 500ms;
+  opacity: 0;
 
   transform: ${(props: WrapperTabsProps) =>
     props.sectionForm === 1
@@ -121,6 +129,7 @@ export const NavigationTab = styled.div`
       font-family: var(--font-secondary);
       color: var(--black);
       font-weight: 700;
+      font-size: 0.9rem;
     }
   }
 `;
@@ -135,148 +144,32 @@ export const Separator = styled.div`
   opacity: 0.2;
 `;
 
-export const FormStyled = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin: 2rem 0 1rem;
-  width: 100%;
-
-  button {
-    margin-top: 2rem;
-    max-width: 200px;
-  }
-
-  > span {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    padding: 0.5rem;
-  }
-`;
-
-export const WrapperDoubleInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-
-  div {
-    width: 100%;
-  }
-
-  @media screen and (min-width: 480px) {
-    flex-direction: row;
-
-    div {
-      margin-right: 12px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-`;
-
-export const SelectStyled = styled.select`
-  background: rgba(255, 255, 255, 0.5);
-  border: 2px solid #313630;
-  box-sizing: border-box;
-  border-radius: 4px;
-  width: 100%;
-  font-size: 1rem;
-  font-family: var(--font-standard);
-  padding: 0.5rem;
-  position: relative;
-  z-index: 2;
-
-  &::placeholder {
-    color: var(--gray);
-  }
-
-  appearance: none;
-`;
-
-export const LabelStyled = styled.label`
-  font-family: var(--font-standard);
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  text-transform: capitalize;
-  padding: 0.5rem;
-`;
-
-export const ContainerSelect = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
-  &::after {
-    content: "";
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url(${ArrowDown}) no-repeat center center;
-    width: 26px;
-    height: 48px;
-    position: absolute;
-    right: 10px;
-    bottom: 0;
-    z-index: 1;
-  }
-`;
-export const ErrorMessage = styled.span`
-  font-family: var(--font-standard);
-  font-size: 0.8rem;
-  color: tomato;
-
-  position: absolute;
-  top: 9px;
-  right: 10px;
-  animation: appear 300ms forwards ease-in-out;
-
-  @keyframes appear {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-`;
-
-export const WrapperInputsRadio = styled.div`
+export const FormsContainer = styled.div`
+  width: 310%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 12px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5%;
+  transition: all 350ms;
+  opacity: 0;
+  transform: ${(props: FormsContainerProps) =>
+    props.section === 1
+      ? "translateX(35%)"
+      : props.section === 2
+      ? "translateX(0%)"
+      : "translateX(-35%)"};
 
-  @media screen and (min-width: 480px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-`;
-
-export const ContainerTextArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-  position: relative;
-`;
-
-export const TextAreaStyled = styled.textarea`
-  background: rgba(255, 255, 255, 0.75);
-  border: 2px solid
-    ${(props: TextAreaStyledProps) => (props.error ? "tomato" : "var(--green)")};
-  box-sizing: border-box;
-  border-radius: 4px;
-  width: 100%;
-  font-size: 1rem;
-  font-family: var(--font-standard);
-  padding: 0.5rem;
-  transition: all 300ms;
-
-  &::placeholder {
-    color: var(--gray);
+  > * {
+    &:nth-child(1) {
+      opacity: ${(props: FormsContainerProps) =>
+        props.section === 1 ? "1" : "0.3"};
+    }
+    &:nth-child(2) {
+      opacity: ${(props: FormsContainerProps) =>
+        props.section === 2 ? "1" : "0.3"};
+    }
+    &:nth-child(3) {
+      opacity: ${(props: FormsContainerProps) =>
+        props.section === 3 ? "1" : "0.3"};
+    }
   }
 `;
