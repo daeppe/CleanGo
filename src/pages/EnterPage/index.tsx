@@ -16,7 +16,6 @@ import {
   ContainerLogoff,
 } from "./styles";
 
-import ImageLogin from "../../asssets/images/image-login.png";
 import FormRegister from "../../components/FormRegister";
 
 const EnterPage = () => {
@@ -32,8 +31,6 @@ const EnterPage = () => {
 
   useLayoutEffect(() => {
     gsap.registerPlugin(TextPlugin);
-
-    const tl = gsap.timeline();
   }, []);
 
   return (

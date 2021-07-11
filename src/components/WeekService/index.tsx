@@ -102,10 +102,10 @@ const servico: ServiceData[] = [
 ];
 
 const WeekService = () => {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   const [services, setServices] = useState<ServiceData[]>([]);
 
-  const { getServicesAccepted, servicesAccept } = useServices();
+  const { servicesAccept } = useServices();
 
   useEffect(() => {
     // getServicesAccepted(setError, 1);
