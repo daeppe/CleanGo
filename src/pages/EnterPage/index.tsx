@@ -8,13 +8,7 @@ import Header from "../../components/Header";
 import HeaderNav from "../../components/HeaderNav";
 import TitlePage from "../../components/TitlePage";
 import { useTheme } from "../../providers/Theme";
-import {
-  ContainerLoginForm,
-  ContainerLogin,
-  ContainerDescription,
-  ContainerEnter,
-  ContainerLogoff,
-} from "./styles";
+import { ContainerLogin, ContainerEnter, ContainerLogoff } from "./styles";
 
 import FormRegister from "../../components/FormRegister";
 
