@@ -1,10 +1,8 @@
 import styled from "styled-components";
 export const ContainerForm = styled.div`
   max-width: 510px;
-  min-width: 280px;
-
   margin: 0 auto;
-  padding: 0px 37px;
+  padding: 12px 12px 42px;
   display: flex;
   font-family: Lato;
   flex-direction: column;

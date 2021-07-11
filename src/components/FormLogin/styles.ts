@@ -1,9 +1,20 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const appearAnimation = keyframes`
+  from {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+`;
+
 export const ContainerForm = styled.div`
   max-width: 510px;
-  min-width: 280px;
   margin: 0 auto;
-  padding: 0px 37px;
+  padding: 0px 12px;
   display: flex;
   font-family: Lato;
   flex-direction: column;
@@ -22,6 +33,29 @@ export const ContainerForm = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    > div {
+      opacity: 0;
+      animation-duration: 0.2s;
+      animation-fill-mode: forwards;
+      animation-timing-function: linear;
+      animation-name: ${appearAnimation};
+      &:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      &:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      &:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+    }
   }
   p {
     font-style: normal;

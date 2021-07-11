@@ -13,14 +13,15 @@ export const HeaderBar = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 5;
+  z-index: 5000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: transparent;
 
   img {
-    height: 48px;
+    transition: all 350ms;
+    height: 32px;
   }
 
   ${(props: HeaderBarProps) =>
@@ -47,6 +48,10 @@ export const HeaderBar = styled.header`
   }
 
   @media screen and (min-width: 720px) {
+    img {
+      height: 42px;
+    }
+
     ${(props: HeaderBarProps) =>
       props.isAuth &&
       css`

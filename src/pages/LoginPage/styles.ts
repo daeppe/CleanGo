@@ -29,15 +29,30 @@ export const ContainerLoginForm = styled.div`
 
 export const ContainerDescription = styled.div`
   flex: 7;
-  background-image: url(${imageLogin});
+  /* background-image: url(${imageLogin});
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center right;
+  background-position: center right; */
+  position: relative;
+  overflow-x: hidden;
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 25;
+  }
+
   div {
     text-align: right;
     max-width: 400px;
     padding: 0 20px;
     margin: 110px 66px auto auto;
+    position: relative;
+    z-index: 30;
 
     h2 {
       font-family: Oswald;

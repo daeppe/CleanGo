@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import FormRegister from "../../components/FormRegister";
 import Header from "../../components/Header";
 import HeaderNav from "../../components/HeaderNav";
@@ -16,6 +16,10 @@ const RegisterPage = () => {
   useEffect(() => {
     handleBackground(false);
   }, [handleBackground]);
+
+  const description = useRef<HTMLImageElement>(null);
+  const text = useRef<HTMLParagraphElement>(null);
+  const title = useRef<HTMLHeadingElement>(null);
 
   return (
     <>

@@ -9,6 +9,14 @@ import Button from "../Button";
 import { useClients } from "../../providers/Clients";
 import { ClientData } from "../../types/clientData";
 
+interface FormData {
+  name: string;
+  email: string;
+  cpf: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 function FormRegister() {
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
@@ -23,13 +31,7 @@ function FormRegister() {
       .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Campo obrigatório"),
   });
-  interface FormData {
-    name: string;
-    email: string;
-    cpf: string;
-    password: string;
-    passwordConfirm: string;
-  }
+
   const {
     register,
     handleSubmit,
@@ -37,6 +39,7 @@ function FormRegister() {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
+
   const [error, setError] = useState(false);
   const history = useHistory();
   const { newClient } = useClients();
@@ -48,7 +51,7 @@ function FormRegister() {
 
   return (
     <ContainerForm>
-      <h2>Faça seu cadastro</h2>
+      {/* <h2>Faça seu cadastro</h2> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           inputType="text"
