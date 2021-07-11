@@ -1,9 +1,16 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 import api from "../../services/api";
 import { notification } from "antd";
 import { FaTimesCircle, FaTimes, FaCheckCircle } from "react-icons/fa";
 import { PartnerData } from "../../types/partnerData";
+import { History } from "history";
+import { AxiosError } from "axios";
 
 // interface Partner {
 //   name: string;
@@ -25,7 +32,11 @@ import { PartnerData } from "../../types/partnerData";
 
 interface PartnersContextProps {
   partners: PartnerData[];
-  newPartner: (partner: PartnerData) => void;
+  newPartner: (
+    partner: PartnerData,
+    history: History,
+    setLoad: Dispatch<boolean>
+  ) => void;
   editPartner: (partner: PartnerData, id: string, token: string) => void;
 }
 
@@ -39,14 +50,16 @@ const PartnersContext = createContext<PartnersContextProps>(
 
 export const PartnersProvider = ({ children }: PartnersProviderProps) => {
   const [partners, setPartners] = useState<PartnerData[]>([]);
-  const history = useHistory();
 
-  const newPartner = (partner: PartnerData) => {
+  const newPartner = (
+    partner: PartnerData,
+    history: History,
+    setLoad: Dispatch<boolean>
+  ) => {
     const partnerNew = {
       ...partner,
       partner: true,
     };
-    console.log("ok");
     api
       .post("register", partnerNew)
       .then(() => {
@@ -57,17 +70,19 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
             "Você efetuou cadastro como parceiro CleanGo. Faça seu login e aproveite nossa plataforma!",
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
-
+        setLoad(false);
         history.push("/login");
       })
-      .catch((_) =>
+      .catch((error: AxiosError) => {
+        setLoad(false);
+
         notification.open({
           message: "Erro.",
           closeIcon: <FaTimes />,
-          description: "Erro ao realizar cadastro. Tente novamente",
+          description: `Erro ao realizar cadastro. ${error.response?.data}`,
           icon: <FaTimesCircle style={{ color: "red" }} />,
-        })
-      );
+        });
+      });
   };
 
   const editPartner = (partner: PartnerData, id: string, token: string) => {

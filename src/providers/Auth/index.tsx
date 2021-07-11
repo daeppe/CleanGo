@@ -25,7 +25,7 @@ interface ClientLogin {
 interface AuthProviderData {
   userLogin: (
     clientData: ClientLogin,
-    setError: Dispatch<boolean>,
+    setLoad: Dispatch<boolean>,
     history: History
   ) => void;
   userLogoff: (history: History) => void;
@@ -58,7 +58,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
   const [idClient, setIdClient] = useState<number>(0);
 
-  const getUser = (id: string, token: string, history: History) => {
+  const getUser = (
+    id: string,
+    token: string,
+    history: History,
+    setLoad: Dispatch<boolean>
+  ) => {
     api
       .get(`users/${id}`, {
         headers: {
@@ -77,7 +82,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           description: "Login efetuado com sucesso",
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
-
+        setLoad(false);
         if (response.data.partner) {
           history.push("/dashboardparceiro");
         } else {
@@ -85,6 +90,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       })
       .catch((err) => {
+        setLoad(false);
+
         notification.open({
           message: "Erro",
           closeIcon: <FaTimes />,
@@ -100,7 +107,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const userLogin = (
     clientData: ClientLogin,
-    setError: Dispatch<boolean>,
+    setLoad: Dispatch<boolean>,
     history: History
   ) => {
     api
@@ -113,9 +120,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setIdClient(convertStringToNumber(decodedToken.sub));
 
         setAuth(response.data.accessToken);
-        getUser(decodedToken.sub, response.data.accessToken, history);
+        getUser(decodedToken.sub, response.data.accessToken, history, setLoad);
       })
-      .catch(() => setError(true));
+      .catch((err) => {
+        setLoad(false);
+
+        notification.open({
+          message: "Erro",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description:
+            "Erro no login. Verifique seu email e senha, tente novamente.",
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
 
   const userLogoff = (history: History) => {

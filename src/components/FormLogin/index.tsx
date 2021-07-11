@@ -9,6 +9,7 @@ import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
 import gsap from "gsap";
 import { useRef } from "react";
+import { FaSpinner } from "react-icons/fa";
 
 interface FormValues {
   email: string;
@@ -17,7 +18,7 @@ interface FormValues {
 
 function FormLogin() {
   const { userLogin } = useAuth();
-  const [error, setError] = useState<boolean>(false);
+  const [load, setLoad] = useState<boolean>(false);
 
   // const FormEl = useRef<React.MutableRefObject<HTMLDivElement | null>[]>([]);
 
@@ -52,15 +53,16 @@ function FormLogin() {
   const history = useHistory();
 
   const onSubmit = (data: FormValues) => {
-    userLogin(data, setError, history);
+    setLoad(true);
+    userLogin(data, setLoad, history);
   };
 
   return (
-    <ContainerForm>
+    <ContainerForm load={load}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* <div>
+        <div>
           <h2>Faça seu login</h2>
-        </div> */}
+        </div>
         <div>
           <Input
             inputType="email"
@@ -92,7 +94,8 @@ function FormLogin() {
         </div>
         <div className="containerButton">
           <Button type="submit" whiteSchema={false}>
-            ENTRAR
+            <span>ENTRAR</span>
+            <FaSpinner />
           </Button>
         </div>
       </form>

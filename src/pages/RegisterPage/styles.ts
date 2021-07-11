@@ -27,16 +27,32 @@ export const ContainerRegisterForm = styled.div`
 
 export const ContainerDescription = styled.div`
   flex: 7;
-  background-image: url(${imageRegister});
+  /* background-image: url(${imageRegister});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom center;
+  position: relative;
+  overflow-x: hidden; */
+  position: relative;
+
+  img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    object-position: bottom;
+    z-index: 25;
+  }
+
   div {
     text-align: left;
     max-width: 500px;
     padding: 0 20px;
     margin: 110px auto auto 66px;
-
+    position: relative;
+    z-index: 30;
     h2 {
       font-family: Oswald;
       font-size: 2rem;

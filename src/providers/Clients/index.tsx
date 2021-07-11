@@ -20,7 +20,7 @@ interface EditClient {
 interface ClientProviderData {
   newClient: (
     clientData: ClientData,
-    setError: Dispatch<boolean>,
+    setLoad: Dispatch<boolean>,
     history: History
   ) => void;
 
@@ -40,7 +40,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
   // registrar cliente
   const newClient = (
     clientData: ClientData,
-    setError: Dispatch<boolean>,
+    setLoad: Dispatch<boolean>,
     history: History
   ) => {
     const client: ClientData = {
@@ -60,11 +60,12 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
           description: "Usuário criado com sucesso! Faça login agora mesmo.",
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
+        setLoad(false);
 
         history.push("/login");
       })
       .catch(() => {
-        setError(true);
+        setLoad(false);
 
         notification.open({
           message: "Erro",

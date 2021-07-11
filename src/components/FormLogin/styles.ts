@@ -1,5 +1,9 @@
 import styled, { keyframes } from "styled-components";
 
+interface ContainerFormProps {
+  load: boolean;
+}
+
 const appearAnimation = keyframes`
   from {
     transform: translateX(-40px);
@@ -26,7 +30,7 @@ export const ContainerForm = styled.div`
     margin-bottom: 1rem;
     font-weight: 700;
     @media only screen and (min-width: 768px) {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
   }
   form {
@@ -74,5 +78,29 @@ export const ContainerForm = styled.div`
   }
   .containerButton {
     text-align: right;
+
+    button {
+      position: relative;
+    }
+
+    button span {
+      opacity: ${(props: ContainerFormProps) => (props.load ? "0" : "1")};
+      transition: all 350ms;
+    }
+
+    button svg {
+      animation: spin 1.2s infinite ease-in-out;
+      opacity: ${(props: ContainerFormProps) => (props.load ? "1" : "0")};
+      position: absolute;
+      transition: all 350ms;
+      left: 45%;
+      top: 30%;
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    }
   }
 `;

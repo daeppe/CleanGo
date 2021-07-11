@@ -34,7 +34,7 @@ export const ContainerDescription = styled.div`
   background-size: cover;
   background-position: center right; */
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 
   img {
     position: absolute;

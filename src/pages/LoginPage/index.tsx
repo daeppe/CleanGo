@@ -34,6 +34,7 @@ const LoginPage = () => {
 
     tl.from(description.current, {
       opacity: 0,
+      translateX: -500,
     })
       .from(
         text.current,
