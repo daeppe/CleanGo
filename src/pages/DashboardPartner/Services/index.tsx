@@ -1,73 +1,90 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CardService from "../../../components/CardService";
 import { useServices } from "../../../providers/Services";
-import { ServiceData } from "../../../types/ServiceData";
+import {
+  ContainerServices,
+  Container,
+  ContainerSelect,
+  LabelStyled,
+  SelectStyled,
+} from "./styles";
+import AliceCarousel from "react-alice-carousel";
+import limitServiceCards from "../../../utils/limitServiceCards";
+import { SliderWrapper } from "../../../components/AvailableServices/styles";
 const Services = () => {
   const [error, setError] = useState<boolean>(false);
-  const { getServices, services, setServices } = useServices();
-  const servico: ServiceData[] = [
-    {
-      userId: 2,
-      date: 1625795778898,
-      price: 200.0,
-      serviceDetails: {
-        hours: 2,
-        class: "passadoria",
-      },
-      opened: true,
-      completed: false,
-      partnerId: 0,
-    },
-    {
-      userId: 2,
-      date: 1625795778898,
-      price: 200.0,
-      serviceDetails: {
-        hours: 2,
-        class: "passadoria",
-      },
-      opened: true,
-      completed: false,
-      partnerId: 0,
-    },
-    {
-      userId: 2,
-      date: 1625795778898,
-      price: 200.0,
-      serviceDetails: {
-        hours: 2,
-        class: "passadoria",
-      },
-      opened: true,
-      completed: false,
-      partnerId: 0,
-    },
-  ];
-  //   useEffect(() => {
-  //     //     getServices(setError);
-  //     setServices([
-  //       {
-  //         userId: 2,
-  //         date: "01010100",
-  //         price: 200.0,
-  //         serviceDetails: {
-  //           hours: 2,
-  //           class: "passadoria",
-  //         },
-  //         opened: true,
-  //         completed: false,
-  //         partnerId: 0,
-  //       },
-  //     ]);
-  //   }, []);
-  console.log(servico);
+  const [disable, setDisable] = useState<boolean>(true);
+  const [items, setItems] = useState<JSX.Element[]>();
+  const responsive = {
+    0: { items: 1 },
+    350: { items: 1 },
+    720: { items: 2 },
+    968: { items: 4 },
+    1200: { items: 6 },
+    1600: { items: 9 },
+  };
+  const { getServices, services, filterServices, filteredServices } =
+    useServices();
+  const [option, setOption] = useState<string>("");
+
+  useEffect(() => {
+    getServices(setError);
+  }, [getServices]);
+
+  useEffect(() => {
+    if (!option) {
+      if (services && services.length > 0) {
+        const itens = services.map((service) => (
+          <div>
+            <CardService service={service} />
+          </div>
+        ));
+
+        setItems(itens);
+      } else {
+        setError(true);
+      }
+    } else {
+      filterServices(option);
+      const itens = filteredServices.map((service) => (
+        <div>
+          <CardService service={service} />
+        </div>
+      ));
+      setItems(itens);
+    }
+  }, [services, filteredServices]);
   return (
-    <div>
-      {servico.map((service) => (
-        <CardService service={service} key={service.userId} />
-      ))}
-    </div>
+    <Container>
+      <ContainerSelect>
+        <LabelStyled htmlFor="categoria">Filtrar por categoria</LabelStyled>
+        <SelectStyled
+          name="categoria"
+          id="categoria"
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            setOption(e.target.value);
+            filterServices(e.target.value);
+          }}
+          value={option}
+        >
+          <option value="">Categoria</option>
+          <option value="Passadoria">Passadoria</option>
+          <option value="Limpeza Residencial">Limpeza Residencial</option>
+        </SelectStyled>
+      </ContainerSelect>
+      <ContainerServices>
+        <SliderWrapper>
+          <AliceCarousel
+            mouseTracking
+            disableDotsControls
+            items={items}
+            paddingLeft={20}
+            paddingRight={20}
+            responsive={responsive}
+          />
+        </SliderWrapper>
+      </ContainerServices>
+    </Container>
   );
 };
 export default Services;
