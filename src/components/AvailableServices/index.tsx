@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ServiceData } from "../../types/ServiceData";
+// import { ServiceData } from "../../types/ServiceData";
 import CardService from "../CardService";
 import AliceCarousel from "react-alice-carousel";
 

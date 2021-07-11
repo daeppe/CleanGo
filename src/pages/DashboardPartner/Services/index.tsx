@@ -53,6 +53,7 @@ const Services = () => {
       ));
       setItems(itens);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [services, filteredServices]);
   return (
     <Container>
