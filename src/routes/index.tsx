@@ -9,6 +9,7 @@ import { useAuth } from "../providers/Auth";
 import HomePartner from "../pages/HomePartner";
 import EnterPage from "../pages/EnterPage";
 
+import DashboardClient from "../pages/DashboardClient";
 const Routes = () => {
   // const { token } = useAuth();
 
@@ -27,6 +28,7 @@ const Routes = () => {
       {token && (
         <Route isPrivate path="/dashboardparceiro" component={Dashboard} />
       )}
+      <Route isPrivate path="/dashboardcliente" component={DashboardClient} />
 
       {/* <Route component={() => <h1>Rota não encontrada</h1>} /> */}
     </Switch>

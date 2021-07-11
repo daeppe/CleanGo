@@ -13,7 +13,7 @@ import Services from "./Services";
 
 import { useTheme } from "../../providers/Theme";
 
-const Dashboard = () => {
+const DashboardClient = () => {
   const { handleBackground } = useTheme();
 
   useEffect(() => {
@@ -47,4 +47,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardClient;

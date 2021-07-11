@@ -1,26 +1,4 @@
-import styled, { css } from "styled-components";
-import imageLogin from "../../asssets/images/image-login.png";
-
-interface ContainerLoginProps {
-  slideUp: boolean;
-  className: string;
-}
-
-// export const ContainerLogin = styled.div`
-//   margin-top: -77px;
-//   min-height: 100vh;
-//   display: flex;
-
-//   #description {
-//     display: none;
-//   }
-
-//   @media only screen and (min-width: 768px) {
-//     #description {
-//       display: block;
-//     }
-//   }
-// `;
+import styled from "styled-components";
 
 export const ContainerLoginForm = styled.div`
   flex: 9;
@@ -34,10 +12,6 @@ export const ContainerLoginForm = styled.div`
 
 export const ContainerDescription = styled.div`
   flex: 7;
-  /* background-image: url(${imageLogin});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center right; */
   position: relative;
   overflow-x: hidden;
 
