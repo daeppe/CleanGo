@@ -23,23 +23,37 @@ export const InputSearch = styled(Input)`
 `;
 
 export const ContainerServices = styled.div`
-  display: flex;
-  justify-items: center;
+  display: grid;
+  justify-content: center;
   align-items: center;
-  width: 60%;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(2, 155px);
+  width: 100%;
+  margin-bottom: 80px;
+  margin-top: 1rem;
+  grid-gap: 10px 20px;
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 155px);
+    margin-bottom: 0px;
+  }
+  @media only screen and (min-width: 1024px) {
+    grid-template-columns: repeat(4, 155px);
+  }
+  @media only screen and (min-width: 1440px) {
+    grid-template-columns: repeat(6, 155px);
+  }
 `;
 export const SelectStyled = styled.select`
   background: rgba(255, 255, 255, 0.5);
   border: 2px solid #313630;
   box-sizing: border-box;
   border-radius: 4px;
-  width: 100%;
   font-size: 1rem;
   font-family: var(--font-standard);
   padding: 0.5rem;
   position: relative;
   z-index: 2;
-
+  min-width: 200px;
   &::placeholder {
     color: var(--gray);
   }
@@ -63,6 +77,7 @@ export const ContainerSelect = styled.div`
   position: relative;
   grid-area: inputArea;
   margin-left: 1rem;
+  align-self: flex-start;
   &::after {
     content: "";
     display: flex;

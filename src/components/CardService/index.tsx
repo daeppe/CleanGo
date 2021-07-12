@@ -8,10 +8,12 @@ const CardService = ({ service }: CardProps) => {
   return (
     <Container>
       <h2>{service.serviceDetails.class}</h2>
-      <ul>
-        <li>{service.serviceDetails.bedroom} quartos</li>
-        <li>{service.serviceDetails.bathroom} banheiros</li>
-      </ul>
+      {service.serviceDetails.class?.toLowerCase() !== "passadoria" && (
+        <ul>
+          <li>{service.serviceDetails.bedroom} quartos</li>
+          <li>{service.serviceDetails.bathroom} banheiros</li>
+        </ul>
+      )}
       <h3>{service.serviceDetails.hours} horas</h3>
       <div>
         <span>Valor</span>
