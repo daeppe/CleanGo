@@ -20,11 +20,11 @@ import {
 import Input from "../Input";
 import InputNumber from "../InputNumber";
 import { useServices } from "../../providers/Services";
-import formatValue from "../../utils/formatedPrice";
 import { useAuth } from "../../providers/Auth";
-import Button from "../Button";
 import { FaTimes, FaTimesCircle } from "react-icons/fa";
 import { notification } from "antd";
+import { ServiceData } from "../../types/ServiceData";
+import FormServiceInfo from "../FormServiceInfo";
 
 const RequestService = () => {
   const [service, setService] = useState<string>("Limpeza Residencial");
@@ -35,35 +35,53 @@ const RequestService = () => {
   const [bathroom, setBathrooms] = useState("1");
   const [error, setError] = useState(false);
   const [price, setPrice] = useState(0);
-  const [formatedPrice, setFormatedPrice] = useState("R$00,00");
-
   const { newService } = useServices();
   const { idClient } = useAuth();
   const [dateError, setDateError] = useState(false);
-
-  //apenas para deploy
-  setPrice(0);
-  setFormatedPrice(formatValue(price));
+  const [serviceFull, setServiceFull] = useState<ServiceData>({
+    userId: idClient,
+    date: parseInt(date),
+    price: price,
+    serviceDetails: {
+      class: service,
+      hours: parseInt(hours),
+    },
+    opened: true,
+    completed: false,
+    partnerId: 0,
+  });
 
   const onSubmitFunction = async (e: React.MouseEvent) => {
     e.preventDefault();
 
-    const serviceFull = {
-      userId: idClient,
-      date: parseInt(date),
-      price: price,
-      serviceDetails: {
-        class: service,
-        hours: parseInt(hours),
-        type: home,
-        bedroom: parseInt(bedroom),
-        bathroom: parseInt(bathroom),
-      },
-      opened: true,
-      completed: false,
-      partnerId: 0,
-      formatedPrice: formatedPrice,
-    };
+    service === "Limpeza Residencial"
+      ? setServiceFull({
+          userId: idClient,
+          date: parseInt(date),
+          price: price,
+          serviceDetails: {
+            class: service,
+            hours: parseInt(hours),
+            type: home,
+            bedroom: parseInt(bedroom),
+            bathroom: parseInt(bathroom),
+          },
+          opened: true,
+          completed: false,
+          partnerId: 0,
+        })
+      : setServiceFull({
+          userId: idClient,
+          date: parseInt(date),
+          price: price,
+          serviceDetails: {
+            class: service,
+            hours: parseInt(hours),
+          },
+          opened: true,
+          completed: false,
+          partnerId: 0,
+        });
 
     const schema = yup.object().shape({
       date: yup.number().required("Selecione uma data"),
@@ -97,6 +115,7 @@ const RequestService = () => {
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
+    value === "Passadoria" && setHome("") && setHours("5");
     value && setService(value);
   };
 
@@ -105,6 +124,7 @@ const RequestService = () => {
   ) => {
     const value = event.target.value;
     value && setHome(value);
+    setPrice(1);
   };
   return (
     <>
@@ -178,6 +198,7 @@ const RequestService = () => {
                 <InputNumber
                   name="bedroom"
                   value={bedroom}
+                  maxValue={4}
                   setValue={setBedrooms}
                 ></InputNumber>
                 <InputNumberLabel>Quarto</InputNumberLabel>
@@ -185,6 +206,7 @@ const RequestService = () => {
               <InputNumberWrapper>
                 <InputNumber
                   name="bedroom"
+                  maxValue={4}
                   value={bathroom}
                   setValue={setBathrooms}
                 ></InputNumber>
@@ -201,12 +223,23 @@ const RequestService = () => {
           </Subtitle>
           <Row>
             <InputNumberWrapper>
-              <InputNumber
-                name="type"
-                value={hours}
-                maxValue={6}
-                setValue={setHours}
-              />
+              {home === "Studio" ? (
+                <InputNumber
+                  name="type"
+                  value={hours}
+                  maxValue={5}
+                  minValue={5}
+                  setValue={setHours}
+                />
+              ) : (
+                <InputNumber
+                  name="type"
+                  value={hours}
+                  maxValue={8}
+                  setValue={setHours}
+                />
+              )}
+
               <InputNumberLabel>Horas</InputNumberLabel>
             </InputNumberWrapper>
             {service === "Passadoria" && (
@@ -236,15 +269,11 @@ const RequestService = () => {
           </DateWrapper>
         </Column>
       </Container>
-
-      <Button
-        type="submit"
-        onClickFunc={(e: React.MouseEvent<HTMLButtonElement>) =>
-          onSubmitFunction(e)
-        }
-      >
-        Confirmar
-      </Button>
+      <FormServiceInfo
+        onSubmitFunction={onSubmitFunction}
+        price={price}
+        hours={hours}
+      ></FormServiceInfo>
       {error && ""}
     </>
   );

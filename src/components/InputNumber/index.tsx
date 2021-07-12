@@ -12,6 +12,7 @@ interface InputNumberProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   value: string;
   maxValue?: number;
+  minValue?: number;
   setValue: (value: string) => void;
 }
 
@@ -20,6 +21,7 @@ const InputNumber = ({
   value,
   setValue,
   maxValue,
+  minValue,
   ...rest
 }: InputNumberProps) => {
   const handleIncrease = () => {
@@ -28,7 +30,9 @@ const InputNumber = ({
       : setValue(`${parseInt(value) + 1}`);
   };
   const handleDecrese = () => {
-    parseInt(value) > 1 && setValue(`${parseInt(value) - 1}`);
+    minValue
+      ? parseInt(value) > minValue && setValue(`${parseInt(value) + 1}`)
+      : parseInt(value) > 1 && setValue(`${parseInt(value) - 1}`);
   };
   return (
     <Item>
