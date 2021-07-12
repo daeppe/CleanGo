@@ -29,15 +29,15 @@ const ModalAvailableService = ({
   visible,
   setVisible,
 }: ModalProps) => {
-  const { user } = useAuth();
+  const { idClient } = useAuth();
   const { acceptService } = useServices();
   const [error, setError] = useState<boolean>(false);
   const handleAccept = () => {
     acceptService(
       {
         opened: false,
-        partnerId: user?.id,
-        serviceId: service?.id,
+        partnerId: idClient,
+        serviceId: service.id,
       },
       setError
     );
@@ -76,12 +76,9 @@ const ModalAvailableService = ({
         )}
         {error && ""}
         <Subtitles>Endereço:</Subtitles>
-        <Adress>
-          R. Gen. Mário Tourinho, 1733 - 706 - Seminário, Curitiba - PR,
-          80740-000
-        </Adress>
+        <Adress>{service?.adress}</Adress>
         <Subtitles>Contratante:</Subtitles>
-        <GeneralInfo>nome do contratante</GeneralInfo>
+        <GeneralInfo>{service?.name}</GeneralInfo>
         <ContainerRow>
           <ContainerInfo>
             <Subtitles>Duração total:</Subtitles>
