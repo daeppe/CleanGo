@@ -42,6 +42,7 @@ const Services = () => {
     if (services.length < 12) {
       setDisableNext(true);
     }
+    // eslint-disable-next-line
   }, [services, filteredServices]);
   return (
     <Container>
