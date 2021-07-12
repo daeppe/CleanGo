@@ -1,5 +1,6 @@
 export interface ServiceData {
   userId: number;
+  name?: string;
   date: number;
   price: number;
   serviceDetails: {
@@ -9,6 +10,7 @@ export interface ServiceData {
     bedroom?: number;
     bathroom?: number;
   };
+  adress?: string;
   opened: boolean;
   completed: boolean;
   partnerId: number;

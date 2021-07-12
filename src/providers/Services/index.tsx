@@ -150,9 +150,12 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   };
   const filterServices = (filter: string) => {
     api
-      .get<ServiceData[]>(`services?serviceDetails.class=${filter}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get<ServiceData[]>(
+        `services?serviceDetails.class=${filter}&opened=true`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((response) => setFilteredServices(response.data))
       .catch((err) => console.log(err));
   };
