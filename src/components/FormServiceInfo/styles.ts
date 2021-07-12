@@ -94,7 +94,7 @@ export const ButtonWrapper = styled.div`
     height: 70px;
     > button {
       position: absolute;
-      left: 0;
+      right: 15px;
       width: 152px;
     }
   }

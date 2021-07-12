@@ -115,7 +115,7 @@ const RequestService = () => {
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    value === "Passadoria" && setHome("") && setHours("5");
+    value === "Passadoria" && setHome("");
     value && setService(value);
   };
 
@@ -124,6 +124,7 @@ const RequestService = () => {
   ) => {
     const value = event.target.value;
     value && setHome(value);
+    value === "Studio" && setHours("5");
     setPrice(1);
   };
   return (
