@@ -35,11 +35,15 @@ const RequestService = () => {
   const [bathroom, setBathrooms] = useState("1");
   const [error, setError] = useState(false);
   const [price, setPrice] = useState(0);
-  const [formatedPrice, setFormatedPrice] = useState(formatValue(price));
+  const [formatedPrice, setFormatedPrice] = useState("R$00,00");
 
   const { newService } = useServices();
   const { idClient } = useAuth();
   const [dateError, setDateError] = useState(false);
+
+  //apenas para deploy
+  setPrice(0);
+  setFormatedPrice(formatValue(price));
 
   const onSubmitFunction = async (e: React.MouseEvent) => {
     e.preventDefault();
