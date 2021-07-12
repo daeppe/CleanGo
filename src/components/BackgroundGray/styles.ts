@@ -10,7 +10,7 @@ export const Container = styled.div`
   inset: 0;
   width: 100%;
   max-width: 100vw;
-  height: 100%;
+  height: 100vh;
   background-color: var(--light-gray);
 
   ${(props: ContainerProps) =>
