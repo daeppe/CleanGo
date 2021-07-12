@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 import api from "../../services/api";
-import { FeedData } from "../../types/UserData";
+import { FeedData } from "../../types/partnerData";
 import { useAuth } from "../Auth";
 
 interface ProviderProps {

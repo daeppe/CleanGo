@@ -1,10 +1,11 @@
 import GlobalStyle from "./style/global";
 import Routes from "./routes";
+import "./style/antdStyle.css";
 
-import { useRegister } from "./providers/Register";
+import { useTheme } from "./providers/Theme";
 
 function App() {
-  const { backgroundGray } = useRegister();
+  const { backgroundGray } = useTheme();
 
   return (
     <>

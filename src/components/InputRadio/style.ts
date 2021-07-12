@@ -10,10 +10,6 @@ export const Item = styled.div`
   height: 58px;
   position: relative;
   justify-content: center;
-
-  @media screen and (min-width: 670px) {
-    height: 48px;
-  }
 `;
 
 export const CardCategory = styled.label`

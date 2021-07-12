@@ -3,24 +3,24 @@ import { ClientProvider } from "./Clients";
 import { AuthProvider } from "./Auth";
 import { FeedbackProvider } from "./Feedbacks";
 import { ServiceProvider } from "./Services";
-import { RegisterProvider } from "./Register";
+import { ThemeProvider } from "./Theme";
 import { PartnersProvider } from "./Partners";
 interface ProvidersProps {
   children: ReactNode;
 }
 const Providers = ({ children }: ProvidersProps) => {
   return (
-    <AuthProvider>
-      <ClientProvider>
-        <FeedbackProvider>
-          <ServiceProvider>
-            <RegisterProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <ClientProvider>
+          <FeedbackProvider>
+            <ServiceProvider>
               <PartnersProvider>{children}</PartnersProvider>
-            </RegisterProvider>
-          </ServiceProvider>
-        </FeedbackProvider>
-      </ClientProvider>
-    </AuthProvider>
+            </ServiceProvider>
+          </FeedbackProvider>
+        </ClientProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

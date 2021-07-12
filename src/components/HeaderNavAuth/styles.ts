@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -8,7 +7,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  span {
+  p {
     color: var(--black);
     font-weight: 500;
     width: 100%;
@@ -21,7 +20,7 @@ export const Container = styled.div`
   }
 
   @media screen and (min-width: 420px) {
-    span {
+    p {
       display: block;
       margin-bottom: 0px;
       padding-bottom: 0;
@@ -39,15 +38,16 @@ export const Container = styled.div`
   }
 `;
 
-export const Links = styled(NavLink)`
+export const Links = styled.span`
   color: var(--black);
   font-weight: 500;
   width: 100%;
-  font-size: 1.7rem;
+  font-size: 2rem;
   text-align: right;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   @media screen and (min-width: 840px) {
     margin-bottom: 0px;

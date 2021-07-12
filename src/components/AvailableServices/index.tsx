@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ServiceData } from "../../types/ServiceData";
+// import { ServiceData } from "../../types/ServiceData";
 import CardService from "../CardService";
 import AliceCarousel from "react-alice-carousel";
 
@@ -7,93 +7,6 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import { Container } from "./styles";
 import { SliderWrapper } from "./styles";
 import { useServices } from "../../providers/Services";
-
-const servico: ServiceData[] = [
-  {
-    userId: 2,
-    date: 1625795778898,
-    price: 200.0,
-    serviceDetails: {
-      hours: 2,
-      class: "Limpeza residencial",
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  },
-  {
-    userId: 2,
-    date: 1625795778898,
-    price: 200.0,
-    serviceDetails: {
-      hours: 2,
-      class: "Limpeza residencial",
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  },
-  {
-    userId: 2,
-    date: 1625795778898,
-    price: 200.0,
-    serviceDetails: {
-      hours: 2,
-      class: "Limpeza residencial",
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  },
-  {
-    userId: 2,
-    date: 1625795778898,
-    price: 200.0,
-    serviceDetails: {
-      hours: 2,
-      class: "Limpeza residencial",
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  },
-  {
-    userId: 2,
-    date: 1625905948898,
-    price: 200.0,
-    serviceDetails: {
-      hours: 2,
-      class: "Limpeza residencial",
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  },
-  {
-    userId: 2,
-    date: 1625805778898,
-    price: 200.0,
-    serviceDetails: {
-      hours: 2,
-      class: "Passadoria",
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  },
-  {
-    userId: 2,
-    date: 1625915879898,
-    price: 200.0,
-    serviceDetails: {
-      hours: 2,
-      class: "Passadoria",
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  },
-];
 
 const responsive = {
   0: { items: 1 },

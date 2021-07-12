@@ -8,10 +8,11 @@ import {
 } from "./styles";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   inputType: string;
   errorMessage?: string;
   error?: boolean;
+  className?: string;
 }
 
 const Input = ({
@@ -20,12 +21,14 @@ const Input = ({
   errorMessage,
   placeholder,
   error = false,
+  className,
   ...rest
 }: InputProps) => {
   return (
     <ContainerInput>
-      <LabelStyled htmlFor="">{label}</LabelStyled>
+      {label && <LabelStyled htmlFor="">{label}</LabelStyled>}
       <InputStyled
+        className={className}
         type={inputType}
         placeholder={placeholder}
         {...rest}

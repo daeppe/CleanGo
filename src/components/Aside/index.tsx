@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { FaCog, FaHome, FaBullhorn, FaChartLine, FaStar } from "react-icons/fa";
+import { FaHome, FaBullhorn, FaChartLine, FaStar } from "react-icons/fa";
 import { AsideContainer, MenuWrapper, Logo } from "./styles";
 import LogoWhite from "../../asssets/svg/only-logo-white.svg";
 import LogoAside from "../../asssets/svg/logo-white-aside.svg";

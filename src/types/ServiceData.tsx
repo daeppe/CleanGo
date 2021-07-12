@@ -13,9 +13,10 @@ export interface ServiceData {
   completed: boolean;
   partnerId: number;
   formatedPrice?: string;
+  id?: number;
 }
 export interface AcceptService {
-  partnerId: number;
+  partnerId: number | undefined;
   opened: boolean;
-  serviceId: number;
+  serviceId: number | undefined;
 }

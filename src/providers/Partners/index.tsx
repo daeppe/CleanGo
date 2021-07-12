@@ -1,31 +1,36 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { createContext, Dispatch, ReactNode, useContext } from "react";
 import api from "../../services/api";
 import { notification } from "antd";
 import { FaTimesCircle, FaTimes, FaCheckCircle } from "react-icons/fa";
+import { PartnerData } from "../../types/partnerData";
+import { History } from "history";
+import { AxiosError } from "axios";
 
-interface Partner {
-  name: string;
-  email: string;
-  cpf: string;
-  birthday: string;
-  gender: string;
-  phone: string;
-  cep: string;
-  uf: string;
-  address: string;
-  bairro: string;
-  city: string;
-  complement?: string;
-  services: string[];
-  about: string;
-  class: string;
-}
+// interface Partner {
+//   name: string;
+//   email: string;
+//   cpf: string;
+//   birthday: string;
+//   gender: string;
+//   phone: string;
+//   cep: string;
+//   uf: string;
+//   address: string;
+//   bairro: string;
+//   city: string;
+//   complement?: string;
+//   services: string[];
+//   about: string;
+//   class: string;
+// }
 
 interface PartnersContextProps {
-  partners: Partner[];
-  newPartner: (partner: Partner) => void;
-  editPartner: (partner: Partner, id: string, token: string) => void;
+  newPartner: (
+    partner: PartnerData,
+    history: History,
+    setLoad: Dispatch<boolean>
+  ) => void;
+  editPartner: (partner: PartnerData, id: string, token: string) => void;
 }
 
 interface PartnersProviderProps {
@@ -37,42 +42,41 @@ const PartnersContext = createContext<PartnersContextProps>(
 );
 
 export const PartnersProvider = ({ children }: PartnersProviderProps) => {
-  const [partners, setPartners] = useState<Partner[]>([]);
-  const history = useHistory();
-
-  const newPartner = (partner: Partner) => {
+  const newPartner = (
+    partner: PartnerData,
+    history: History,
+    setLoad: Dispatch<boolean>
+  ) => {
+    const partnerNew = {
+      ...partner,
+      partner: true,
+    };
     api
-      .post("register/", partner)
-      .then((_) => {
-        history.push("/login");
+      .post("register", partnerNew)
+      .then(() => {
         notification.open({
-          message: "Sucesso",
+          message: "Parabéns",
           closeIcon: <FaTimes />,
-          style: {
-            fontFamily: "Roboto",
-            backgroundColor: "var(--gray)",
-            WebkitBorderRadius: 4,
-          },
-          description: "Usuário criado.",
+          description:
+            "Você efetuou cadastro como parceiro CleanGo. Faça seu login e aproveite nossa plataforma!",
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
+        setLoad(false);
+        history.push("/login");
       })
-      .catch((_) =>
+      .catch((error: AxiosError) => {
+        setLoad(false);
+
         notification.open({
           message: "Erro.",
           closeIcon: <FaTimes />,
-          style: {
-            fontFamily: "Roboto",
-            backgroundColor: "var(--gray)",
-            WebkitBorderRadius: 4,
-          },
-          description: "Erro ao realizar cadastro.",
+          description: `Erro ao realizar cadastro. ${error.response?.data}`,
           icon: <FaTimesCircle style={{ color: "red" }} />,
-        })
-      );
+        });
+      });
   };
 
-  const editPartner = (partner: Partner, id: string, token: string) => {
+  const editPartner = (partner: PartnerData, id: string, token: string) => {
     api
       .patch(`users/${id}`, partner, {
         headers: {
@@ -108,7 +112,7 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
   };
 
   return (
-    <PartnersContext.Provider value={{ partners, newPartner, editPartner }}>
+    <PartnersContext.Provider value={{ newPartner, editPartner }}>
       {children}
     </PartnersContext.Provider>
   );

@@ -5,6 +5,7 @@ interface GlobalProps {
 }
 
 export default createGlobalStyle`
+
 :root{
   --black: #0C090B;
   --dark-green: #313630;
@@ -14,7 +15,7 @@ export default createGlobalStyle`
   --white: #FFFFFF;
   --light-gray: #E7E7E7;
   --dark-gray: #676767;
-  --shadow:  2px 0px 10px -1px rgba(0, 0, 0, 0.3);
+  --shadow:  0px 0px 8px -1px rgba(0, 0, 0, 0.25);
   --font-standard: "Lato", sans-serif;
   --font-secondary: 'Oswald', sans-serif;
 }
