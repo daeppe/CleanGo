@@ -73,6 +73,7 @@ const Services = () => {
           <option value="Limpeza Residencial">Limpeza Residencial</option>
         </SelectStyled>
       </ContainerSelect>
+      {error && ""}
       <ContainerServices>
         <SliderWrapper>
           <AliceCarousel
