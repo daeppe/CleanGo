@@ -4,4 +4,5 @@ export interface ClientData {
   email: string;
   cpf: string;
   password: string;
+  id?: number;
 }

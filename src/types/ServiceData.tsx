@@ -16,7 +16,7 @@ export interface ServiceData {
   id?: number;
 }
 export interface AcceptService {
-  partnerId: number;
+  partnerId: number | undefined;
   opened: boolean;
-  serviceId: number;
+  serviceId: number | undefined;
 }
