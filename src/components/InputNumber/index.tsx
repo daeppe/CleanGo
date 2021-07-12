@@ -21,7 +21,7 @@ const InputNumber = ({
   value,
   setValue,
   maxValue,
-  minValue,
+  minValue = 1,
   ...rest
 }: InputNumberProps) => {
   const handleIncrease = () => {
@@ -31,7 +31,7 @@ const InputNumber = ({
   };
   const handleDecrese = () => {
     minValue
-      ? parseInt(value) > minValue && setValue(`${parseInt(value) + 1}`)
+      ? parseInt(value) > minValue && setValue(`${parseInt(value) - 1}`)
       : parseInt(value) > 1 && setValue(`${parseInt(value) - 1}`);
   };
   return (
@@ -45,11 +45,20 @@ const InputNumber = ({
       />
 
       <HandlerWrapper>
-        <ButtonOp onClick={handleDecrese} isLeft>
+        <ButtonOp
+          disable={parseInt(value) === minValue}
+          onClick={handleDecrese}
+          isLeft
+        >
           -
         </ButtonOp>
         <ValueOutput>{value}</ValueOutput>
-        <ButtonOp onClick={handleIncrease}>+</ButtonOp>
+        <ButtonOp
+          disable={parseInt(value) === maxValue}
+          onClick={handleIncrease}
+        >
+          +
+        </ButtonOp>
       </HandlerWrapper>
     </Item>
   );
