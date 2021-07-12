@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import Input from "../../../components/Input";
 import ArrowDown from "../../../asssets/svg/arrowdown.svg";
+interface ButtonProps {
+  disabled?: boolean;
+}
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,7 +32,6 @@ export const ContainerServices = styled.div`
   grid-auto-rows: 1fr;
   grid-template-columns: repeat(2, 155px);
   width: 100%;
-  margin-bottom: 80px;
   margin-top: 1rem;
   grid-gap: 10px 20px;
   @media only screen and (min-width: 768px) {
@@ -90,5 +92,32 @@ export const ContainerSelect = styled.div`
     right: 10px;
     bottom: 0;
     z-index: 1;
+  }
+`;
+export const ContainerButton = styled.div`
+  display: flex;
+  margin-bottom: 6rem;
+  margin-top: 1rem;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+`;
+export const ButtonStyled = styled.button`
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid
+    ${(props: ButtonProps) => (props.disabled ? "var(--gray)" : "var(--green)")};
+  padding: 6px;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: ${(props: ButtonProps) =>
+      props.disabled ? "var(--gray)" : "var(--green)"};
+  }
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 5px 0px var(--green);
   }
 `;

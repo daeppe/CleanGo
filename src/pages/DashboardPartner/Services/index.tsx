@@ -5,19 +5,44 @@ import {
   ContainerServices,
   Container,
   ContainerSelect,
+  ContainerButton,
   LabelStyled,
   SelectStyled,
+  ButtonStyled,
 } from "./styles";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const Services = () => {
   const [error, setError] = useState<boolean>(false);
-  // const [disable, setDisable] = useState<boolean>(true);
+  const [disableNext, setDisableNext] = useState<boolean>(false);
+  const [disablePrev, setDisablePrev] = useState<boolean>(true);
   const { getServices, services, filterServices, filteredServices } =
     useServices();
   const [option, setOption] = useState<string>("");
+  const [pageNumber, setPageNumber] = useState<number>(1);
+
+  const handleNextPage = () => {
+    setPageNumber(pageNumber + 1);
+    getServices(setError, pageNumber, 12);
+    if (services.length < 12 || filteredServices.length < 12) {
+      setDisableNext(true);
+    }
+  };
+  const handlePrevPage = () => {
+    if (pageNumber > 1) {
+      setPageNumber(pageNumber - 1);
+      getServices(setError, pageNumber, 12);
+      setDisablePrev(false);
+    } else {
+      setDisablePrev(true);
+    }
+  };
 
   useEffect(() => {
     getServices(setError);
-  }, [getServices]);
+    if (services.length < 12) {
+      setDisableNext(true);
+    }
+  }, [services, filteredServices]);
   return (
     <Container>
       <ContainerSelect>
@@ -46,6 +71,14 @@ const Services = () => {
               <CardService service={service} key={service.id} />
             ))}
       </ContainerServices>
+      <ContainerButton>
+        <ButtonStyled disabled={disablePrev} onClick={handlePrevPage}>
+          <FaChevronLeft />
+        </ButtonStyled>
+        <ButtonStyled disabled={disableNext} onClick={handleNextPage}>
+          <FaChevronRight />
+        </ButtonStyled>
+      </ContainerButton>
     </Container>
   );
 };
