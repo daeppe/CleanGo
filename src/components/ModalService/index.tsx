@@ -36,7 +36,6 @@ const ModalService = ({
 
   return (
     <>
-      <CardService service={service} onClick={showModal} />
       <CustomModal
         visible={isModalVisible}
         onOk={handleOk}
@@ -59,6 +58,8 @@ const ModalService = ({
               </ul>
             </>
           )}
+          <h4>Endereço:</h4>
+          <p></p>
           <h4>{service.serviceDetails.hours} horas</h4>
           <div>
             <span>Valor</span>

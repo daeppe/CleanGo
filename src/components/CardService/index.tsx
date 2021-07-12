@@ -1,13 +1,21 @@
 import { ServiceData } from "../../types/ServiceData";
 import { Container } from "./styles";
 import formatValue from "../../utils/formatedPrice";
+import ModalAvailableService from "../ModalAvailableService";
+import { useState } from "react";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CardProps {
   service: ServiceData;
 }
-const CardService = ({ service, ...rest }: CardProps) => {
+const CardService = ({ service }: CardProps) => {
+  const [visible, setVisible] = useState<boolean>(false);
   return (
-    <Container {...rest}>
+    <Container onClick={() => setVisible(!visible)}>
+      <ModalAvailableService
+        service={service}
+        visible={visible}
+        setVisible={setVisible}
+      />
       <h2>{service.serviceDetails.class}</h2>
       {service.serviceDetails.class?.toLowerCase() !== "passadoria" && (
         <ul>
