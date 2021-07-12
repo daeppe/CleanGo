@@ -1,17 +1,20 @@
 import { ServiceData } from "../../types/ServiceData";
 import { Container } from "./styles";
 import formatValue from "../../utils/formatedPrice";
-interface CardProps {
+
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   service: ServiceData;
 }
-const CardService = ({ service }: CardProps) => {
+const CardService = ({ service, ...rest }: CardProps) => {
   return (
-    <Container>
+    <Container {...rest}>
       <h2>{service.serviceDetails.class}</h2>
-      <ul>
-        <li>{service.serviceDetails.bedroom} quartos</li>
-        <li>{service.serviceDetails.bathroom} banheiros</li>
-      </ul>
+      {service.serviceDetails.class?.toLowerCase() !== "passadoria" && (
+        <ul>
+          <li>{service.serviceDetails.bedroom} quartos</li>
+          <li>{service.serviceDetails.bathroom} banheiros</li>
+        </ul>
+      )}
       <h3>{service.serviceDetails.hours} horas</h3>
       <div>
         <span>Valor</span>

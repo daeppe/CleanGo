@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 // import { ServiceData } from "../../types/ServiceData";
 import CardService from "../CardService";
 import AliceCarousel from "react-alice-carousel";
+import ModalService from "../ModalService";
 
 import "react-alice-carousel/lib/alice-carousel.css";
 import { Container } from "./styles";
@@ -40,9 +41,12 @@ const AvailableServices = () => {
             disableDotsControls
             responsive={responsive}
             items={services.map((service) => (
-              <div>
-                <CardService service={service} />
-              </div>
+              <ModalService
+                service={service}
+                title={"Serviço disponível"}
+                buttonText={"ACEITAR"}
+                buttonFunc={() => 0}
+              />
             ))}
             paddingLeft={20}
             paddingRight={20}
