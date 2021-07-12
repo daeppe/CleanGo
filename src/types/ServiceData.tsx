@@ -9,6 +9,7 @@ export interface ServiceData {
     bedroom?: number;
     bathroom?: number;
   };
+  adress?: string;
   opened: boolean;
   completed: boolean;
   partnerId: number;

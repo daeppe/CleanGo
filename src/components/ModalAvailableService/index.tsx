@@ -5,6 +5,8 @@ import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
 import { useServices } from "../../providers/Services";
+import { notification } from "antd";
+import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import {
   ContainerInfo,
   ContainerRow,
@@ -40,6 +42,15 @@ const ModalAvailableService = ({
       setError
     );
     setVisible(!visible);
+    notification.open({
+      message: "Sucesso",
+      closeIcon: <FaTimes />,
+      style: {
+        WebkitBorderRadius: 4,
+      },
+      description: "Serviço aceito",
+      icon: <FaCheckCircle style={{ color: "green" }} />,
+    });
   };
 
   return (
