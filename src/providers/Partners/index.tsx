@@ -31,7 +31,6 @@ import { AxiosError } from "axios";
 // }
 
 interface PartnersContextProps {
-  partners: PartnerData[];
   newPartner: (
     partner: PartnerData,
     history: History,
@@ -49,8 +48,6 @@ const PartnersContext = createContext<PartnersContextProps>(
 );
 
 export const PartnersProvider = ({ children }: PartnersProviderProps) => {
-  const [partners, setPartners] = useState<PartnerData[]>([]);
-
   const newPartner = (
     partner: PartnerData,
     history: History,
@@ -121,7 +118,7 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
   };
 
   return (
-    <PartnersContext.Provider value={{ partners, newPartner, editPartner }}>
+    <PartnersContext.Provider value={{ newPartner, editPartner }}>
       {children}
     </PartnersContext.Provider>
   );

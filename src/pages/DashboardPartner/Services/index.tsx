@@ -9,11 +9,11 @@ import {
   SelectStyled,
 } from "./styles";
 import AliceCarousel from "react-alice-carousel";
-import limitServiceCards from "../../../utils/limitServiceCards";
+// import limitServiceCards from "../../../utils/limitServiceCards";
 import { SliderWrapper } from "../../../components/AvailableServices/styles";
 const Services = () => {
   const [error, setError] = useState<boolean>(false);
-  const [disable, setDisable] = useState<boolean>(true);
+  // const [disable, setDisable] = useState<boolean>(true);
   const [items, setItems] = useState<JSX.Element[]>();
   const responsive = {
     0: { items: 1 },
