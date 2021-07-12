@@ -12,6 +12,7 @@ export const Container = styled.div`
   justify-content: space-around;
   margin: 8px auto;
   padding: 16px;
+  cursor: pointer;
   h2 {
     width: 100%;
     font-family: var(--font-secondary);

@@ -1,30 +1,37 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, Dispatch, ReactNode, useContext } from "react";
 
 import { FeedBackData } from "../../types/feedbackData";
 import api from "../../services/api";
+import { useAuth } from "../Auth";
+import { useState } from "react";
+import { AxiosError, AxiosResponse } from "axios";
+import { notification } from "antd";
+import { FaTimes, FaTimesCircle } from "react-icons/fa";
 
 interface FeedbackProviderProps {
   children: ReactNode;
+}
+
+interface EditFeedback {
+  partnerId?: number;
+  score?: number;
+  feedback?: string;
 }
 
 interface FeedbackProviderData {
   newFeedback: (feedbackData: FeedBackData) => void;
   deleteFeedback: (idFeedback: number) => void;
   editFeedback: (feedbackData: EditFeedback) => void;
-  getAllFeedback: () => void;
-}
-
-interface EditFeedback {
-  userId?: number;
-  score?: number;
-  feedback?: string;
+  getAllFeedback: (partnerId: number, setError: Dispatch<boolean>) => void;
+  feedbacks: FeedBackData[];
 }
 
 const FeedbackContext = createContext<FeedbackProviderData>(
   {} as FeedbackProviderData
 );
 export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
-  const token = localStorage.getItem("token") || "";
+  const { token } = useAuth();
+  const [feedbacks, setFeedbacks] = useState<FeedBackData[]>([]);
 
   const newFeedback = (feedbackData: FeedBackData) => {
     api
@@ -38,17 +45,28 @@ export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
       })
       .catch((err) => console.log(err));
   };
-  const getAllFeedback = () => {
+  const getAllFeedback = (partnerId: number, setError: Dispatch<boolean>) => {
+    if (partnerId === 0) {
+      return setError(true);
+    }
+
     api
-      .get("feedback", {
+      .get(`feedback?partnerId=${partnerId}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
       })
-      .then(() => {
-        console.log("Todos os feedbacks");
+      .then((response: AxiosResponse) => {
+        setFeedbacks(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Erro ao listar feedbacks. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
 
   const deleteFeedback = (idFeedback: number) => {
@@ -61,7 +79,14 @@ export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
       .then(() => {
         console.log("Feedback deletado com sucesso");
       })
-      .catch((err) => console.log(err));
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Erro ao deletar feedback. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
 
   const editFeedback = (feedbackData: EditFeedback) => {
@@ -74,11 +99,24 @@ export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
       .then(() => {
         console.log("Feedback editado com sucesso");
       })
-      .catch((err) => console.log(err));
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Erro ao editar feedback. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
   return (
     <FeedbackContext.Provider
-      value={{ newFeedback, editFeedback, deleteFeedback, getAllFeedback }}
+      value={{
+        newFeedback,
+        editFeedback,
+        deleteFeedback,
+        getAllFeedback,
+        feedbacks,
+      }}
     >
       {children}
     </FeedbackContext.Provider>

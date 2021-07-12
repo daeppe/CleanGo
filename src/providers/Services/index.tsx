@@ -114,26 +114,23 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     page?: number,
     limit?: number
   ) => {
-    page && limit
-      ? api
-          .get<ServiceData[]>(`services?_page=${page}&_limit=${limit}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((response) => setServices(response.data))
-          .catch((err) => setError(true))
-      : api
-          .get<ServiceData[]>(`services`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((response) => setServices(response.data))
-          .catch((err) => setError(true));
+    api
+      .get<ServiceData[]>(`services`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => setServices(response.data))
+      .catch((err) => setError(true));
   };
 
   const getServicesAccepted = (
     setError: Dispatch<SetStateAction<boolean>>,
-    partnerId: number
+    partnerId?: number
   ) => {
     let servicesAcc: ServiceData[] = [];
+
+    if (partnerId === 0) {
+      return setError(true);
+    }
 
     api
       .get<ServiceData[]>(`services?partnerId=${partnerId}`, {
@@ -145,6 +142,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     setServicesAccept(servicesAcc);
     return servicesAcc;
   };
+
   const filterServices = (filter: string) => {
     api
       .get<ServiceData[]>(`services?serviceDetails.class=${filter}`, {
