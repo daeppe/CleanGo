@@ -63,6 +63,7 @@ const ModalAvailableService = ({
             </ServiceDetails>
           </>
         )}
+        {error && ""}
         <Subtitles>Endereço:</Subtitles>
         <Adress>
           R. Gen. Mário Tourinho, 1733 - 706 - Seminário, Curitiba - PR,

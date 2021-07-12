@@ -116,13 +116,16 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   ) => {
     page && limit
       ? api
-          .get<ServiceData[]>(`services?_page=${page}&_limit=${limit}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
+          .get<ServiceData[]>(
+            `services?opened=true&_page=${page}&_limit=${limit}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
           .then((response) => setServices(response.data))
           .catch((err) => setError(true))
       : api
-          .get<ServiceData[]>(`services`, {
+          .get<ServiceData[]>(`services?opened=true`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((response) => setServices(response.data))
