@@ -18,7 +18,7 @@ const responsive = {
 };
 
 const AvailableServices = () => {
-  const { getServices, services, servicesAccept } = useServices();
+  const { getServices, services } = useServices();
   const [error, setError] = useState(false);
 
   useEffect(() => {

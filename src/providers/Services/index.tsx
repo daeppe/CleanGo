@@ -135,11 +135,13 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
 
   const getServicesAccepted = (
     setError: Dispatch<SetStateAction<boolean>>,
-    partnerId?: number
+    partnerId: number = 0
   ) => {
     if (partnerId === 0) {
+      console.log("err");
       return setError(true);
     }
+    console.log("suc");
 
     api
       .get<ServiceData[]>(`services?partnerId=${partnerId}`, {
