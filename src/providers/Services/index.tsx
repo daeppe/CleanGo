@@ -114,12 +114,22 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     page?: number,
     limit?: number
   ) => {
-    api
-      .get<ServiceData[]>(`services`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => setServices(response.data))
-      .catch((err) => setError(true));
+    page && limit
+      ? api
+          .get<ServiceData[]>(
+            `services?opened=true&_page=${page}&_limit=${limit}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+          .then((response) => setServices(response.data))
+          .catch((err) => setError(true))
+      : api
+          .get<ServiceData[]>(`services?opened=true`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => setServices(response.data))
+          .catch((err) => setError(true));
   };
 
   const getServicesAccepted = (
@@ -145,9 +155,12 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
 
   const filterServices = (filter: string) => {
     api
-      .get<ServiceData[]>(`services?serviceDetails.class=${filter}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get<ServiceData[]>(
+        `services?serviceDetails.class=${filter}&opened=true`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((response) => setFilteredServices(response.data))
       .catch((err) => console.log(err));
   };

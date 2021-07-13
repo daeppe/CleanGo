@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AvailableServices from "../../../components/AvailableServices";
+import Button from "../../../components/Button";
 import LastGains from "../../../components/LastGains";
 import ReviewsTotal from "../../../components/ReviewsTotal";
 import WeekService from "../../../components/WeekService";
@@ -11,6 +12,7 @@ import {
   Container,
   FeaturesColumn,
   FeedColumn,
+  InputFeed,
   WrapperSections,
 } from "./styles";
 
@@ -87,6 +89,8 @@ const Main = () => {
         </WrapperSections>
       </FeaturesColumn>
       <FeedColumn>
+        <InputFeed placeholder="Começar publicação"></InputFeed>
+        <Button>Publicar</Button>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
           ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo

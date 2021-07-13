@@ -5,6 +5,8 @@ import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
 import { useServices } from "../../providers/Services";
+import { notification } from "antd";
+import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import {
   ContainerInfo,
   ContainerRow,
@@ -28,19 +30,28 @@ const ModalAvailableService = ({
   visible,
   setVisible,
 }: ModalProps) => {
-  const { user } = useAuth();
+  const { idClient } = useAuth();
   const { acceptService } = useServices();
   const [error, setError] = useState<boolean>(false);
   const handleAccept = () => {
     acceptService(
       {
         opened: false,
-        partnerId: user?.id,
-        serviceId: service?.id,
+        partnerId: idClient,
+        serviceId: service.id,
       },
       setError
     );
     setVisible(!visible);
+    notification.open({
+      message: "Sucesso",
+      closeIcon: <FaTimes />,
+      style: {
+        WebkitBorderRadius: 4,
+      },
+      description: "Serviço aceito",
+      icon: <FaCheckCircle style={{ color: "green" }} />,
+    });
   };
 
   return (
@@ -68,13 +79,11 @@ const ModalAvailableService = ({
             </ServiceDetails>
           </>
         )}
+        {error && ""}
         <Subtitles>Endereço:</Subtitles>
-        <Adress>
-          R. Gen. Mário Tourinho, 1733 - 706 - Seminário, Curitiba - PR,
-          80740-000
-        </Adress>
+        <Adress>{service?.adress}</Adress>
         <Subtitles>Contratante:</Subtitles>
-        <GeneralInfo>nome do contratante</GeneralInfo>
+        <GeneralInfo>{service?.name}</GeneralInfo>
         <ContainerRow>
           <ContainerInfo>
             <Subtitles>Duração total:</Subtitles>
