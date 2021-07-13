@@ -46,8 +46,14 @@ interface ServicesProviderData {
     setError: Dispatch<SetStateAction<boolean>>,
     partnerId?: number
   ) => void;
+  getClientServices: (
+    setError: Dispatch<SetStateAction<boolean>>,
+    completed: boolean,
+    userId?: number
+  ) => void;
   services: ServiceData[];
   servicesAccept: ServiceData[];
+  clientServices: ServiceData[];
   setServices: Dispatch<SetStateAction<ServiceData[]>>;
   filterServices: (filter: string) => void;
   filteredServices: ServiceData[];
@@ -62,7 +68,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const [services, setServices] = useState<ServiceData[]>([]);
   const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
-
+  const [clientServices, setClientServices] = useState<ServiceData[]>([]);
   const newService = (
     serviceData: ServiceData,
     setError: Dispatch<SetStateAction<boolean>>
@@ -187,6 +193,40 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response: AxiosResponse) => setServicesAccept([...response.data]))
       .catch((err) => setError(true));
   };
+  const getClientServices = (
+    setError: Dispatch<SetStateAction<boolean>>,
+    completed: boolean,
+    userId: number = 0
+  ) => {
+    if (userId === 0) {
+      console.log("err");
+      return setError(true);
+    }
+    console.log(userId);
+    completed
+      ? api
+          .get<ServiceData[]>(
+            `services?userId=${userId}&completed=${completed}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+          .then((response: AxiosResponse) =>
+            setClientServices([...response.data])
+          )
+          .catch((err) => setError(true))
+      : api
+          .get<ServiceData[]>(
+            `services?userId=${userId}&completed=${completed}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+          .then((response: AxiosResponse) =>
+            setClientServices([...response.data])
+          )
+          .catch((err) => setError(true));
+  };
 
   const filterServices = (filter: string) => {
     api
@@ -215,8 +255,10 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         newService,
         services,
         servicesAccept,
+        clientServices,
         setServices,
         getServicesAccepted,
+        getClientServices,
         filterServices,
         filteredServices,
         getServicesPaginated,

@@ -6,11 +6,10 @@ import Aside from "../../components/Aside";
 import Header from "../../components/Header";
 import HeaderNavAuth from "../../components/HeaderNavAuth";
 import TitlePage from "../../components/TitlePage";
-
+import OpenServices from "./OpenServices";
 import Main from "./Main";
-import Reviews from "./Reviews";
-import Services from "./Services";
 import Settings from "./Settings";
+import ReviewsAndServices from "./ReviewsAndServices";
 import { useTheme } from "../../providers/Theme";
 
 const DashboardClient = () => {
@@ -34,13 +33,13 @@ const DashboardClient = () => {
         <Route isPrivate path="/dashboardcliente/" exact component={Main} />
         <Route
           isPrivate
-          path="/dashboardcliente/avaliacoes"
-          component={Reviews}
+          path="/dashboardcliente/avaliacoes-e-servicos"
+          component={ReviewsAndServices}
         />
         <Route
           isPrivate
           path="/dashboardcliente/servicos"
-          component={Services}
+          component={OpenServices}
         />
         <Route
           isPrivate
