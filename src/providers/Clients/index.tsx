@@ -91,7 +91,19 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
           Authorization: "Bearer " + token,
         },
       })
-      .then((response) => console.log(response.status))
+      .then((response) =>
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            fontFamily: "Roboto",
+            backgroundColor: "var(--gray)",
+            WebkitBorderRadius: 4,
+          },
+          description: "Dados atualizados",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        })
+      )
       .catch((err) => console.log(err));
   };
   const searchClient = (idClient: number) => {

@@ -10,7 +10,7 @@ import TitlePage from "../../components/TitlePage";
 import Main from "./Main";
 import Reviews from "./Reviews";
 import Services from "./Services";
-
+import Settings from "./Settings";
 import { useTheme } from "../../providers/Theme";
 
 const DashboardClient = () => {
@@ -41,6 +41,11 @@ const DashboardClient = () => {
           isPrivate
           path="/dashboardcliente/servicos"
           component={Services}
+        />
+        <Route
+          isPrivate
+          path="/dashboardcliente/configuracoes"
+          component={Settings}
         />
       </Switch>
     </>

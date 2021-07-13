@@ -12,9 +12,11 @@ import {
   SelectStyled,
   ContainerSelect,
 } from "./styles";
+import { useClients } from "../../providers/Clients";
 
 const FormUpdateProfile = () => {
   const { editPartner } = usePartners();
+  const { editClient } = useClients();
   const { idClient, token, user } = useAuth();
   const [name, setName] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
@@ -90,8 +92,7 @@ const FormUpdateProfile = () => {
     await schema
       .validate({ ...updateObject })
       .then((v) => {
-        editPartner(v, idClient, token);
-        console.log(v);
+        user?.partner ? editPartner(v, idClient, token) : editClient(v);
       })
       .catch((err) => {
         name === "" && setNameError(true);
@@ -156,6 +157,7 @@ const FormUpdateProfile = () => {
           placeholder="00000-000"
           errorMessage="Campo obrigatório"
           error={cepError}
+          maxLength={8}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             getAddres(e.target.value);
             setCepError(false);
