@@ -6,23 +6,26 @@ import { useAuth } from "../Auth";
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 import { notification } from "antd";
-import { FaTimes, FaTimesCircle } from "react-icons/fa";
+import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 
 interface FeedbackProviderProps {
   children: ReactNode;
 }
 
 interface EditFeedback {
-  partnerId?: number;
+  userId?: number;
   score?: number;
   feedback?: string;
 }
 
 interface FeedbackProviderData {
-  newFeedback: (feedbackData: FeedBackData) => void;
+  newFeedback: (
+    feedbackData: FeedBackData,
+    setVisible: Dispatch<boolean>
+  ) => void;
   deleteFeedback: (idFeedback: number) => void;
   editFeedback: (feedbackData: EditFeedback) => void;
-  getAllFeedback: (partnerId: number, setError: Dispatch<boolean>) => void;
+  getAllFeedback: (userId: number, setError: Dispatch<boolean>) => void;
   feedbacks: FeedBackData[];
 }
 
@@ -33,25 +36,45 @@ export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
   const { token } = useAuth();
   const [feedbacks, setFeedbacks] = useState<FeedBackData[]>([]);
 
-  const newFeedback = (feedbackData: FeedBackData) => {
+  const newFeedback = (
+    feedbackData: FeedBackData,
+    setVisible: Dispatch<boolean>
+  ) => {
     api
       .post("feedback", feedbackData, {
         headers: {
           Authorization: "Bearer " + token,
         },
       })
-      .then(() => {
-        console.log("Feedback feito com sucesso");
+      .then((res: AxiosResponse) => {
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description: "Serviço avaliado com o sucesso.",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        });
+
+        setVisible(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Erro ao tentar avaliar. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
-  const getAllFeedback = (partnerId: number, setError: Dispatch<boolean>) => {
-    if (partnerId === 0) {
+  const getAllFeedback = (userId: number, setError: Dispatch<boolean>) => {
+    if (userId === 0) {
       return setError(true);
     }
 
     api
-      .get(`feedback?partnerId=${partnerId}`, {
+      .get(`feedback?userId=${userId}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
