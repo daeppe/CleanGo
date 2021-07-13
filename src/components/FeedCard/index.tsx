@@ -32,18 +32,21 @@ const FeedCard = () => {
       />
       <Button onClickFunc={() => feedData(text)}>Publicar</Button>
       <div>
-        {feeds.map((elem, ind) => {
-          const { name, textPost, date } = elem;
+        {feeds
+          .slice(0)
+          .reverse()
+          .map((elem, ind) => {
+            const { name, textPost, date } = elem;
 
-          return (
-            <FeedPost key={ind}>
-              <h3>{name}</h3>
-              <p>{textPost}</p>
-              <data>Publicado em {format(date, "dd-MM-yyyy")}</data>
-              <hr />
-            </FeedPost>
-          );
-        })}
+            return (
+              <FeedPost key={ind}>
+                <h3>{name}</h3>
+                <p>{textPost}</p>
+                <data>Publicado em {format(date, "dd-MM-yyyy")}</data>
+                <hr />
+              </FeedPost>
+            );
+          })}
       </div>
     </FeedColumn>
   );
