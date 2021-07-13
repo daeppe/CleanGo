@@ -1,9 +1,11 @@
 import { SetStateAction, Dispatch } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
-import Button from "../Button";
-import { useAuth } from "../../providers/Auth";
-import { useServices } from "../../providers/Services";
+// import Button from "../Button";
+// import { useAuth } from "../../providers/Auth";
+// import { useServices } from "../../providers/Services";
+// import { notification } from "antd";
+// import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import {
   ContainerInfo,
   ContainerRow,
@@ -15,32 +17,13 @@ import {
   ServiceDetails,
   CustomModal,
 } from "./styles";
-import { useState } from "react";
+// import { useState } from "react";
 interface ModalProps {
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
   service: ServiceData;
 }
-const ModalAvailableService = ({
-  service,
-  visible,
-  setVisible,
-}: ModalProps) => {
-  const { user } = useAuth();
-  const { acceptService } = useServices();
-  const [error, setError] = useState<boolean>(false);
-  const handleAccept = () => {
-    acceptService(
-      {
-        opened: false,
-        partnerId: user?.id,
-        serviceId: service.id,
-      },
-      setError
-    );
-    setVisible(!visible);
-  };
-
+const ModalDetailsService = ({ service, visible, setVisible }: ModalProps) => {
   return (
     <CustomModal
       visible={visible}
@@ -66,7 +49,6 @@ const ModalAvailableService = ({
             </ServiceDetails>
           </>
         )}
-        {error && ""}
         <Subtitles>Endereço:</Subtitles>
         <Adress>{`${service.address} - ${service.district},  ${service.city} - ${service.uf}, ${service.cep}`}</Adress>
         <Subtitles>Contratante:</Subtitles>
@@ -84,11 +66,10 @@ const ModalAvailableService = ({
               {formatValue(service.price)}
             </GeneralInfo>
           </ContainerInfo>
-          <Button onClickFunc={handleAccept}>Aceitar</Button>
+          {/* <Button onClickFunc={handleAccept}>Aceitar</Button> */}
         </ContainerRow>
-        <Button onClickFunc={handleAccept}>Aceitar</Button>
       </ContainerInfo>
     </CustomModal>
   );
 };
-export default ModalAvailableService;
+export default ModalDetailsService;

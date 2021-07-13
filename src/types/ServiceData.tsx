@@ -1,6 +1,6 @@
 export interface ServiceData {
   userId: number;
-  name?: string;
+  contractor?: string;
   date: number;
   price: number;
   serviceDetails: {
@@ -10,12 +10,16 @@ export interface ServiceData {
     bedroom?: number;
     bathroom?: number;
   };
-  adress?: string;
   opened: boolean;
   completed: boolean;
   partnerId: number;
   formatedPrice?: string;
   id?: number;
+  address: string;
+  cep: string;
+  uf: string;
+  district: string;
+  city: string;
 }
 export interface AcceptService {
   partnerId: number | undefined;

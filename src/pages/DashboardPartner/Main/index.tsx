@@ -53,7 +53,6 @@ const Main = () => {
   }, [feedbacks]);
 
   useEffect(() => {
-    console.log(servicesAccept);
     if (servicesAccept.length !== 0) {
       let now: number | Date = new Date();
       let month = now.getMonth();
@@ -65,7 +64,6 @@ const Main = () => {
       setServicesAcc([...servicesFiltered]);
 
       let totalValue: number = 0;
-      console.log(servicesFiltered);
       servicesFiltered.forEach((service) => {
         if (service.completed) {
           totalValue += service.price;

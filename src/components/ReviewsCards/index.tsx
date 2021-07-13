@@ -1,9 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
-import { useAuth } from "../../providers/Auth";
-import { useFeedback } from "../../providers/Feedbacks";
 import { FeedBackData } from "../../types/feedbackData";
 import {
   Container,
