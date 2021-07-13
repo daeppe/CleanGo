@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { FaHome, FaBullhorn, FaChartLine, FaStar } from "react-icons/fa";
+import { FaHome, FaChartLine, FaStar } from "react-icons/fa";
 import { AsideContainer, MenuWrapper, Logo } from "./styles";
 import LogoWhite from "../../asssets/svg/only-logo-white.svg";
 import LogoAside from "../../asssets/svg/logo-white-aside.svg";
+import { useAuth } from "../../providers/Auth";
 const Aside = () => {
   const { pathname } = useLocation();
   const navLinks = useRef<HTMLAnchorElement[]>([]);
   const [topIndicator, setTopIndicator] = useState("0");
   const [leftIndicator, setLeftIndicator] = useState("-4px");
   const indicator = useRef<HTMLSpanElement>(null);
-
+  const { user } = useAuth();
   const getDimensions = () => {
     navLinks.current.forEach((item: HTMLElement) => {
       if (item?.className === "navlink--active") {
@@ -57,53 +58,45 @@ const Aside = () => {
       <div>
         <MenuWrapper topIndicator={topIndicator} leftIndicator={leftIndicator}>
           <NavLink
-            to="/dashboardparceiro/"
+            to={user?.partner ? "/dashboardparceiro/" : "/dashboardcliente/"}
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
             <FaHome />
             <span>Dashboard</span>
           </NavLink>
+          {user?.partner && (
+            <NavLink
+              to="/dashboardparceiro/servicos"
+              ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
+              activeClassName="navlink--active"
+            >
+              <img src={LogoAside} alt="serviços" />
+              <span>Serviços</span>
+            </NavLink>
+          )}
+          {user?.partner && (
+            <NavLink
+              to="/dashboardparceiro/receita"
+              ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
+              activeClassName="navlink--active"
+            >
+              <FaChartLine />
+              <span>Ganhos</span>
+            </NavLink>
+          )}
           <NavLink
-            to="/dashboardparceiro/servicos"
-            ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
-            activeClassName="navlink--active"
-          >
-            <img src={LogoAside} alt="serviços" />
-            <span>Serviços</span>
-          </NavLink>
-          <NavLink
-            to="/dashboardparceiro/receita"
-            ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
-            activeClassName="navlink--active"
-          >
-            <FaChartLine />
-            <span>Ganhos</span>
-          </NavLink>
-          <NavLink
-            to="/dashboardparceiro/avaliacoes"
+            to={
+              user?.partner
+                ? "/dashboardparceiro/avaliacoes"
+                : "/dashboardcliente/avaliacoes"
+            }
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
             <FaStar />
             <span>Avaliações</span>
           </NavLink>
-          <NavLink
-            to="/dashboardparceiro/reclamacoes"
-            ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
-            activeClassName="navlink--active"
-          >
-            <FaBullhorn />
-            <span>Reclamações</span>
-          </NavLink>
-          {/* <NavLink
-            to="/dashboardparceiro/configuracoes"
-            ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
-            activeClassName="navlink--active"
-          >
-            <FaCog />
-            <span>Configurações</span>
-          </NavLink> */}
           <span className="indicator" ref={indicator}></span>
         </MenuWrapper>
       </div>

@@ -5,6 +5,8 @@ import { History } from "history";
 import { useAuth } from "../Auth";
 import { notification } from "antd";
 import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
+import { useState } from "react";
+import { AxiosResponse } from "axios";
 
 interface ClientProviderProps {
   children: ReactNode;
@@ -26,8 +28,9 @@ interface ClientProviderData {
 
   deleteClient: (idClient: number) => void;
   editClient: (clientData: EditClient) => void;
-
+  getAllClients: () => void;
   searchClient: (idClient: number) => void;
+  clients: ClientData[];
 }
 
 const ClientContext = createContext<ClientProviderData>(
@@ -36,6 +39,7 @@ const ClientContext = createContext<ClientProviderData>(
 
 export const ClientProvider = ({ children }: ClientProviderProps) => {
   const { token, idClient } = useAuth();
+  const [clients, setClients] = useState<ClientData[]>([]);
 
   // registrar cliente
   const newClient = (
@@ -87,7 +91,19 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
           Authorization: "Bearer " + token,
         },
       })
-      .then((response) => console.log(response.status))
+      .then((response) =>
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            fontFamily: "Roboto",
+            backgroundColor: "var(--gray)",
+            WebkitBorderRadius: 4,
+          },
+          description: "Dados atualizados",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        })
+      )
       .catch((err) => console.log(err));
   };
   const searchClient = (idClient: number) => {
@@ -98,6 +114,16 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         },
       })
       .then((response) => console.log(response.data))
+      .catch((err) => console.log(err));
+  };
+  const getAllClients = () => {
+    api
+      .get(`users/?partner=false`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response: AxiosResponse) => setClients([...response.data]))
       .catch((err) => console.log(err));
   };
   const deleteClient = (idClient: number) => {
@@ -118,6 +144,8 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         editClient,
         deleteClient,
         searchClient,
+        getAllClients,
+        clients,
       }}
     >
       {children}

@@ -1,20 +1,21 @@
-import { Modal } from "antd";
 import { SetStateAction, Dispatch } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
 import { useServices } from "../../providers/Services";
+import { notification } from "antd";
+import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import {
   ContainerInfo,
   ContainerRow,
   CloseIcon,
-  TitleModal,
   ServiceClass,
   Subtitles,
   GeneralInfo,
   Adress,
   ServiceDetails,
+  CustomModal,
 } from "./styles";
 import { useState } from "react";
 interface ModalProps {
@@ -35,23 +36,36 @@ const ModalAvailableService = ({
       {
         opened: false,
         partnerId: user?.id,
-        serviceId: service?.id,
+        serviceId: service.id,
       },
       setError
     );
     setVisible(!visible);
+    notification.open({
+      message: "Sucesso",
+      closeIcon: <FaTimes />,
+      style: {
+        WebkitBorderRadius: 4,
+      },
+      description: "Serviço aceito",
+      icon: <FaCheckCircle style={{ color: "green" }} />,
+    });
   };
 
   return (
-    <Modal
+    <CustomModal
       visible={visible}
       centered
       onOk={() => setVisible(false)}
       onCancel={() => setVisible(false)}
       footer={null}
       closeIcon={<CloseIcon />}
+      width={600}
+      title="Serviço disponível"
+      okText="Criar"
+      cancelText="Cancelar"
     >
-      <TitleModal>Serviço disponível</TitleModal>
+      {/* <TitleModal>Serviço disponível</TitleModal> */}
       <ContainerInfo>
         <ServiceClass>{service.serviceDetails.class}</ServiceClass>
         {service.serviceDetails.class.toLowerCase() !== "passadoria" && (
@@ -63,17 +77,17 @@ const ModalAvailableService = ({
             </ServiceDetails>
           </>
         )}
+        {error && ""}
         <Subtitles>Endereço:</Subtitles>
-        <Adress>
-          R. Gen. Mário Tourinho, 1733 - 706 - Seminário, Curitiba - PR,
-          80740-000
-        </Adress>
+        <Adress>{service?.adress}</Adress>
         <Subtitles>Contratante:</Subtitles>
-        <GeneralInfo>nome do contratante</GeneralInfo>
+        <GeneralInfo>{service?.name}</GeneralInfo>
         <ContainerRow>
           <ContainerInfo>
             <Subtitles>Duração total:</Subtitles>
-            <GeneralInfo>{service.serviceDetails.hours} horas</GeneralInfo>
+            <GeneralInfo className="hours">
+              {service.serviceDetails.hours} horas
+            </GeneralInfo>
           </ContainerInfo>
           <ContainerInfo>
             <Subtitles>Valor</Subtitles>
@@ -85,7 +99,7 @@ const ModalAvailableService = ({
         </ContainerRow>
         <Button onClickFunc={handleAccept}>Aceitar</Button>
       </ContainerInfo>
-    </Modal>
+    </CustomModal>
   );
 };
 export default ModalAvailableService;

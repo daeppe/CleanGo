@@ -51,6 +51,35 @@ const RequestService = () => {
     partnerId: 0,
   });
 
+  const serviceMaxHour: any = {
+    "Limpeza Residencial": 8,
+    Passadoria: 6,
+  };
+
+  const basePrice: any = {
+    Studio: 120,
+    Apartamento: 150,
+    Casa: 180,
+  };
+
+  const handleHours = (newValue: string) => {
+    newValue < hours ? setPrice(price - 20) : setPrice(price + 20);
+
+    setHours(newValue);
+  };
+
+  const handleBedrooms = (newValue: string) => {
+    newValue < bedroom ? setPrice(price - 10) : setPrice(price + 10);
+
+    setBedrooms(newValue);
+  };
+
+  const handleBathrooms = (newValue: string) => {
+    newValue < bathroom ? setPrice(price - 10) : setPrice(price + 10);
+
+    setBathrooms(newValue);
+  };
+
   const onSubmitFunction = async (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -115,7 +144,12 @@ const RequestService = () => {
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    value === "Passadoria" && setHome("") && setHours("5");
+    setHours("1");
+    setPrice(0);
+    if (value === "Passadoria") {
+      setHome("");
+      setPrice(80);
+    }
     value && setService(value);
   };
 
@@ -124,7 +158,19 @@ const RequestService = () => {
   ) => {
     const value = event.target.value;
     value && setHome(value);
-    setPrice(1);
+    value === "Studio" && setHours("5");
+    value === "Studio"
+      ? setPrice(
+          basePrice[value] +
+            (parseInt(bathroom) - 1) * 10 +
+            (parseInt(bedroom) - 1) * 10
+        )
+      : setPrice(
+          basePrice[value] +
+            (parseInt(hours) - 1) * 20 +
+            (parseInt(bathroom) - 1) * 10 +
+            (parseInt(bedroom) - 1) * 10
+        );
   };
   return (
     <>
@@ -199,7 +245,7 @@ const RequestService = () => {
                   name="bedroom"
                   value={bedroom}
                   maxValue={4}
-                  setValue={setBedrooms}
+                  setValue={handleBedrooms}
                 ></InputNumber>
                 <InputNumberLabel>Quarto</InputNumberLabel>
               </InputNumberWrapper>
@@ -208,7 +254,7 @@ const RequestService = () => {
                   name="bedroom"
                   maxValue={4}
                   value={bathroom}
-                  setValue={setBathrooms}
+                  setValue={handleBathrooms}
                 ></InputNumber>
                 <InputNumberLabel>Banheiro</InputNumberLabel>
               </InputNumberWrapper>
@@ -229,14 +275,14 @@ const RequestService = () => {
                   value={hours}
                   maxValue={5}
                   minValue={5}
-                  setValue={setHours}
+                  setValue={handleHours}
                 />
               ) : (
                 <InputNumber
                   name="type"
                   value={hours}
-                  maxValue={8}
-                  setValue={setHours}
+                  maxValue={serviceMaxHour[service]}
+                  setValue={handleHours}
                 />
               )}
 

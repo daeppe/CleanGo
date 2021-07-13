@@ -10,6 +10,7 @@ import {
 import { ServiceData, AcceptService } from "../../types/ServiceData";
 import { useState } from "react";
 import { useAuth } from "../Auth";
+import { AxiosResponse } from "axios";
 
 interface ServicesProviderProps {
   children: ReactNode;
@@ -41,7 +42,7 @@ interface ServicesProviderData {
   ) => void;
   getServicesAccepted: (
     setError: Dispatch<SetStateAction<boolean>>,
-    partnerId: number
+    partnerId?: number
   ) => void;
   services: ServiceData[];
   servicesAccept: ServiceData[];
@@ -116,13 +117,16 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   ) => {
     page && limit
       ? api
-          .get<ServiceData[]>(`services?_page=${page}&_limit=${limit}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
+          .get<ServiceData[]>(
+            `services?opened=true&_page=${page}&_limit=${limit}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
           .then((response) => setServices(response.data))
           .catch((err) => setError(true))
       : api
-          .get<ServiceData[]>(`services`, {
+          .get<ServiceData[]>(`services?opened=true`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((response) => setServices(response.data))
@@ -131,25 +135,30 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
 
   const getServicesAccepted = (
     setError: Dispatch<SetStateAction<boolean>>,
-    partnerId: number
+    partnerId: number = 0
   ) => {
-    let servicesAcc: ServiceData[] = [];
+    if (partnerId === 0) {
+      console.log("err");
+      return setError(true);
+    }
+    console.log("suc");
 
     api
       .get<ServiceData[]>(`services?partnerId=${partnerId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => (servicesAcc = [...response.data]))
+      .then((response: AxiosResponse) => setServicesAccept([...response.data]))
       .catch((err) => setError(true));
-
-    setServicesAccept(servicesAcc);
-    return servicesAcc;
   };
+
   const filterServices = (filter: string) => {
     api
-      .get<ServiceData[]>(`services?serviceDetails.class=${filter}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get<ServiceData[]>(
+        `services?serviceDetails.class=${filter}&opened=true`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((response) => setFilteredServices(response.data))
       .catch((err) => console.log(err));
   };
