@@ -3,6 +3,7 @@ import { Container } from "./styles";
 import formatValue from "../../utils/formatedPrice";
 import ModalAvailableService from "../ModalAvailableService";
 import { useState } from "react";
+
 interface CardProps {
   service: ServiceData;
 }

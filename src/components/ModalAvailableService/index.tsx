@@ -17,6 +17,7 @@ import {
   GeneralInfo,
   Adress,
   ServiceDetails,
+  CustomModal,
 } from "./styles";
 import { useState } from "react";
 interface ModalProps {
@@ -29,14 +30,14 @@ const ModalAvailableService = ({
   visible,
   setVisible,
 }: ModalProps) => {
-  const { idClient } = useAuth();
+  const { user } = useAuth();
   const { acceptService } = useServices();
   const [error, setError] = useState<boolean>(false);
   const handleAccept = () => {
     acceptService(
       {
         opened: false,
-        partnerId: idClient,
+        partnerId: user?.id,
         serviceId: service.id,
       },
       setError
@@ -54,15 +55,19 @@ const ModalAvailableService = ({
   };
 
   return (
-    <Modal
+    <CustomModal
       visible={visible}
       centered
       onOk={() => setVisible(false)}
       onCancel={() => setVisible(false)}
       footer={null}
       closeIcon={<CloseIcon />}
+      width={600}
+      title="Serviço disponível"
+      okText="Criar"
+      cancelText="Cancelar"
     >
-      <TitleModal>Serviço disponível</TitleModal>
+      {/* <TitleModal>Serviço disponível</TitleModal> */}
       <ContainerInfo>
         <ServiceClass>{service.serviceDetails.class}</ServiceClass>
         {service.serviceDetails.class.toLowerCase() !== "passadoria" && (
@@ -82,7 +87,9 @@ const ModalAvailableService = ({
         <ContainerRow>
           <ContainerInfo>
             <Subtitles>Duração total:</Subtitles>
-            <GeneralInfo>{service.serviceDetails.hours} horas</GeneralInfo>
+            <GeneralInfo className="hours">
+              {service.serviceDetails.hours} horas
+            </GeneralInfo>
           </ContainerInfo>
           <ContainerInfo>
             <Subtitles>Valor</Subtitles>
@@ -94,7 +101,7 @@ const ModalAvailableService = ({
         </ContainerRow>
         <Button onClickFunc={handleAccept}>Aceitar</Button>
       </ContainerInfo>
-    </Modal>
+    </CustomModal>
   );
 };
 export default ModalAvailableService;

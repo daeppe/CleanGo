@@ -10,6 +10,7 @@ import {
 import { ServiceData, AcceptService } from "../../types/ServiceData";
 import { useState } from "react";
 import { useAuth } from "../Auth";
+import { AxiosResponse } from "axios";
 
 interface ServicesProviderProps {
   children: ReactNode;
@@ -41,7 +42,7 @@ interface ServicesProviderData {
   ) => void;
   getServicesAccepted: (
     setError: Dispatch<SetStateAction<boolean>>,
-    partnerId: number
+    partnerId?: number
   ) => void;
   services: ServiceData[];
   servicesAccept: ServiceData[];
@@ -134,20 +135,20 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
 
   const getServicesAccepted = (
     setError: Dispatch<SetStateAction<boolean>>,
-    partnerId: number
+    partnerId?: number
   ) => {
-    let servicesAcc: ServiceData[] = [];
+    if (partnerId === 0) {
+      return setError(true);
+    }
 
     api
       .get<ServiceData[]>(`services?partnerId=${partnerId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => (servicesAcc = [...response.data]))
+      .then((response: AxiosResponse) => setServicesAccept([...response.data]))
       .catch((err) => setError(true));
-
-    setServicesAccept(servicesAcc);
-    return servicesAcc;
   };
+
   const filterServices = (filter: string) => {
     api
       .get<ServiceData[]>(
