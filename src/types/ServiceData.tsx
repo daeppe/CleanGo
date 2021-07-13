@@ -16,6 +16,11 @@ export interface ServiceData {
   partnerId: number;
   formatedPrice?: string;
   id?: number;
+  address: string;
+  cep: string;
+  uf: string;
+  district: string;
+  city: string;
 }
 export interface AcceptService {
   partnerId: number | undefined;

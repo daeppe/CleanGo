@@ -33,11 +33,18 @@ const RequestService = () => {
   const [hours, setHours] = useState("1");
   const [bedroom, setBedrooms] = useState("1");
   const [bathroom, setBathrooms] = useState("1");
+  const [address, setAddress] = useState("");
+  const [cep, setCep] = useState("");
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [uf, setUf] = useState("AC");
   const [error, setError] = useState(false);
   const [price, setPrice] = useState(0);
   const { newService } = useServices();
   const { idClient } = useAuth();
   const [dateError, setDateError] = useState(false);
+  const [cepError, setCepError] = useState(false);
+
   const [serviceFull, setServiceFull] = useState<ServiceData>({
     userId: idClient,
     date: parseInt(date),
@@ -49,11 +56,21 @@ const RequestService = () => {
     opened: true,
     completed: false,
     partnerId: 0,
+    address: "",
+    cep: cep,
+    uf: "",
+    district: "",
+    city: "",
   });
 
   const serviceMaxHour: any = {
     "Limpeza Residencial": 8,
     Passadoria: 6,
+  };
+
+  const serviceMinHour: any = {
+    "Limpeza Residencial": 6,
+    Passadoria: 1,
   };
 
   const basePrice: any = {
@@ -80,6 +97,26 @@ const RequestService = () => {
     setBathrooms(newValue);
   };
 
+  async function getAddress(value: string) {
+    let cep = value.replace(/(\d{5})(\d{3})/g, "$1-$2");
+    setCep(cep);
+
+    if (cep !== "" && cep.length === 9) {
+      cep = cep.replace(/\D/g, "");
+      const url = `https://viacep.com.br/ws/${cep}/json/unicode/`;
+
+      fetch(url)
+        .then((res) => res.json())
+        .then((address) => {
+          console.log(address);
+          setAddress(address.logradouro);
+          setDistrict(address.bairro);
+          setCity(address.localidade);
+          setUf(address.uf);
+        });
+    }
+  }
+
   const onSubmitFunction = async (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -98,6 +135,11 @@ const RequestService = () => {
           opened: true,
           completed: false,
           partnerId: 0,
+          address: address,
+          cep: cep,
+          uf: uf,
+          district: district,
+          city: city,
         })
       : setServiceFull({
           userId: idClient,
@@ -110,6 +152,11 @@ const RequestService = () => {
           opened: true,
           completed: false,
           partnerId: 0,
+          address: address,
+          cep: cep,
+          uf: uf,
+          district: district,
+          city: city,
         });
 
     const schema = yup.object().shape({
@@ -119,12 +166,18 @@ const RequestService = () => {
       type: yup.string(),
       bedroom: yup.number(),
       bathroom: yup.number(),
+      cep: yup.string().required("Todos os campos são obrigatórios"),
+      uf: yup.string().required("Todos os campos são obrigatórios"),
+      address: yup.string().required("Todos os campos são obrigatórios"),
+      district: yup.string().required("Todos os campos são obrigatórios"),
+      city: yup.string().required("Todos os campos são obrigatórios"),
     });
 
     await schema
       .validate({ ...serviceFull })
       .then((_) => {
         newService(serviceFull, setError);
+        cep === "" && setCepError(true);
       })
       .catch((err) => {
         notification.open({
@@ -149,6 +202,8 @@ const RequestService = () => {
     if (value === "Passadoria") {
       setHome("");
       setPrice(80);
+    } else {
+      setHours("6");
     }
     value && setService(value);
   };
@@ -158,19 +213,18 @@ const RequestService = () => {
   ) => {
     const value = event.target.value;
     value && setHome(value);
-    value === "Studio" && setHours("5");
-    value === "Studio"
-      ? setPrice(
-          basePrice[value] +
-            (parseInt(bathroom) - 1) * 10 +
-            (parseInt(bedroom) - 1) * 10
-        )
-      : setPrice(
-          basePrice[value] +
-            (parseInt(hours) - 1) * 20 +
-            (parseInt(bathroom) - 1) * 10 +
-            (parseInt(bedroom) - 1) * 10
-        );
+
+    let totalPrice =
+      basePrice[value] +
+      (parseInt(bathroom) - 1) * 10 +
+      (parseInt(bedroom) - 1) * 10;
+
+    if (value === "Studio") {
+      setHours("5");
+    } else {
+      setHours("6");
+    }
+    setPrice(totalPrice);
   };
   return (
     <>
@@ -261,7 +315,6 @@ const RequestService = () => {
             </RoomsWrapper>
           </Column>
         )}
-
         <Column>
           <SectionTitle>Quantas Horas?</SectionTitle>
           <Subtitle>
@@ -282,6 +335,7 @@ const RequestService = () => {
                   name="type"
                   value={hours}
                   maxValue={serviceMaxHour[service]}
+                  minValue={serviceMinHour[service]}
                   setValue={handleHours}
                 />
               )}
@@ -294,6 +348,20 @@ const RequestService = () => {
               } peças`}</LimitPieces>
             )}
           </Row>
+        </Column>
+        <Column>
+          <Input
+            label="CEP"
+            inputType="text"
+            placeholder="00000-000"
+            errorMessage="Campo obrigatório"
+            error={cepError}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              getAddress(e.target.value);
+              setCepError(false);
+            }}
+            value={cep}
+          />
         </Column>
 
         <Column>
