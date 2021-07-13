@@ -53,7 +53,6 @@ const Main = () => {
   }, [feedbacks]);
 
   useEffect(() => {
-    console.log(servicesAccept);
     if (servicesAccept.length !== 0) {
       let now: number | Date = new Date();
       let month = now.getMonth();
