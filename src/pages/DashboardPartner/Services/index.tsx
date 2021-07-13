@@ -22,28 +22,30 @@ const Services = () => {
 
   const handleNextPage = () => {
     setPageNumber(pageNumber + 1);
-    getServices(setError, pageNumber, 12);
-    if (services.length < 12 || filteredServices.length < 12) {
+    if (services.length < 10 || filteredServices.length < 10) {
       setDisableNext(true);
     }
+    setDisablePrev(false);
   };
   const handlePrevPage = () => {
-    if (pageNumber > 1) {
+    if (pageNumber >= 2) {
       setPageNumber(pageNumber - 1);
-      getServices(setError, pageNumber, 12);
       setDisablePrev(false);
+      setDisableNext(false);
     } else {
+      setDisableNext(false);
       setDisablePrev(true);
     }
   };
 
   useEffect(() => {
-    getServices(setError);
-    if (services.length < 12) {
-      setDisableNext(true);
+    getServices(setError, pageNumber, 10);
+    console.log(pageNumber);
+    if (pageNumber === 1) {
+      setDisablePrev(true);
     }
     // eslint-disable-next-line
-  }, [services, filteredServices]);
+  }, [pageNumber]);
   return (
     <Container>
       <ContainerSelect>

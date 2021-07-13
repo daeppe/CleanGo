@@ -46,7 +46,7 @@ const RequestService = () => {
   const [error, setError] = useState(false);
   const [price, setPrice] = useState(0);
   const { newService } = useServices();
-  const { idClient } = useAuth();
+  const { idClient, user } = useAuth();
   const [dateError, setDateError] = useState(false);
   const [cepError, setCepError] = useState(false);
 
@@ -147,6 +147,7 @@ const RequestService = () => {
           uf: uf,
           district: district,
           city: city,
+          contractor: user?.name,
         })
       : (serviceF = {
           userId: idClient,
@@ -164,6 +165,7 @@ const RequestService = () => {
           uf: uf,
           district: district,
           city: city,
+          contractor: user?.name,
         });
 
     const schema = yup.object().shape({
