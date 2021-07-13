@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { FaHome, FaChartLine, FaStar, FaCog } from "react-icons/fa";
+import { FaHome, FaChartLine, FaStar, FaCog, FaTasks } from "react-icons/fa";
 import { AsideContainer, MenuWrapper, Logo } from "./styles";
 import LogoWhite from "../../asssets/svg/only-logo-white.svg";
 import LogoAside from "../../asssets/svg/logo-white-aside.svg";
@@ -69,16 +69,18 @@ const Aside = () => {
             <FaHome />
             <span>Dashboard</span>
           </NavLink>
-          {user?.partner && (
-            <NavLink
-              to="/dashboardparceiro/servicos"
-              ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
-              activeClassName="navlink--active"
-            >
-              <img src={LogoAside} alt="serviços" />
-              <span>Serviços</span>
-            </NavLink>
-          )}
+          <NavLink
+            to={
+              user?.partner
+                ? "/dashboardparceiro/servicos"
+                : "/dashboardcliente/servicos"
+            }
+            ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
+            activeClassName="navlink--active"
+          >
+            <img src={LogoAside} alt="serviços" />
+            <span>Serviços</span>
+          </NavLink>
           {user?.partner && (
             <NavLink
               to="/dashboardparceiro/receita"
@@ -93,13 +95,13 @@ const Aside = () => {
             to={
               user?.partner
                 ? "/dashboardparceiro/avaliacoes"
-                : "/dashboardcliente/avaliacoes"
+                : "/dashboardcliente/avaliacoes-e-servicos"
             }
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
             activeClassName="navlink--active"
           >
-            <FaStar />
-            <span>Avaliações</span>
+            {user?.partner ? <FaStar /> : <FaTasks />}
+            <span>{user?.partner ? "Avaliações" : "Histórico"}</span>
           </NavLink>
           {!user?.partner && (
             <NavLink
