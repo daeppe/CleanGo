@@ -97,6 +97,15 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then(() => {
         getServicesAccepted(setError, user?.id);
         getServices(setError);
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description: "Serviço aceito",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        });
       })
       .catch((err) => setError(true));
   };
@@ -113,6 +122,17 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
+      .then((_) => {
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description: "Serviço finalizado",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        });
+      })
       .catch((err) => setError(true));
   };
   const deleteService = (

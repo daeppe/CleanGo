@@ -72,7 +72,7 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
       <ContainerInfo>
         {review ? (
           <>
-            <ServiceClass>Avaliar: {service.name}</ServiceClass>
+            <ServiceClass>Avaliar: {service.contractor}</ServiceClass>
             {error && ""}
             <WrapperStars>
               <Stars onClick={() => setStars(1)}>
@@ -123,9 +123,9 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
             )}
             {error && ""}
             <Subtitles>Endereço:</Subtitles>
-            <Adress>{service?.adress}</Adress>
+            <Adress>{`${service.address} - ${service.district},  ${service.city} - ${service.uf}, ${service.cep}`}</Adress>
             <Subtitles>Contratante:</Subtitles>
-            <GeneralInfo>{service?.name}</GeneralInfo>
+            <GeneralInfo>{service.contractor}</GeneralInfo>
             <ContainerRow>
               <ContainerInfo>
                 <Subtitles>Duração total:</Subtitles>
