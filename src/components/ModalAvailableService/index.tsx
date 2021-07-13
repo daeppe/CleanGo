@@ -1,4 +1,3 @@
-import { Modal } from "antd";
 import { SetStateAction, Dispatch } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
@@ -11,7 +10,6 @@ import {
   ContainerInfo,
   ContainerRow,
   CloseIcon,
-  TitleModal,
   ServiceClass,
   Subtitles,
   GeneralInfo,
