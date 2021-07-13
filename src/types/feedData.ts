@@ -4,10 +4,10 @@ export interface FeedData {
     textPost: string;
     likes: Likes;
     date: number;
-    id?: number;
+    id: number;
   }
 
 export interface Likes{
     amount: number;
-    whoLikes?: Array<number>;
+    people: Array<number>;
   }
