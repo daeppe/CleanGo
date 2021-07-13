@@ -11,6 +11,8 @@ import { ServiceData, AcceptService } from "../../types/ServiceData";
 import { useState } from "react";
 import { useAuth } from "../Auth";
 import { AxiosResponse } from "axios";
+import { notification } from "antd";
+import { FaCheckCircle, FaTimes } from "react-icons/fa";
 
 interface ServicesProviderProps {
   children: ReactNode;
@@ -56,7 +58,7 @@ export const ServicesContext = createContext<ServicesProviderData>(
 );
 
 export const ServiceProvider = ({ children }: ServicesProviderProps) => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [services, setServices] = useState<ServiceData[]>([]);
   const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
@@ -69,7 +71,19 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .post("services", serviceData, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(() => getServices(setError))
+      .then(() => {
+        getServices(setError);
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description:
+            "Pedido de serviço concluído! Acompanhe detalhes na págine de serviços.",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        });
+      })
       .catch((err) => setError(true));
   };
   const acceptService = (
@@ -80,7 +94,10 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .patch(`services/${data.serviceId}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(() => getServices(setError))
+      .then(() => {
+        getServicesAccepted(setError, user?.id);
+        getServices(setError);
+      })
       .catch((err) => setError(true));
   };
   const finishService = (

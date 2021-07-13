@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import ModalReviewService from "../ModalReviewService";
 import formatValue from "../../utils/formatedPrice";
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 import { Container, Content, TableRow, TitleTable } from "./styles";
 
@@ -16,12 +18,15 @@ interface TableRowElementProps {
 
 const TableRowElement = ({ service }: TableRowElementProps) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const date = format(service.date, "dd MMM yyyy", {
+    locale: ptBR,
+  });
 
   return (
     <>
       <Content onClick={() => setVisible(!visible)}>
         <TableRow>{service.serviceDetails.class}</TableRow>
-        <TableRow>{}</TableRow>
+        <TableRow>{date}</TableRow>
         <TableRow>{formatValue(service.price)}</TableRow>
       </Content>
       <ModalReviewService
