@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AvailableServices from "../../../components/AvailableServices";
 import Button from "../../../components/Button";
 import LastGains from "../../../components/LastGains";
 import ReviewsTotal from "../../../components/ReviewsTotal";
 import WeekService from "../../../components/WeekService";
+import { useAuth } from "../../../providers/Auth";
+import { useFeedback } from "../../../providers/Feedbacks";
+import { useServices } from "../../../providers/Services";
+import { ServiceData } from "../../../types/ServiceData";
 import {
   Container,
   FeaturesColumn,
@@ -13,14 +17,78 @@ import {
 } from "./styles";
 
 const Main = () => {
+  const { user } = useAuth();
+  const { getAllFeedback, feedbacks } = useFeedback();
+  const { getServicesAccepted, servicesAccept } = useServices();
+
+  const [servicesAcc, setServicesAcc] = useState<ServiceData[]>([]);
+  const [error, setError] = useState(false);
+  const [totalFeedback, setTotalFeedback] = useState(0);
+  const [totalService, setTotalService] = useState(0);
+
+  useEffect(() => {
+    console.log(user?.id);
+    getAllFeedback(user?.id || 0, setError);
+    getServicesAccepted(setError, user?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (feedbacks.length === 0) {
+      setTotalFeedback(5);
+    } else {
+      let result: number = 0;
+
+      feedbacks.forEach((feedback) => {
+        if (feedback.score) {
+          result += feedback.score;
+        }
+      });
+
+      result = result / feedbacks.length;
+      setTotalFeedback(result);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feedbacks]);
+
+  useEffect(() => {
+    console.log(servicesAccept);
+    if (servicesAccept.length !== 0) {
+      let now: number | Date = new Date();
+      let month = now.getMonth();
+      const servicesFiltered = servicesAccept.filter((service) => {
+        let date = new Date(service.date);
+        console.log(new Date(service.date));
+        return date.getMonth() === month;
+      });
+      setServicesAcc([...servicesFiltered]);
+
+      let totalValue: number = 0;
+      console.log(servicesFiltered);
+      servicesFiltered.forEach((service) => {
+        if (service.completed) {
+          totalValue += service.price;
+        }
+      });
+      setTotalService(totalValue);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [servicesAccept]);
+
   return (
     <Container>
       <FeaturesColumn>
         <AvailableServices />
-        <WeekService />
+        <WeekService
+          services={servicesAcc}
+          servicesAccept={servicesAccept}
+          error={error}
+        />
         <WrapperSections>
-          <LastGains total={2500} />
-          <ReviewsTotal total={4.35} />
+          <LastGains total={totalService} />
+          <ReviewsTotal total={totalFeedback.toFixed(2)} />
         </WrapperSections>
       </FeaturesColumn>
       <FeedColumn>

@@ -5,6 +5,8 @@ import { History } from "history";
 import { useAuth } from "../Auth";
 import { notification } from "antd";
 import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
+import { useState } from "react";
+import { AxiosResponse } from "axios";
 
 interface ClientProviderProps {
   children: ReactNode;
@@ -26,7 +28,7 @@ interface ClientProviderData {
 
   deleteClient: (idClient: number) => void;
   editClient: (clientData: EditClient) => void;
-
+  getAllClients: () => void;
   searchClient: (idClient: number) => void;
 }
 
@@ -36,6 +38,7 @@ const ClientContext = createContext<ClientProviderData>(
 
 export const ClientProvider = ({ children }: ClientProviderProps) => {
   const { token, idClient } = useAuth();
+  const [clients, setClients] = useState<ClientData[]>([]);
 
   // registrar cliente
   const newClient = (
@@ -100,6 +103,16 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
       .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
   };
+  const getAllClients = () => {
+    api
+      .get(`users/?partner=false`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response: AxiosResponse) => setClients([...response.data]))
+      .catch((err) => console.log(err));
+  };
   const deleteClient = (idClient: number) => {
     api
       .delete(`users/${idClient}`, {
@@ -118,6 +131,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         editClient,
         deleteClient,
         searchClient,
+        getAllClients,
       }}
     >
       {children}
