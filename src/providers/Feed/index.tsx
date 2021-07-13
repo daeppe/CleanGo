@@ -46,11 +46,14 @@ export const FeedProvider = ({ children }: ProviderProps) => {
   }, [token]);
 
   const feedPost = (feedData: FeedData) => {
-    api.post("feed", feedData, {
-      headers: {
-        Authorization: "Bearer" + token,
-      },
-    });
+    api
+      .post("feed", feedData, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res: AxiosResponse) => setFeeds([...feeds, feedData]))
+      .catch((err: AxiosError) => console.log(err.response));
   };
 
   const feedLike = (feedId: number, feedData: Likes) => {

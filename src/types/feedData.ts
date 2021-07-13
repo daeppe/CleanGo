@@ -1,10 +1,9 @@
 export interface FeedData {
-    userId: number;
-    name: string;
+    userId: number | undefined;
+    name: string | undefined;
     textPost: string;
-    likes: Likes;
     date: number;
-    id: number;
+    id?: number;
   }
 
 export interface Likes{

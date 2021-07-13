@@ -3,19 +3,24 @@ import { useAuth } from "../../providers/Auth";
 import { useFeed } from "../../providers/Feed";
 import Button from "../Button";
 import { FeedColumn, FeedPost, InputFeed } from "./styles";
+import { format } from "date-fns";
 
 const FeedCard = () => {
   const { feeds, feedPost } = useFeed();
   const { user } = useAuth();
   const [text, setText] = useState<string>("");
 
+  const date = new Date();
+
   const feedData = (text: string) => {
     const data = {
       userId: user?.id,
       name: user?.name,
       textPost: text,
-      date: ,
+      date: date.getTime(),
     };
+
+    feedPost(data);
   };
 
   return (
@@ -34,7 +39,7 @@ const FeedCard = () => {
             <FeedPost key={ind}>
               <h3>{name}</h3>
               <p>{textPost}</p>
-              <data>Publicado em {date}</data>
+              <data>Publicado em {format(date, "dd-MM-yyyy")}</data>
               <hr />
             </FeedPost>
           );
