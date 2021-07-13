@@ -11,6 +11,7 @@ interface LastServicesProps {
 const LastServices = ({ services }: LastServicesProps) => {
   useEffect(() => {
     console.log(services);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
