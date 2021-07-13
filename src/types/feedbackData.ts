@@ -1,5 +1,5 @@
 export interface FeedBackData {
-  partnerId: number;
+  userId: number;
   score: number;
   feedback: string;
 }
