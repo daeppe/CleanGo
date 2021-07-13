@@ -15,15 +15,11 @@ const HeaderNavAuth = ({ name }: HeaderNavAuthProps) => {
   return (
     <Container>
       <p>{`Olá, ${user?.name}`}</p>
-      <Links
-        onClick={() =>
-          user?.partner
-            ? history.push("/dashboardparceiro/configuracoes")
-            : history.push("/dashboardcliente/configuracoes")
-        }
-      >
-        <FaCog className="config" />
-      </Links>
+      {user?.partner && (
+        <Links onClick={() => history.push("/dashboardparceiro/configuracoes")}>
+          <FaCog className="config" />
+        </Links>
+      )}
       <Links onClick={() => userLogoff(history)}>
         <IoExitOutline />
       </Links>

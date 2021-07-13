@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { FaHome, FaChartLine, FaStar } from "react-icons/fa";
+import { FaHome, FaChartLine, FaStar, FaCog } from "react-icons/fa";
 import { AsideContainer, MenuWrapper, Logo } from "./styles";
 import LogoWhite from "../../asssets/svg/only-logo-white.svg";
 import LogoAside from "../../asssets/svg/logo-white-aside.svg";
@@ -56,7 +56,11 @@ const Aside = () => {
     <AsideContainer>
       <Logo src={LogoWhite} alt="Logo"></Logo>
       <div>
-        <MenuWrapper topIndicator={topIndicator} leftIndicator={leftIndicator}>
+        <MenuWrapper
+          isPartner={user?.partner}
+          topIndicator={topIndicator}
+          leftIndicator={leftIndicator}
+        >
           <NavLink
             to={user?.partner ? "/dashboardparceiro/" : "/dashboardcliente/"}
             ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
@@ -97,6 +101,16 @@ const Aside = () => {
             <FaStar />
             <span>Avaliações</span>
           </NavLink>
+          {!user?.partner && (
+            <NavLink
+              to={"/dashboardcliente/configuracoes"}
+              ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
+              activeClassName="navlink--active"
+            >
+              <FaCog />
+              <span>Configurações</span>
+            </NavLink>
+          )}
           <span className="indicator" ref={indicator}></span>
         </MenuWrapper>
       </div>
