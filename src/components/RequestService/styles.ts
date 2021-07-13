@@ -116,17 +116,22 @@ export const SectionTitle = styled.h3`
 `;
 
 export const LimitPieces = styled.div`
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 186px;
+  width: 250px;
   height: 46px;
   background-color: var(--green);
   color: var(--white);
   border-radius: 4px;
-  margin-left: 4rem;
+  margin-left: 2rem;
+  @media screen and (min-width: 440px) {
+    font-size: 18px;
+    width: 186px;
+    margin-left: 4rem;
+  }
 `;
 
 export const DateWrapper = styled.div`
