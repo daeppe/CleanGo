@@ -141,7 +141,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       console.log("err");
       return setError(true);
     }
-    console.log("suc");
+    console.log(partnerId);
 
     api
       .get<ServiceData[]>(`services?partnerId=${partnerId}`, {
