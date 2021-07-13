@@ -48,7 +48,11 @@ export const Links = styled.span`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
+  .config {
+    color: var(--dark-gray);
+    margin: 0 1rem 0 0;
+    font-size: 1.5rem;
+  }
   @media screen and (min-width: 840px) {
     margin-bottom: 0px;
     padding-bottom: 0;
