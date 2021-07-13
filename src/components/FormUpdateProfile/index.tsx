@@ -12,20 +12,19 @@ import {
   SelectStyled,
   ContainerSelect,
 } from "./styles";
-import { useEffect } from "react";
 
 const FormUpdateProfile = () => {
   const { editPartner } = usePartners();
   const { idClient, token, user } = useAuth();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [cep, setCep] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [district, setDistrict] = useState("");
-  const [uf, setUf] = useState("AC");
-  const [complement, setComplement] = useState("");
+  const [name, setName] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [phone, setPhone] = useState(user?.phone || "");
+  const [cep, setCep] = useState(user?.cep || "");
+  const [address, setAddress] = useState(user?.address || "");
+  const [city, setCity] = useState(user?.city || "");
+  const [district, setDistrict] = useState(user?.district || "");
+  const [uf, setUf] = useState(user?.uf || "");
+  const [complement, setComplement] = useState(user?.complement || "");
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
@@ -34,9 +33,6 @@ const FormUpdateProfile = () => {
   const [cityError, setCityError] = useState(false);
   const [districtError, setDistrictError] = useState(false);
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
   const phoneMask = (value: string) => {
     if (value.length === 11) {
       value = value.replace(/(\d{2})(\d{5})(\d{4})/g, "($1) $2-$3");
@@ -80,22 +76,21 @@ const FormUpdateProfile = () => {
       complement,
     };
     const schema = yup.object().shape({
-      name: yup.string().required(),
-      email: yup.string().required(),
-      phone: yup.string().required(),
-      cep: yup.string().required(),
-      uf: yup.string().required(),
-      address: yup.string().required(),
-      district: yup.string().required(),
-      city: yup.string().required(),
-      complement: yup.string().notRequired(),
+      name: yup.string(),
+      email: yup.string(),
+      phone: yup.string(),
+      cep: yup.string(),
+      uf: yup.string(),
+      address: yup.string(),
+      district: yup.string(),
+      city: yup.string(),
+      complement: yup.string(),
     });
 
     await schema
       .validate({ ...updateObject })
       .then((v) => {
-        //   editPartner(validObject, idClient, token);
-        // descomentar apos acertar as verificacoes de input vazio
+        editPartner(v, idClient, token);
         console.log(v);
       })
       .catch((err) => {

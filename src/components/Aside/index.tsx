@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { FaHome, FaBullhorn, FaChartLine, FaStar, FaCog } from "react-icons/fa";
+import { FaHome, FaChartLine, FaStar } from "react-icons/fa";
 import { AsideContainer, MenuWrapper, Logo } from "./styles";
 import LogoWhite from "../../asssets/svg/only-logo-white.svg";
 import LogoAside from "../../asssets/svg/logo-white-aside.svg";
@@ -87,22 +87,6 @@ const Aside = () => {
           >
             <FaStar />
             <span>Avaliações</span>
-          </NavLink>
-          <NavLink
-            to="/dashboardparceiro/reclamacoes"
-            ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
-            activeClassName="navlink--active"
-          >
-            <FaBullhorn />
-            <span>Reclamações</span>
-          </NavLink>
-          <NavLink
-            to="/dashboardparceiro/configuracoes"
-            ref={(el: HTMLAnchorElement) => navLinks.current.push(el)}
-            activeClassName="navlink--active"
-          >
-            <FaCog />
-            <span>Configurações</span>
           </NavLink>
           <span className="indicator" ref={indicator}></span>
         </MenuWrapper>
