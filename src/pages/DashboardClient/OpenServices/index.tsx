@@ -12,13 +12,13 @@ import {
 } from "./styles";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useAuth } from "../../../providers/Auth";
+
 const OpenServices = () => {
   const [error, setError] = useState<boolean>(false);
   const [disableNext, setDisableNext] = useState<boolean>(false);
   const [disablePrev, setDisablePrev] = useState<boolean>(true);
   const { getClientServices, clientServices } = useServices();
   const { user } = useAuth();
-
   useEffect(() => {
     getClientServices(setError, false, user?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
