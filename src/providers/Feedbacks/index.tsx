@@ -1,4 +1,10 @@
-import { createContext, Dispatch, ReactNode, useContext } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+} from "react";
 
 import { FeedBackData } from "../../types/feedbackData";
 import api from "../../services/api";
@@ -21,7 +27,7 @@ interface EditFeedback {
 interface FeedbackProviderData {
   newFeedback: (
     feedbackData: FeedBackData,
-    setVisible: Dispatch<boolean>
+    setVisible: Dispatch<SetStateAction<boolean>>
   ) => void;
   deleteFeedback: (idFeedback: number) => void;
   editFeedback: (feedbackData: EditFeedback) => void;
@@ -38,7 +44,7 @@ export const FeedbackProvider = ({ children }: FeedbackProviderProps) => {
 
   const newFeedback = (
     feedbackData: FeedBackData,
-    setVisible: Dispatch<boolean>
+    setVisible: Dispatch<SetStateAction<boolean>>
   ) => {
     api
       .post("feedback", feedbackData, {
