@@ -13,9 +13,11 @@ interface ButtonFormProps {
 export const FormStyled = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 2rem auto 1rem 12rem;
+  margin: 2rem auto 1rem;
   width: 50%;
-
+  @media only screen and (min-width: 768px) {
+    margin: 2rem auto 1rem 12rem;
+  }
   button {
     margin-top: 2rem;
     max-width: 200px;

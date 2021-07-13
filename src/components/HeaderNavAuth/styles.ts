@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 
@@ -19,7 +19,7 @@ export const Container = styled.div`
     display: none;
   }
 
-  @media screen and (min-width: 420px) {
+  @media screen and (min-width: 426px) {
     p {
       display: block;
       margin-bottom: 0px;

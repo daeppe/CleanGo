@@ -8,5 +8,9 @@ export const Title = styled.h1`
   font-weight: 600;
   font-size: 28px;
   color: var(--dark-gray);
-  margin-left: 12rem;
+  text-align: center;
+  @media only screen and (min-width: 768px) {
+    margin-left: 12rem;
+    text-align: left;
+  }
 `;
