@@ -30,6 +30,7 @@ interface ClientProviderData {
   editClient: (clientData: EditClient) => void;
   getAllClients: () => void;
   searchClient: (idClient: number) => void;
+  clients: ClientData[];
 }
 
 const ClientContext = createContext<ClientProviderData>(
@@ -132,6 +133,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         deleteClient,
         searchClient,
         getAllClients,
+        clients,
       }}
     >
       {children}
