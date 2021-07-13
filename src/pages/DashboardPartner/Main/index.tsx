@@ -64,7 +64,6 @@ const Main = () => {
       setServicesAcc([...servicesFiltered]);
 
       let totalValue: number = 0;
-      console.log(servicesFiltered);
       servicesFiltered.forEach((service) => {
         if (service.completed) {
           totalValue += service.price;

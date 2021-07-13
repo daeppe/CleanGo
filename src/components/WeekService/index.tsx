@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { ServiceData } from "../../types/ServiceData";
+import ModalDetailsService from "../ModalDetailsService";
 
 import {
   Container,
@@ -16,6 +17,29 @@ interface WeekServiceProps {
   servicesAccept: ServiceData[];
   error: boolean;
 }
+
+interface TasksProps {
+  service: ServiceData;
+  date: number;
+  now: number;
+}
+
+const Tasks = ({ date, now, service }: TasksProps) => {
+  const [visible, setVisible] = useState<boolean>(false);
+
+  return (
+    <>
+      <Task past={date < now} onClick={() => setVisible(true)}>
+        <p>{service.serviceDetails.class}</p>
+      </Task>
+      <ModalDetailsService
+        service={service}
+        visible={visible}
+        setVisible={setVisible}
+      />
+    </>
+  );
+};
 
 const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
   return (
@@ -40,11 +64,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                   let date = new Date(service.date).getTime();
                   let now = new Date().getTime();
 
-                  return (
-                    <Task past={date < now}>
-                      <p>{service.serviceDetails.class}</p>
-                    </Task>
-                  );
+                  return <Tasks date={date} now={now} service={service} />;
                 })}
             </DayTasks>
           </WeekDay>
@@ -60,11 +80,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                   let date = new Date(service.date).getTime();
                   let now = new Date().getTime();
 
-                  return (
-                    <Task past={date < now}>
-                      <p>{service.serviceDetails.class}</p>
-                    </Task>
-                  );
+                  return <Tasks date={date} now={now} service={service} />;
                 })}
             </DayTasks>
           </WeekDay>
@@ -80,11 +96,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                   let date = new Date(service.date).getTime();
                   let now = new Date().getTime();
 
-                  return (
-                    <Task past={date < now}>
-                      <p>{service.serviceDetails.class}</p>
-                    </Task>
-                  );
+                  return <Tasks date={date} now={now} service={service} />;
                 })}
             </DayTasks>
           </WeekDay>
@@ -100,11 +112,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                   let date = new Date(service.date).getTime();
                   let now = new Date().getTime();
 
-                  return (
-                    <Task past={date < now}>
-                      <p>{service.serviceDetails.class}</p>
-                    </Task>
-                  );
+                  return <Tasks date={date} now={now} service={service} />;
                 })}
             </DayTasks>
           </WeekDay>
@@ -120,11 +128,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                   let date = new Date(service.date).getTime();
                   let now = new Date().getTime();
 
-                  return (
-                    <Task past={date < now}>
-                      <p>{service.serviceDetails.class}</p>
-                    </Task>
-                  );
+                  return <Tasks date={date} now={now} service={service} />;
                 })}
             </DayTasks>
           </WeekDay>
@@ -140,11 +144,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                   let date = new Date(service.date).getTime();
                   let now = new Date().getTime();
 
-                  return (
-                    <Task past={date < now}>
-                      <p>{service.serviceDetails.class}</p>
-                    </Task>
-                  );
+                  return <Tasks date={date} now={now} service={service} />;
                 })}
             </DayTasks>
           </WeekDay>
@@ -160,11 +160,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                   let date = new Date(service.date).getTime();
                   let now = new Date().getTime();
 
-                  return (
-                    <Task past={date < now}>
-                      <p>{service.serviceDetails.class}</p>
-                    </Task>
-                  );
+                  return <Tasks date={date} now={now} service={service} />;
                 })}
             </DayTasks>
           </WeekDay>

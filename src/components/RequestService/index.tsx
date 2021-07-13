@@ -30,6 +30,11 @@ const RequestService = () => {
   const [service, setService] = useState<string>("Limpeza Residencial");
   const [home, setHome] = useState<string>("");
   const [date, setDate] = useState("");
+  const [dateISO, setDateISO] = useState<number>(() => {
+    const now = new Date();
+
+    return now.getTime();
+  });
   const [hours, setHours] = useState("1");
   const [bedroom, setBedrooms] = useState("1");
   const [bathroom, setBathrooms] = useState("1");
@@ -38,18 +43,18 @@ const RequestService = () => {
   const { newService } = useServices();
   const { idClient } = useAuth();
   const [dateError, setDateError] = useState(false);
-  const [serviceFull, setServiceFull] = useState<ServiceData>({
-    userId: idClient,
-    date: parseInt(date),
-    price: price,
-    serviceDetails: {
-      class: service,
-      hours: parseInt(hours),
-    },
-    opened: true,
-    completed: false,
-    partnerId: 0,
-  });
+  // const [serviceFull, setServiceFull] = useState<ServiceData>({
+  //   userId: idClient,
+  //   date: parseInt(date),
+  //   price: price,
+  //   serviceDetails: {
+  //     class: service,
+  //     hours: parseInt(hours),
+  //   },
+  //   opened: true,
+  //   completed: false,
+  //   partnerId: 0,
+  // });
 
   const serviceMaxHour: any = {
     "Limpeza Residencial": 8,
@@ -83,10 +88,12 @@ const RequestService = () => {
   const onSubmitFunction = async (e: React.MouseEvent) => {
     e.preventDefault();
 
+    let serviceF: ServiceData = {} as ServiceData;
+
     service === "Limpeza Residencial"
-      ? setServiceFull({
+      ? (serviceF = {
           userId: idClient,
-          date: parseInt(date),
+          date: dateISO,
           price: price,
           serviceDetails: {
             class: service,
@@ -99,9 +106,9 @@ const RequestService = () => {
           completed: false,
           partnerId: 0,
         })
-      : setServiceFull({
+      : (serviceF = {
           userId: idClient,
-          date: parseInt(date),
+          date: dateISO,
           price: price,
           serviceDetails: {
             class: service,
@@ -122,11 +129,12 @@ const RequestService = () => {
     });
 
     await schema
-      .validate({ ...serviceFull })
+      .validate({ ...serviceF })
       .then((_) => {
-        newService(serviceFull, setError);
+        newService(serviceF, setError);
       })
       .catch((err) => {
+        console.log(serviceF);
         notification.open({
           message: "Erro.",
           closeIcon: <FaTimes />,
@@ -306,7 +314,12 @@ const RequestService = () => {
               error={dateError}
               name="date"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setDate(e.target.value);
+                const value = e.target.valueAsDate;
+                if (value) {
+                  const date = new Date(value);
+                  setDate(e.target.value);
+                  setDateISO(date.getTime());
+                }
                 setDateError(false);
               }}
               value={date}

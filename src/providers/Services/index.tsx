@@ -56,7 +56,7 @@ export const ServicesContext = createContext<ServicesProviderData>(
 );
 
 export const ServiceProvider = ({ children }: ServicesProviderProps) => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [services, setServices] = useState<ServiceData[]>([]);
   const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
@@ -80,7 +80,10 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .patch(`services/${data.serviceId}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(() => getServices(setError))
+      .then(() => {
+        getServicesAccepted(setError, user?.id);
+        getServices(setError);
+      })
       .catch((err) => setError(true));
   };
   const finishService = (
