@@ -5,7 +5,7 @@ import TitlePage from "../../components/TitlePage";
 const HomePage = () => {
   return (
     <>
-      <TitlePage title="" />
+      <TitlePage title="Home" />
       <Header>
         <HeaderNav />
       </Header>
