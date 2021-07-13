@@ -14,6 +14,7 @@ const Services = () => {
 
   useEffect(() => {
     getClientServices(setError, true, user?.id);
+    //teste
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
