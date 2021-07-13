@@ -22,7 +22,7 @@ const Services = () => {
 
   const handleNextPage = () => {
     setPageNumber(pageNumber + 1);
-    if (services.length < 10 || filteredServices.length < 10) {
+    if (services.length < 12 || filteredServices.length < 12) {
       setDisableNext(true);
     }
     setDisablePrev(false);
@@ -39,7 +39,7 @@ const Services = () => {
   };
 
   useEffect(() => {
-    getServices(setError, pageNumber, 10);
+    getServices(setError, pageNumber, 12);
     console.log(pageNumber);
     if (pageNumber === 1) {
       setDisablePrev(true);
