@@ -2,11 +2,6 @@ import { SetStateAction, Dispatch } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
-import { useAuth } from "../../providers/Auth";
-import { useServices } from "../../providers/Services";
-
-import { notification } from "antd";
-import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
 import {
@@ -35,7 +30,6 @@ interface ModalProps {
   service: ServiceData;
 }
 const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
-  const { user } = useAuth();
   const { newFeedback } = useFeedback();
 
   const [error, setError] = useState<boolean>(false);
@@ -55,6 +49,10 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
       score: stars,
       feedback: about,
     };
+
+    newFeedback(review, setVisible);
+    setError(false);
+    setAboutError(false);
   };
 
   return (
