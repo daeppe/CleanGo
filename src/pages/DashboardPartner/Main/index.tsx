@@ -27,8 +27,9 @@ const Main = () => {
   const [totalService, setTotalService] = useState(0);
 
   useEffect(() => {
+    console.log(user?.id);
     getAllFeedback(user?.id || 0, setError);
-    getServicesAccepted(setError, user?.id || 0);
+    getServicesAccepted(setError, user?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -52,17 +53,19 @@ const Main = () => {
   }, [feedbacks]);
 
   useEffect(() => {
+    console.log(servicesAccept);
     if (servicesAccept.length !== 0) {
       let now: number | Date = new Date();
       let month = now.getMonth();
       const servicesFiltered = servicesAccept.filter((service) => {
         let date = new Date(service.date);
+        console.log(new Date(service.date));
         return date.getMonth() === month;
       });
       setServicesAcc([...servicesFiltered]);
 
       let totalValue: number = 0;
-
+      console.log(servicesFiltered);
       servicesFiltered.forEach((service) => {
         if (service.completed) {
           totalValue += service.price;

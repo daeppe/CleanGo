@@ -6,7 +6,7 @@ export const CustomModal = styled(Modal)`
   h3 {
     font-weight: bold;
     position: relative;
-    bottom: 18px;
+    /* bottom: 18px; */
   }
 
   .ant-modal-header {
@@ -70,8 +70,8 @@ export const ContainerInfo = styled.div`
 
 export const ContainerRow = styled(ContainerInfo)`
   flex-direction: row;
-  /* justify-content: space-between; */
-  /* align-items: center; */
+  justify-content: space-between;
+  align-items: center;
   button {
     display: none;
   }
@@ -104,7 +104,7 @@ export const Subtitles = styled.h3`
   font-family: var(--font-standard);
   font-size: 18px;
   font-weight: 700;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0;
 `;
 export const Adress = styled.p`
   font-family: var(--font-standard);
@@ -113,11 +113,15 @@ export const Adress = styled.p`
 `;
 export const GeneralInfo = styled.h4`
   font-family: var(--font-standard);
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 400;
   padding: 0 0.5rem 0;
-  .price {
+
+  &.hours,
+  &.price {
+    font-weight: 700;
     color: var(--green);
+    font-size: 1.1rem;
   }
 `;
 export const ServiceDetails = styled.ul`

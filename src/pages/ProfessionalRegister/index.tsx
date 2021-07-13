@@ -45,15 +45,10 @@ const ProfessionalRegister = () => {
 
   useLayoutEffect(() => {
     gsap
-      .timeline({ delay: 0.5 })
-      .set(wrapperFormElement.current, {
-        scaleX: 0.1,
-      })
+      .timeline({})
       .from(wrapperFormElement.current, {
-        translateY: -1000,
-      })
-      .to(wrapperFormElement.current, {
-        scaleX: 1,
+        opacity: 0,
+        translateX: -200,
       })
       .to(
         [
@@ -64,7 +59,7 @@ const ProfessionalRegister = () => {
         {
           opacity: 1,
         },
-        "-=.3"
+        "<"
       );
   }, []);
 
