@@ -31,6 +31,7 @@ interface ClientProviderData {
   getAllClients: () => void;
   searchClient: (idClient: number) => void;
   clients: ClientData[];
+  client: ClientData;
 }
 
 const ClientContext = createContext<ClientProviderData>(
@@ -40,6 +41,7 @@ const ClientContext = createContext<ClientProviderData>(
 export const ClientProvider = ({ children }: ClientProviderProps) => {
   const { token, idClient } = useAuth();
   const [clients, setClients] = useState<ClientData[]>([]);
+  const [client, setClient] = useState<ClientData>({} as ClientData);
 
   // registrar cliente
   const newClient = (
@@ -113,9 +115,13 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
           Authorization: "Bearer " + token,
         },
       })
-      .then((response) => console.log(response.data))
+      .then((response) => {
+        console.log(response.data);
+        setClient(response.data);
+      })
       .catch((err) => console.log(err));
   };
+
   const getAllClients = () => {
     api
       .get(`users/?partner=false`, {
@@ -146,6 +152,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         searchClient,
         getAllClients,
         clients,
+        client,
       }}
     >
       {children}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import CardService from "../../../components/CardService";
 import { useServices } from "../../../providers/Services";
 import {
   ContainerServices,
@@ -12,6 +11,7 @@ import {
 } from "./styles";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useAuth } from "../../../providers/Auth";
+import CardServiceOpen from "../../../components/CardServiceOpen";
 
 const OpenServices = () => {
   const [error, setError] = useState<boolean>(false);
@@ -19,18 +19,19 @@ const OpenServices = () => {
   const [disablePrev, setDisablePrev] = useState<boolean>(true);
   const { getClientServices, clientServices } = useServices();
   const { user } = useAuth();
+
   useEffect(() => {
     getClientServices(setError, false, user?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { getServices, filterServices, filteredServices } = useServices();
+  const { filterOpenServices, filteredOpenServices } = useServices();
   const [option, setOption] = useState<string>("");
   const [pageNumber, setPageNumber] = useState<number>(1);
 
   const handleNextPage = () => {
     setPageNumber(pageNumber + 1);
-    if (clientServices.length < 12 || filteredServices.length < 12) {
+    if (clientServices.length < 12 || filteredOpenServices.length < 12) {
       setDisableNext(true);
     }
     setDisablePrev(false);
@@ -47,8 +48,8 @@ const OpenServices = () => {
   };
 
   useEffect(() => {
-    getServices(setError, pageNumber, 12);
-    console.log(pageNumber);
+    getClientServices(setError, false, user?.id, pageNumber, 12);
+
     if (pageNumber === 1) {
       setDisablePrev(true);
     }
@@ -63,7 +64,7 @@ const OpenServices = () => {
           id="categoria"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setOption(e.target.value);
-            filterServices(e.target.value);
+            filterOpenServices(e.target.value, user?.id);
           }}
           value={option}
         >
@@ -76,10 +77,10 @@ const OpenServices = () => {
       <ContainerServices>
         {!option
           ? clientServices.map((service) => (
-              <CardService service={service} key={service.id} />
+              <CardServiceOpen service={service} key={service.id} />
             ))
-          : filteredServices.map((service) => (
-              <CardService service={service} key={service.id} />
+          : filteredOpenServices.map((service) => (
+              <CardServiceOpen service={service} key={service.id} />
             ))}
       </ContainerServices>
       <ContainerButton>
