@@ -29,8 +29,8 @@ interface ServicesProviderData {
   token?: string;
   finishService: (
     completed: boolean,
-    serviceId: number,
-    setError: Dispatch<SetStateAction<boolean>>
+    setError: Dispatch<SetStateAction<boolean>>,
+    serviceId?: number
   ) => void;
   deleteService: (
     serviceId: number,
@@ -49,14 +49,18 @@ interface ServicesProviderData {
   getClientServices: (
     setError: Dispatch<SetStateAction<boolean>>,
     completed: boolean,
-    userId?: number
+    userId?: number,
+    page?: number,
+    limit?: number
   ) => void;
   services: ServiceData[];
   servicesAccept: ServiceData[];
   clientServices: ServiceData[];
   setServices: Dispatch<SetStateAction<ServiceData[]>>;
+  filterOpenServices: (filter: string, userId?: number) => void;
   filterServices: (filter: string) => void;
   filteredServices: ServiceData[];
+  filteredOpenServices: ServiceData[];
   getServicesPaginated: (pageNumber: number, limit?: number) => void;
 }
 export const ServicesContext = createContext<ServicesProviderData>(
@@ -67,6 +71,9 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const { token, user } = useAuth();
   const [services, setServices] = useState<ServiceData[]>([]);
   const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
+  const [filteredOpenServices, setFilteredOpenServices] = useState<
+    ServiceData[]
+  >([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
   const [clientServices, setClientServices] = useState<ServiceData[]>([]);
   const newService = (
@@ -100,9 +107,10 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .patch(`services/${data.serviceId}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(() => {
+      .then((response) => {
         getServicesAccepted(setError, user?.id);
         getServices(setError);
+        getClientServices(setError, false, response.data.userId);
         notification.open({
           message: "Sucesso",
           closeIcon: <FaTimes />,
@@ -113,12 +121,13 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
       })
-      .catch((err) => setError(true));
+      .catch(() => setError(true));
   };
+
   const finishService = (
     completed: boolean,
-    serviceId: number,
-    setError: Dispatch<SetStateAction<boolean>>
+    setError: Dispatch<SetStateAction<boolean>>,
+    serviceId?: number
   ) => {
     api
       .patch(
@@ -128,7 +137,8 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      .then((_) => {
+      .then(() => {
+        getClientServices(setError, false, user?.id);
         notification.open({
           message: "Sucesso",
           closeIcon: <FaTimes />,
@@ -139,7 +149,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
       })
-      .catch((err) => setError(true));
+      .catch(() => setError(true));
   };
   const deleteService = (
     serviceId: number,
@@ -191,18 +201,19 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response: AxiosResponse) => setServicesAccept([...response.data]))
-      .catch((err) => setError(true));
+      .catch(() => setError(true));
   };
   const getClientServices = (
     setError: Dispatch<SetStateAction<boolean>>,
     completed: boolean,
-    userId: number = 0
+    userId: number = 0,
+    page?: number,
+    limit?: number
   ) => {
     if (userId === 0) {
       console.log("err");
       return setError(true);
     }
-    console.log(userId);
     completed
       ? api
           .get<ServiceData[]>(
@@ -214,10 +225,11 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           .then((response: AxiosResponse) =>
             setClientServices([...response.data])
           )
-          .catch((err) => setError(true))
-      : api
+          .catch(() => setError(true))
+      : page && limit
+      ? api
           .get<ServiceData[]>(
-            `services?userId=${userId}&completed=${completed}`,
+            `services?userId=${userId}&opened=false&completed=${completed}&_page=${page}&_limit=${limit}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -225,7 +237,18 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           .then((response: AxiosResponse) =>
             setClientServices([...response.data])
           )
-          .catch((err) => setError(true));
+          .catch(() => setError(true))
+      : api
+          .get<ServiceData[]>(
+            `services?userId=${userId}&opened=false&completed=${completed}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+          .then((response: AxiosResponse) =>
+            setClientServices([...response.data])
+          )
+          .catch(() => setError(true));
   };
 
   const filterServices = (filter: string) => {
@@ -239,6 +262,18 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response) => setFilteredServices(response.data))
       .catch((err) => console.log(err));
   };
+  const filterOpenServices = (filter: string, userId?: number) => {
+    api
+      .get<ServiceData[]>(
+        `services?serviceDetails.class=${filter}&userId=${userId}&completed=false`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => setFilteredOpenServices(response.data))
+      .catch((err) => console.log(err));
+  };
+
   const getServicesPaginated = (pageNumber: number, limit?: number) => {
     api
       .get<ServiceData[]>(`services?_page=${pageNumber}&_limit=${limit}`)
@@ -248,6 +283,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   return (
     <ServicesContext.Provider
       value={{
+        filterOpenServices,
         getServices,
         acceptService,
         deleteService,
@@ -261,6 +297,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         getClientServices,
         filterServices,
         filteredServices,
+        filteredOpenServices,
         getServicesPaginated,
       }}
     >

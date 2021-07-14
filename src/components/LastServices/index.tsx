@@ -18,7 +18,7 @@ interface TableRowElementProps {
 
 const TableRowElement = ({ service }: TableRowElementProps) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const date = format(service.date, "dd MMM yyyy", {
+  const date = format(service.date, "dd MM yyyy", {
     locale: ptBR,
   });
 

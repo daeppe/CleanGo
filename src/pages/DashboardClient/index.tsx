@@ -23,7 +23,7 @@ const DashboardClient = () => {
 
   return (
     <>
-      <TitlePage />
+      <TitlePage title="Dashboard Empregador" />
 
       <Header auth={true}>
         <HeaderNavAuth name={"Mockado"} />
