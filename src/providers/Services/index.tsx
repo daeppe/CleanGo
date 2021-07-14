@@ -50,7 +50,7 @@ interface ServicesProviderData {
   ) => void;
   getClientServices: (
     setError: Dispatch<SetStateAction<boolean>>,
-    completed: boolean,
+    completed: string,
     userId?: number,
     page?: number,
     limit?: number
@@ -115,7 +115,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response) => {
         getServicesAccepted(setError, user?.id);
         getServices(setError);
-        getClientServices(setError, false, response.data.userId);
+        getClientServices(setError, "false", response.data.userId);
         notification.open({
           message: "Sucesso",
           closeIcon: <FaTimes />,
@@ -144,7 +144,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         }
       )
       .then(() => {
-        getClientServices(setError, false, user?.id);
+        getClientServices(setError, "false", user?.id);
         notification.open({
           message: "Sucesso",
           closeIcon: <FaTimes />,
@@ -220,7 +220,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   };
   const getClientServices = (
     setError: Dispatch<SetStateAction<boolean>>,
-    completed: boolean,
+    completed: string,
     userId: number = 0,
     page?: number,
     limit?: number

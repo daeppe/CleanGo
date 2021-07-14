@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+interface LinksProps {
+  whiteSchema: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   width: 100%;
@@ -18,7 +22,8 @@ export const Container = styled.div`
 `;
 
 export const Links = styled(NavLink)`
-  color: var(--black);
+  color: ${(props: LinksProps) =>
+    props.whiteSchema ? "var(--white)" : "var(--black)"};
   font-weight: 500;
   width: 100%;
   font-size: 1.2rem;
@@ -44,8 +49,11 @@ export const Links = styled(NavLink)`
 `;
 
 export const BtnLink = styled(NavLink)`
-  background-color: var(--green);
-  color: var(--white);
+  color: ${(props: LinksProps) =>
+    props.whiteSchema ? "var(--dark-green)" : "var(--white)"};
+  background-color: ${(props: LinksProps) =>
+    props.whiteSchema ? "var(--gray)" : "var(--green)"};
+
   border-radius: 4px;
   padding: 6px 18px;
   font-size: 1.1rem;

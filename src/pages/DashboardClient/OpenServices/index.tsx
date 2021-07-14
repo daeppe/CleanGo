@@ -21,10 +21,10 @@ const OpenServices = () => {
   const { getClientServices, clientServices } = useServices();
   const { user } = useAuth();
 
-  // useEffect(() => {
-  //   getClientServices(setError, false, user?.id);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    getClientServices(setError, "false", user?.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { filterOpenServices, filteredOpenServices } = useServices();
   const [option, setOption] = useState<string>("");
@@ -49,7 +49,7 @@ const OpenServices = () => {
   };
 
   useEffect(() => {
-    getClientServices(setError, false, user?.id, pageNumber, 12);
+    getClientServices(setError, "false", user?.id, pageNumber, 12);
 
     if (pageNumber === 1) {
       setDisablePrev(true);
