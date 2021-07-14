@@ -34,7 +34,7 @@ const WorkWithUs = () => {
       <Container>
         <SectionPartner>
           <ContainerInner>
-            <Title id="BeAPartner">Seja um parceiro CleanGo</Title>
+            <Title className="BeAPartner">Seja um parceiro CleanGo</Title>
             <Description>
               Entre para o CleanGo, veja seu número de clientes multiplicarem,
               trabalhe de forma prática, segura e eficiente. Com ganhos acima da
@@ -46,7 +46,7 @@ const WorkWithUs = () => {
           </ContainerInner>
         </SectionPartner>
         <SectionWhowItWorks>
-          <Title id="whowItWorks">Como funciona</Title>
+          <Title className="whowItWorks">Como funciona</Title>
           <CardWorkWithUs />
         </SectionWhowItWorks>
         <SectionReasons>
