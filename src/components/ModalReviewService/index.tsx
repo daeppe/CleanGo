@@ -139,7 +139,12 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
                   {formatValue(service.price)}
                 </GeneralInfo>
               </ContainerInfo>
-              <Button onClickFunc={(e) => setReview(true)}>Avaliar</Button>
+              <Button
+                onClickFunc={(e) => setReview(true)}
+                disabled={!service.completed}
+              >
+                Avaliar
+              </Button>
             </ContainerRow>
           </>
         )}

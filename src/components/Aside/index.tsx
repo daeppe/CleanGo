@@ -27,23 +27,16 @@ const Aside = () => {
     let timeoutId: NodeJS.Timeout;
 
     const resizeListener = () => {
-      // prevent execution of previous setTimeout
-
       clearTimeout(timeoutId);
-      // change width from the state object after 150 milliseconds
       timeoutId = setTimeout(() => getDimensions(), 150);
     };
 
     resizeListener();
-
-    // set resize listener
     window.onresize = () => {
       resizeListener();
     };
 
-    // clean up function
     return () => {
-      // remove resize listener
       window.onresize = () => {
         resizeListener();
       };

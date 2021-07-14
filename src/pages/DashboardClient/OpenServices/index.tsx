@@ -21,10 +21,10 @@ const OpenServices = () => {
   const { getClientServices, clientServices } = useServices();
   const { user } = useAuth();
 
-  useEffect(() => {
-    getClientServices(setError, false, user?.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   getClientServices(setError, false, user?.id);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const { filterOpenServices, filteredOpenServices } = useServices();
   const [option, setOption] = useState<string>("");
@@ -59,11 +59,17 @@ const OpenServices = () => {
   return (
     <>
       {clientServices.length === 0 ? (
-        <TitleText>
-          Você ainda não possui nenhum serviço em andamento.
-        </TitleText>
+        <Container>
+          <TitleText>
+            <h1>Serviços em andamento</h1>
+            <span>Você ainda não possui nenhum serviço em andamento.</span>
+          </TitleText>
+        </Container>
       ) : (
         <Container>
+          <TitleText>
+            <h1>Serviços em andamento</h1>
+          </TitleText>
           <ContainerSelect>
             <LabelStyled htmlFor="categoria">Filtrar por categoria</LabelStyled>
             <SelectStyled
