@@ -68,7 +68,7 @@ const ProfessionalRegister = () => {
       <Header>
         <HeaderNav />
       </Header>
-      <TitlePage />
+      <TitlePage title="Cadastro Funcionário" />
       <Container>
         <WrapperForm ref={wrapperFormElement}>
           <TitleForm ref={titleElement}>Cadastro de profissionais</TitleForm>
