@@ -20,10 +20,18 @@ export const Container = styled.main`
 export const FirstSection = styled.section`
   width: 100%;
   height: calc(100vh - 56px);
-  background: url(${FirstSectionImg}) no-repeat;
-  background-size: cover;
+  /* background: url(${FirstSectionImg}) no-repeat; */
+  /* background-size: cover; */
   transition: all 350ms;
   position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
 
   > div {
     position: absolute;
@@ -37,6 +45,7 @@ export const FirstSection = styled.section`
     flex-direction: column;
     align-items: center;
     transition: all 350ms;
+    z-index: 5;
 
     h2 {
       font-size: 1.5rem;
@@ -244,8 +253,9 @@ export const ThirtySection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
   background-color: var(--black);
+  padding: 3rem 0;
 
   > div:first-child {
     width: 100%;
@@ -264,6 +274,7 @@ export const ThirtySection = styled.section`
       margin-bottom: 4rem;
       margin-left: 8px;
       transition: all 350ms;
+      margin-top: 2rem;
     }
 
     @media screen and (min-width: 720px) {
@@ -285,11 +296,31 @@ export const WrapperImages = styled.div`
   max-width: 1240px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: calc(100vw / 2);
+
+  div {
+    position: absolute;
+    width: 50vw;
+    max-width: calc(1240px / 2);
+    height: calc(100vw / 2);
+    overflow: hidden;
+    /* transform: scaleX(0.5); */
+
+    &:first-child {
+      border-right: 15px solid var(--black);
+    }
+
+    &:last-child {
+      left: 50%;
+      border-left: 15px solid var(--black);
+    }
+  }
 
   img {
-    width: 100%;
+    width: 50vw;
     height: calc(100vw / 2);
     object-fit: cover;
+    position: absolute;
   }
 
   @media screen and (min-width: 720px) {
