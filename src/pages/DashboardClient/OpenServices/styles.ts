@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import Input from "../../../components/Input";
 import ArrowDown from "../../../asssets/svg/arrowdown.svg";
+import { Title } from "../../../components/RequestService/styles";
 interface ButtonProps {
   disabled?: boolean;
 }
+export const TitleText = styled(Title)`
+  text-align: center;
+`;
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

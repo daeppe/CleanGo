@@ -25,7 +25,7 @@ const OpenServiceModal = ({ service, visible, setVisible }: ModalProps) => {
   const [error, setError] = useState<boolean>(false);
   const { searchClient, client } = useClients();
   const handleCompleted = () => {
-    finishService(true, setError, service.id);
+    finishService(true, setError, service?.id);
     setVisible(!visible);
   };
 

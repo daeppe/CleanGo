@@ -8,6 +8,7 @@ import {
   LabelStyled,
   SelectStyled,
   ButtonStyled,
+  TitleText,
 } from "./styles";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useAuth } from "../../../providers/Auth";
@@ -56,42 +57,50 @@ const OpenServices = () => {
     // eslint-disable-next-line
   }, [pageNumber]);
   return (
-    <Container>
-      <ContainerSelect>
-        <LabelStyled htmlFor="categoria">Filtrar por categoria</LabelStyled>
-        <SelectStyled
-          name="categoria"
-          id="categoria"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            setOption(e.target.value);
-            filterOpenServices(e.target.value, user?.id);
-          }}
-          value={option}
-        >
-          <option value="">Categoria</option>
-          <option value="Passadoria">Passadoria</option>
-          <option value="Limpeza Residencial">Limpeza Residencial</option>
-        </SelectStyled>
-      </ContainerSelect>
-      {error && ""}
-      <ContainerServices>
-        {!option
-          ? clientServices.map((service) => (
-              <CardServiceOpen service={service} key={service.id} />
-            ))
-          : filteredOpenServices.map((service) => (
-              <CardServiceOpen service={service} key={service.id} />
-            ))}
-      </ContainerServices>
-      <ContainerButton>
-        <ButtonStyled disabled={disablePrev} onClick={handlePrevPage}>
-          <FaChevronLeft />
-        </ButtonStyled>
-        <ButtonStyled disabled={disableNext} onClick={handleNextPage}>
-          <FaChevronRight />
-        </ButtonStyled>
-      </ContainerButton>
-    </Container>
+    <>
+      {clientServices.length === 0 ? (
+        <TitleText>
+          Você ainda não possui nenhuma solicitação de serviço
+        </TitleText>
+      ) : (
+        <Container>
+          <ContainerSelect>
+            <LabelStyled htmlFor="categoria">Filtrar por categoria</LabelStyled>
+            <SelectStyled
+              name="categoria"
+              id="categoria"
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                setOption(e.target.value);
+                filterOpenServices(e.target.value, user?.id);
+              }}
+              value={option}
+            >
+              <option value="">Categoria</option>
+              <option value="Passadoria">Passadoria</option>
+              <option value="Limpeza Residencial">Limpeza Residencial</option>
+            </SelectStyled>
+          </ContainerSelect>
+          {error && ""}
+          <ContainerServices>
+            {!option
+              ? clientServices.map((service) => (
+                  <CardServiceOpen service={service} key={service.id} />
+                ))
+              : filteredOpenServices.map((service) => (
+                  <CardServiceOpen service={service} key={service.id} />
+                ))}
+          </ContainerServices>
+          <ContainerButton>
+            <ButtonStyled disabled={disablePrev} onClick={handlePrevPage}>
+              <FaChevronLeft />
+            </ButtonStyled>
+            <ButtonStyled disabled={disableNext} onClick={handleNextPage}>
+              <FaChevronRight />
+            </ButtonStyled>
+          </ContainerButton>
+        </Container>
+      )}
+    </>
   );
 };
 export default OpenServices;
