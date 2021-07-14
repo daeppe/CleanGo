@@ -126,11 +126,14 @@ export const LimitPieces = styled.div`
   background-color: var(--green);
   color: var(--white);
   border-radius: 4px;
+  margin-left: 0;
+  @media screen and (min-width: 380px) {
   margin-left: 2rem;
+  }
   @media screen and (min-width: 440px) {
     font-size: 18px;
     width: 186px;
-    margin-left: 4rem;
+    margin-left: 3rem;
   }
 `;
 

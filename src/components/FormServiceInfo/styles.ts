@@ -8,6 +8,7 @@ export const Container = styled.div`
   border-radius: 4px;
   width: 90%;
   z-index: 1;
+  margin-bottom: 90px;
   @media screen and (min-width: 720px) {
     width: 60%;
   }
