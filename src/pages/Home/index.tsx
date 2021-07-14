@@ -47,6 +47,7 @@ const HomePage = () => {
   const { handleBackground } = useTheme();
   useEffect(() => {
     handleBackground(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
