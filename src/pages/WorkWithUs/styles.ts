@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import WorkDesktop from "../../asssets/images/trabalhe-conosco-desktop.png";
-<<<<<<< HEAD
 import { NavLink } from "react-router-dom";
 
-=======
 import WorkMobile from "../../asssets/images/home2.png";
->>>>>>> 97cd3b3f37a2f703b1a348258c273d50e7867dd4
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
