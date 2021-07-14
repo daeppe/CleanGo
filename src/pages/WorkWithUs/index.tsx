@@ -1,5 +1,4 @@
 import Header from "../../components/Header";
-import HeaderNav from "../../components/HeaderNav";
 import {
   Container,
   ContainerInner,
@@ -8,6 +7,9 @@ import {
   SectionWhowItWorks,
   Title,
   Description,
+  ProNav,
+  BtnPro,
+  Links,
 } from "./styles";
 import Button from "../../components/Button";
 import { useHistory } from "react-router";
@@ -23,7 +25,10 @@ const WorkWithUs = () => {
   return (
     <>
       <Header whiteSchema>
-        <HeaderNav />
+        <ProNav>
+          <Links to="/login">Login</Links>
+          <BtnPro to="/cadastroparceiro">Cadastro</BtnPro>
+        </ProNav>
       </Header>
       <Container>
         <SectionPartner>
