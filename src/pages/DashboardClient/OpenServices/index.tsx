@@ -60,7 +60,7 @@ const OpenServices = () => {
     <>
       {clientServices.length === 0 ? (
         <TitleText>
-          Você ainda não possui nenhuma solicitação de serviço
+          Você ainda não possui nenhum serviço em andamento.
         </TitleText>
       ) : (
         <Container>
