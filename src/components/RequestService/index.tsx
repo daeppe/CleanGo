@@ -50,24 +50,6 @@ const RequestService = () => {
   const [dateError, setDateError] = useState(false);
   const [cepError, setCepError] = useState(false);
 
-  // const [serviceFull, setServiceFull] = useState<ServiceData>({
-  //   userId: idClient,
-  //   date: parseInt(date),
-  //   price: price,
-  //   serviceDetails: {
-  //     class: service,
-  //     hours: parseInt(hours),
-  //   },
-  //   opened: true,
-  //   completed: false,
-  //   partnerId: 0,
-  //   address: "",
-  //   cep: cep,
-  //   uf: "",
-  //   district: "",
-  //   city: "",
-  // });
-
   const serviceMaxHour: any = {
     "Limpeza Residencial": 8,
     Passadoria: 6,
@@ -113,7 +95,6 @@ const RequestService = () => {
       fetch(url)
         .then((res) => res.json())
         .then((address) => {
-          console.log(address);
           setAddress(address.logradouro);
           setDistrict(address.bairro);
           setCity(address.localidade);
@@ -402,6 +383,7 @@ const RequestService = () => {
         onSubmitFunction={onSubmitFunction}
         price={price}
         hours={hours}
+        service={service}
       ></FormServiceInfo>
       {error && ""}
     </>
