@@ -20,6 +20,11 @@ export const ButtonItem = styled.button`
   border-radius: 4px;
   font-size: 18px;
   padding: 6px 32px;
+  transition: all 350ms;
+
+  &:hover {
+    background-color: var(--dark-green);
+  }
 
   @media (min-width: 800px) {
     font-size: 22px;

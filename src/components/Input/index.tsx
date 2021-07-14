@@ -7,32 +7,32 @@ import {
   ErrorMessage,
 } from "./styles";
 
-interface InputProps {
-  label: string;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
   inputType: string;
   errorMessage?: string;
-  placeholder?: string;
   error?: boolean;
-  onChange?: (param: any) => void;
+  className?: string;
 }
 
 const Input = ({
   label,
-  inputType,
+  inputType = "text",
   errorMessage,
   placeholder,
   error = false,
-  onChange,
+  className,
   ...rest
 }: InputProps) => {
   return (
     <ContainerInput>
-      <LabelStyled htmlFor="">{label}</LabelStyled>
+      {label && <LabelStyled htmlFor="">{label}</LabelStyled>}
       <InputStyled
+        className={className}
         type={inputType}
-        onChange={onChange}
         placeholder={placeholder}
         {...rest}
+        error={error}
       />
       {error && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </ContainerInput>

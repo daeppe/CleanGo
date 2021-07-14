@@ -3,8 +3,8 @@ import styled, { keyframes } from "styled-components";
 interface IndicatorProps {
   leftIndicator: string;
   topIndicator: string;
+  isPartner: boolean | undefined;
 }
-
 const appearFromNowhere = keyframes`
 from{
     opacity: 0;
@@ -17,7 +17,7 @@ to{
 
 export const AsideContainer = styled.aside`
   width: 100%;
-  height: 100px;
+  height: 80px;
 
   position: fixed;
   bottom: 0;
@@ -26,23 +26,28 @@ export const AsideContainer = styled.aside`
   display: flex;
   justify-content: center;
   background-color: var(--dark-green);
-  border-radius: 25px 25px 0 0;
+  border-radius: 0;
+
+  div {
+    width: 90%;
+    margin: 0 auto;
+  }
 
   @media screen and (min-width: 720px) {
     height: 100vh;
     transition: width 0.4s;
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 24px 24px 0;
     justify-content: flex-start;
 
-    width: 158px;
+    width: 128px;
 
     :hover {
       width: 300px;
       span {
         padding-left: 12px;
-        font-size: 24px;
+        font-size: 20px;
         color: var(--white);
-        font-weight: 600;
+        font-weight: 500;
         display: flex;
         align-items: center;
         animation: ${appearFromNowhere} 1s;
@@ -64,7 +69,8 @@ export const MenuWrapper = styled.nav`
   height: 75%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: ${(props: IndicatorProps) =>
+    props.isPartner ? "space-between" : "space-evenly"};
   position: relative;
   padding-right: 8px;
 
@@ -99,7 +105,7 @@ export const MenuWrapper = styled.nav`
   .indicator {
     position: absolute;
     left: ${(props: IndicatorProps) => props.leftIndicator};
-    top: 35px;
+    top: 21px;
     background-color: transparent;
     height: 50px;
     width: 50px;

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Input from "../Input";
 import { ContainerForm } from "./styles";
 import Button from "../Button";
+import { useClients } from "../../providers/Clients";
+import { ClientData } from "../../types/clientData";
+import { FaSpinner } from "react-icons/fa";
 
-interface FormValues {
+interface FormData {
   name: string;
   email: string;
   cpf: string;
@@ -34,18 +37,25 @@ function FormRegister() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const [load, setLoad] = useState(false);
+  const history = useHistory();
+  const { newClient } = useClients();
+
+  const onSubmit = ({ cpf, email, name, password }: FormData) => {
+    setLoad(true);
+    const data: ClientData = { cpf, email, name, password };
+    newClient(data, setLoad, history);
   };
 
   return (
-    <ContainerForm>
-      <h2>Faça seu cadastro</h2>
+    <ContainerForm load={load}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h2>Faça seu cadastro</h2>
+
         <Input
           inputType="text"
           label="Nome"
@@ -68,6 +78,7 @@ function FormRegister() {
           label="CPF"
           {...register("cpf")}
           placeholder="Digite seu CPF"
+          data-mask="000.000.000-00"
           error={!!errors.cpf}
           errorMessage={errors.cpf?.message}
         />
@@ -83,8 +94,8 @@ function FormRegister() {
         <Input
           inputType="password"
           label="Confirmar senha"
-          {...register("passwordConfirm")}
           placeholder="Confirme sua senha"
+          {...register("passwordConfirm")}
           error={!!errors.passwordConfirm}
           errorMessage={errors.passwordConfirm?.message}
         />
@@ -96,10 +107,18 @@ function FormRegister() {
             Clique aqui
           </Link>{" "}
           para entrar.
+          <br /> Mas se você quer se cadastrar como parceiro,{" "}
+          <Link id="link" to="/cadastroparceiro">
+            {" "}
+            Clique aqui
+          </Link>{" "}
+          .
         </p>
+
         <div className="containerButton">
           <Button type="submit" whiteSchema={false}>
-            CADASTRAR
+            <span>CADASTRAR</span>
+            <FaSpinner />
           </Button>
         </div>
       </form>
