@@ -15,12 +15,14 @@ interface FormServiceProps {
   onSubmitFunction: (e: React.MouseEvent<HTMLButtonElement>) => void;
   hours: string;
   price: number;
+  service: string;
 }
 
 const FormServiceInfo = ({
   onSubmitFunction,
   hours,
   price,
+  service,
 }: FormServiceProps) => {
   return (
     <Container>
@@ -30,7 +32,7 @@ const FormServiceInfo = ({
       <Flex>
         <InfoContainer>
           <InfoTitle>Serviço selecionado</InfoTitle>
-          <Info>Limpeza residencial</Info>
+          <Info>{service}</Info>
         </InfoContainer>
         <InfoContainer>
           <InfoTitle>Quantidade de horas</InfoTitle>
