@@ -7,9 +7,9 @@ interface HeaderBarProps {
   isAuth: boolean;
 }
 export const HeaderBar = styled.header`
-  width: 100vw;
+  width: 100%;
   padding: 12px 1rem;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;

@@ -147,7 +147,7 @@ const RequestService = () => {
           uf: uf,
           district: district,
           city: city,
-          contractor: user?.name,
+          // contractor: user?.name,
         })
       : (serviceF = {
           userId: idClient,
