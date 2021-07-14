@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { AxiosError, AxiosResponse } from "axios";
+import { SetStateAction, useState } from "react";
 import { useEffect } from "react";
+import { Dispatch } from "react";
 import { ReactNode, useContext } from "react";
 import { createContext } from "react";
 import api from "../../services/api";
-import { FeedData } from "../../types/feedData";
+import { FeedData, Likes } from "../../types/feedData";
 import { useAuth } from "../Auth";
 
 interface ProviderProps {
@@ -12,8 +14,9 @@ interface ProviderProps {
 
 interface ProviderData {
   feeds: Array<FeedData>;
+  setFeeds: Dispatch<SetStateAction<Array<FeedData>>>;
   feedPost: (feedData: FeedData) => void;
-  feedLike: (feedId: number, userId: number) => void;
+  feedLike: (feedId: number, feedData: Likes) => void;
 }
 
 const FeedContext = createContext<ProviderData>({} as ProviderData);
@@ -26,11 +29,13 @@ export const FeedProvider = ({ children }: ProviderProps) => {
     api
       .get("feed", {
         headers: {
-          Authorization: "Bearer" + token,
+          Authorization: "Bearer " + token,
         },
       })
-      .then((res) => setFeeds(res.data))
-      .catch((err) => console.log(err));
+      .then((res: AxiosResponse) => setFeeds(res.data))
+      .catch((err: AxiosError) =>
+        console.log("feed erro, ", err.response?.data)
+      );
   };
 
   useEffect(() => {
@@ -41,25 +46,29 @@ export const FeedProvider = ({ children }: ProviderProps) => {
   }, [token]);
 
   const feedPost = (feedData: FeedData) => {
-    api.post("feed", feedData, {
-      headers: {
-        Authorization: "Bearer" + token,
-      },
-    });
-  };
-
-  const feedLike = (feedId: number, userId: number) => {
     api
-      .patch(`feed/${feedId}`, {
+      .post("feed", feedData, {
         headers: {
-          Authorization: "Bearer" + token,
+          Authorization: "Bearer " + token,
         },
       })
-      .then(() => callFeed());
+      .then((res: AxiosResponse) => setFeeds([...feeds, feedData]))
+      .catch((err: AxiosError) => console.log(err.response));
+  };
+
+  const feedLike = (feedId: number, feedData: Likes) => {
+    api
+      .patch(`feed/${feedId}`, feedData, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then(() => callFeed())
+      .catch((err: AxiosError) => console.log("Like err", err.response));
   };
 
   return (
-    <FeedContext.Provider value={{ feeds, feedPost, feedLike }}>
+    <FeedContext.Provider value={{ feeds, feedPost, feedLike, setFeeds }}>
       {children}
     </FeedContext.Provider>
   );
