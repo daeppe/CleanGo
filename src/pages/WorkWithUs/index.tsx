@@ -17,6 +17,7 @@ import { History } from "history";
 import CardWorkWithUs from "../../components/CardWorkWithUs";
 import CardReasons from "../../components/CardReasons";
 import { ButtonUp } from "../Home/styles";
+import { FaAngleUp } from "react-icons/fa";
 
 const WorkWithUs = () => {
   const history: History = useHistory();
@@ -52,12 +53,17 @@ const WorkWithUs = () => {
         <SectionReasons>
           <Title>Por que ser um parceiro CleanGo?</Title>
           <CardReasons />
+          <Button type="button" onClickFunc={handleClick}>
+            Cadastre-se como profissional
+          </Button>
         </SectionReasons>
         <ButtonUp
           onClick={() => {
             window.scrollTo(0, 0);
           }}
-        ></ButtonUp>
+        >
+          <FaAngleUp />
+        </ButtonUp>
       </Container>
     </>
   );

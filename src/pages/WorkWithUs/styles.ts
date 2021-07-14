@@ -52,6 +52,16 @@ export const SectionReasons = styled(SectionStyled)`
     color: var(--white);
   }
   padding: 5rem 0;
+
+  > button{
+    background-color: var(--white);
+    color: var(--green);
+    margin-top: 20px;
+  }
+  > button:hover{
+    background-color: var(--gray);
+    color: var(--dark-green)
+  }
 `;
 export const Title = styled.h1`
   font-family: var(--font-secondary);
