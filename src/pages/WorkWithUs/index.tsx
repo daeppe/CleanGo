@@ -1,4 +1,5 @@
 import Header from "../../components/Header";
+import HeaderNav from "../../components/HeaderNav";
 import {
   Container,
   ContainerInner,
@@ -17,11 +18,13 @@ import CardReasons from "../../components/CardReasons";
 const WorkWithUs = () => {
   const history: History = useHistory();
   const handleClick = (): void => {
-    history.push("/profissionalregister");
+    history.push("/cadastroparceiro");
   };
   return (
     <>
-      <Header whiteSchema>teste</Header>
+      <Header whiteSchema>
+        <HeaderNav />
+      </Header>
       <Container>
         <SectionPartner>
           <ContainerInner>
