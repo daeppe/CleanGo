@@ -8,7 +8,7 @@ interface HeaderBarProps {
 }
 export const HeaderBar = styled.header`
   width: 100%;
-  padding: 12px 1rem;
+  padding: 12px 2rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -75,7 +75,7 @@ export const ResponsiveMenu = styled.div`
     height: 0.2rem;
     border-radius: 10px;
     background-color: var(--black);
-    transform-origin: 2px;
+    transform-origin: 0px;
     transition: all 0.3s linear;
 
     ${(props: ResponsiveMenuProps) =>

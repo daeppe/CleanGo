@@ -7,9 +7,6 @@ import {
   SectionWhowItWorks,
   Title,
   Description,
-  ProNav,
-  BtnPro,
-  Links,
 } from "./styles";
 import Button from "../../components/Button";
 import { useHistory } from "react-router";
@@ -18,19 +15,18 @@ import CardWorkWithUs from "../../components/CardWorkWithUs";
 import CardReasons from "../../components/CardReasons";
 import { ButtonUp } from "../Home/styles";
 import { FaAngleUp } from "react-icons/fa";
+import HeaderNav from "../../components/HeaderNav";
 
 const WorkWithUs = () => {
   const history: History = useHistory();
+
   const handleClick = (): void => {
     history.push("/cadastroparceiro");
   };
   return (
     <>
       <Header whiteSchema>
-        <ProNav>
-          <Links to="/login">Login</Links>
-          <BtnPro to="/cadastroparceiro">Cadastro</BtnPro>
-        </ProNav>
+        <HeaderNav whiteSchema />
       </Header>
       <Container>
         <SectionPartner>

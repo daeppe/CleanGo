@@ -25,6 +25,7 @@ import { FaTimes, FaTimesCircle } from "react-icons/fa";
 import { notification } from "antd";
 import { ServiceData } from "../../types/ServiceData";
 import FormServiceInfo from "../FormServiceInfo";
+import { useHistory } from "react-router-dom";
 
 const RequestService = () => {
   const [service, setService] = useState<string>("Limpeza Residencial");
@@ -103,6 +104,8 @@ const RequestService = () => {
     }
   }
 
+  const history = useHistory();
+
   const onSubmitFunction = async (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -166,7 +169,7 @@ const RequestService = () => {
     await schema
       .validate({ ...serviceF })
       .then((_) => {
-        newService(serviceF, setError);
+        newService(serviceF, setError, history);
         cep === "" && setCepError(true);
       })
       .catch((err) => {

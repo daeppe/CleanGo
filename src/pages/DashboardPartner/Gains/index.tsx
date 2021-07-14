@@ -1,16 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import FeedCard from "../../../components/FeedCard";
 import LastGains from "../../../components/LastGains";
 import LastServices from "../../../components/LastServices";
 import { useAuth } from "../../../providers/Auth";
 import { useServices } from "../../../providers/Services";
-import {
-  Container,
-  FeaturesColumn,
-  FeedColumn,
-  WrapperSections,
-} from "./style";
+import { Container, FeaturesColumn, WrapperSections } from "./style";
 
 const Gains = () => {
   const { getServicesAccepted, servicesAccept } = useServices();
@@ -56,32 +52,7 @@ const Gains = () => {
           <LastGains total={totalService} />
         </WrapperSections>
       </FeaturesColumn>
-      <FeedColumn>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>{" "}
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>{" "}
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>
-      </FeedColumn>
+      <FeedCard />
     </Container>
   );
 };

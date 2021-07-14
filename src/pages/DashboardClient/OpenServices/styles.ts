@@ -1,12 +1,34 @@
 import styled from "styled-components";
 import Input from "../../../components/Input";
 import ArrowDown from "../../../asssets/svg/arrowdown.svg";
-import { Title } from "../../../components/RequestService/styles";
 interface ButtonProps {
   disabled?: boolean;
 }
-export const TitleText = styled(Title)`
-  text-align: center;
+export const TitleText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 250px;
+  margin-top: 5rem;
+
+  h1 {
+    text-align: center;
+    margin: 0 auto;
+    font-family: var(--font-secondary);
+  }
+
+  span {
+    color: var(--dark-gray);
+    margin: 0 auto;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 480px) {
+    max-width: 500px;
+  }
 `;
 export const Container = styled.div`
   display: flex;
@@ -16,7 +38,8 @@ export const Container = styled.div`
   justify-items: center;
   align-items: center;
   margin-bottom: 80px;
-  @media only screen and (min-width: 768px) {
+
+  @media only screen and (min-width: 720px) {
     margin-left: 128px;
     margin-bottom: 0px;
   }
