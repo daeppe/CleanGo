@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import WorkDesktop from "../../asssets/images/trabalhe-conosco-desktop.png";
-import WorkMobile from "../../asssets/images/trabalhe-conosco-mobile.jpg";
 import { NavLink } from "react-router-dom";
 
 export const Container = styled.main`
@@ -125,4 +124,22 @@ export const BtnPro = styled(NavLink)`
    @media screen and (min-width: 840px) {
     margin-top: 0rem;
   }
+`;
+
+export const ButtonUp = styled.span`
+  width: 60px;
+  height: 60px;
+  background-color: var(--green);
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
+  z-index: 500;
 `;

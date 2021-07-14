@@ -16,6 +16,7 @@ import { useHistory } from "react-router";
 import { History } from "history";
 import CardWorkWithUs from "../../components/CardWorkWithUs";
 import CardReasons from "../../components/CardReasons";
+import { ButtonUp } from "../Home/styles";
 
 const WorkWithUs = () => {
   const history: History = useHistory();
@@ -52,6 +53,11 @@ const WorkWithUs = () => {
           <Title>Por que ser um parceiro CleanGo?</Title>
           <CardReasons />
         </SectionReasons>
+        <ButtonUp
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        ></ButtonUp>
       </Container>
     </>
   );
