@@ -38,8 +38,6 @@ import Video from "../../asssets/videos/home.mp4";
 
 import { useTheme } from "../../providers/Theme";
 import { useEffect } from "react";
-import { FaAngleUp, FaBath, FaBed } from "react-icons/fa";
-import { MdKitchen } from "react-icons/md";
 import { useState } from "react";
 
 const HomePage = () => {
