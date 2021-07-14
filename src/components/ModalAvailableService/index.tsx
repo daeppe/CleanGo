@@ -3,6 +3,7 @@ import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
+import { useClients } from "../../providers/Clients";
 import { useServices } from "../../providers/Services";
 import {
   ContainerInfo,
@@ -16,6 +17,7 @@ import {
   CustomModal,
 } from "./styles";
 import { useState } from "react";
+import { useEffect } from "react";
 interface ModalProps {
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
@@ -27,8 +29,13 @@ const ModalAvailableService = ({
   setVisible,
 }: ModalProps) => {
   const { user } = useAuth();
+  const { searchClient, client } = useClients();
   const { acceptService } = useServices();
   const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    searchClient(service.userId);
+  });
   const handleAccept = () => {
     acceptService(
       {
@@ -70,7 +77,7 @@ const ModalAvailableService = ({
         <Subtitles>Endereço:</Subtitles>
         <Adress>{`${service.address} - ${service.district},  ${service.city} - ${service.uf}, ${service.cep}`}</Adress>
         <Subtitles>Contratante:</Subtitles>
-        <GeneralInfo>{service.contractor}</GeneralInfo>
+        <GeneralInfo>{client.name}</GeneralInfo>
         <ContainerRow>
           <ContainerInfo>
             <Subtitles>Duração total:</Subtitles>
