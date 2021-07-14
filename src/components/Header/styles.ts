@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 interface ResponsiveMenuProps {
   openMenu: boolean;
+  whiteSchema: boolean;
 }
 interface HeaderBarProps {
   isAuth: boolean;
@@ -74,7 +75,8 @@ export const ResponsiveMenu = styled.div`
     width: 1.5rem;
     height: 0.2rem;
     border-radius: 10px;
-    background-color: var(--black);
+    background-color: ${(props: ResponsiveMenuProps) =>
+      props.whiteSchema ? "var(--white)" : "var(--black)"};
     transform-origin: 0px;
     transition: all 0.3s linear;
 
@@ -83,13 +85,16 @@ export const ResponsiveMenu = styled.div`
       css`
         &:nth-child(1) {
           transform: rotate(45deg);
+          background-color: var(--black);
         }
         &:nth-child(2) {
           transform: translateX(100%);
           opacity: 0;
+          background-color: var(--black);
         }
         &:nth-child(3) {
           transform: rotate(-45deg);
+          background-color: var(--black);
         }
       `}
   }
@@ -102,7 +107,7 @@ export const ResponsiveMenu = styled.div`
 export const ResponsiveMenuContent = styled.nav`
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
