@@ -39,6 +39,7 @@ import Video from "../../asssets/videos/home.mp4";
 import { useTheme } from "../../providers/Theme";
 import { useEffect } from "react";
 import { useState } from "react";
+import { FaAngleUp } from "react-icons/fa";
 
 const HomePage = () => {
   const [beBoneIndex, setBeBoneIndex] = useState(0);
