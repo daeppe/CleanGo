@@ -2,8 +2,6 @@ import { FaBath, FaBed } from "react-icons/fa";
 import { MdKitchen } from "react-icons/md";
 import styled from "styled-components";
 
-import FirstSectionImg from "../../asssets/images/home1.png";
-
 interface IconsProps {
   active: boolean;
 }
@@ -21,8 +19,6 @@ export const Container = styled.main`
 export const FirstSection = styled.section`
   width: 100%;
   height: calc(100vh - 56px);
-  /* background: url(${FirstSectionImg}) no-repeat; */
-  /* background-size: cover; */
   transition: all 350ms;
   position: relative;
 
@@ -32,6 +28,7 @@ export const FirstSection = styled.section`
     position: absolute;
     inset: 0;
     z-index: 1;
+    object-fit: cover;
   }
 
   > div {
