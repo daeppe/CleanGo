@@ -274,7 +274,7 @@ export const ThirtySection = styled.section`
       margin-bottom: 4rem;
       margin-left: 8px;
       transition: all 350ms;
-      margin-top: 2rem;
+      margin-top: 4rem;
     }
 
     @media screen and (min-width: 720px) {
@@ -300,7 +300,7 @@ export const WrapperImages = styled.div`
 
   div {
     position: absolute;
-    width: 50vw;
+    width: 40vw;
     max-width: calc(1240px / 2);
     height: calc(100vw / 2);
     overflow: hidden;
@@ -317,7 +317,7 @@ export const WrapperImages = styled.div`
   }
 
   img {
-    width: 50vw;
+    width: 40vw;
     height: calc(100vw / 2);
     object-fit: cover;
     position: absolute;

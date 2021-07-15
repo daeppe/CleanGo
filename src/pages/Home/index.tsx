@@ -47,6 +47,7 @@ import { useRef } from "react";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
 
 const HomePage = () => {
   const [beBoneIndex, setBeBoneIndex] = useState(0);
@@ -76,7 +77,7 @@ const HomePage = () => {
     }, 6000);
 
     // gsap.timeline()
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(TextPlugin, ScrollTrigger);
 
     gsap.from(ImageOne.current, {
       opacity: 0,
@@ -86,9 +87,10 @@ const HomePage = () => {
     gsap.from(HowWorkTitle.current, {
       opacity: 0,
       scrollTrigger: {
-        trigger: HowWorkTitle.current,
-        start: "center 90%",
-        end: "center 40%",
+        trigger: HowWorkSeparator.current,
+        start: "center 105%",
+        scrub: 1,
+        end: "center 50%",
       },
     });
 
