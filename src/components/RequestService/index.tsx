@@ -196,12 +196,10 @@ const RequestService = () => {
     await schema
       .validate({ ...serviceF })
       .then((_) => {
-        console.log(idUser);
         newService(serviceF, setError, history);
         cep === "" && setCepError(true);
       })
       .catch((err) => {
-        console.log(serviceF);
         notification.open({
           message: "Erro.",
           closeIcon: <FaTimes />,

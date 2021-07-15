@@ -232,10 +232,8 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     partnerId: number = 0
   ) => {
     if (partnerId === 0) {
-      console.log("err");
       return setError(true);
     }
-    console.log(partnerId);
 
     api
       .get<ServiceData[]>(`services?partnerId=${partnerId}`, {
@@ -305,7 +303,14 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         }
       )
       .then((response) => setFilteredServices(response.data))
-      .catch((err) => console.log(err));
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Verifique sua conexão. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
   const filterOpenServices = (filter: string, userId?: number) => {
     api
@@ -315,15 +320,29 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      .then((response) => setFilteredOpenServices(response.data))
-      .catch((err) => console.log(err));
+      .then((response: AxiosResponse) => setFilteredOpenServices(response.data))
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Verifique sua conexão. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
 
   const getServicesPaginated = (pageNumber: number, limit?: number) => {
     api
       .get<ServiceData[]>(`services?_page=${pageNumber}&_limit=${limit}`)
-      .then((response) => setServices(response.data))
-      .catch((err) => console.log(err));
+      .then((response: AxiosResponse) => setServices(response.data))
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Verifique sua conexão. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+      });
   };
   return (
     <ServicesContext.Provider
