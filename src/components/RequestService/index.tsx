@@ -27,6 +27,22 @@ import { ServiceData } from "../../types/ServiceData";
 import FormServiceInfo from "../FormServiceInfo";
 import { useHistory } from "react-router-dom";
 
+interface servicesHoursElement {
+  minHour: number,
+  maxHour: number
+}
+
+interface servicesHoursProps {
+  [Passadoria: string]: servicesHoursElement,
+  "Limpeza Residencial": servicesHoursElement
+}
+
+interface basePriceProps {
+  [Studio: string]: number
+  Apartamento: number
+  Casa: number
+}
+
 const RequestService = () => {
   const [service, setService] = useState<string>("Limpeza Residencial");
   const [home, setHome] = useState<string>("");
@@ -50,18 +66,19 @@ const RequestService = () => {
   const { user } = useAuth();
   const [dateError, setDateError] = useState(false);
   const [cepError, setCepError] = useState(false);
+  
+  const serviceHours: servicesHoursProps = ({
+    Passadoria:{
+      minHour: 1,
+      maxHour: 6,
+    },
+    "Limpeza Residencial":{
+      minHour: 6,
+      maxHour: 8,
+    }
+  })
 
-  const serviceMaxHour: any = {
-    "Limpeza Residencial": 8,
-    Passadoria: 6,
-  };
-
-  const serviceMinHour: any = {
-    "Limpeza Residencial": 6,
-    Passadoria: 1,
-  };
-
-  const basePrice: any = {
+  const basePrice: basePriceProps = {
     Studio: 120,
     Apartamento: 150,
     Casa: 180,
@@ -200,6 +217,8 @@ const RequestService = () => {
       setPrice(80);
     } else {
       setHours("6");
+      setBathrooms("1");
+      setBedrooms("1");
     }
     value && setService(value);
   };
@@ -330,8 +349,8 @@ const RequestService = () => {
                 <InputNumber
                   name="type"
                   value={hours}
-                  maxValue={serviceMaxHour[service]}
-                  minValue={serviceMinHour[service]}
+                  maxValue={serviceHours[service].maxHour}
+                  minValue={serviceHours[service].minHour}
                   setValue={handleHours}
                 />
               )}
