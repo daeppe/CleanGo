@@ -9,12 +9,13 @@ export const Container = styled.div`
   padding: 1rem;
   width: 90%;
   z-index: 1;
+  margin-bottom: 1rem;
   @media screen and (min-width: 720px) {
     width: 60%;
   }
   @media screen and (min-width: 860px) {
     min-width: 360px;
-    gap: 1.6rem;
+    gap: 0.6rem;
     padding: 1.6rem;
     width: 50%;
   }
