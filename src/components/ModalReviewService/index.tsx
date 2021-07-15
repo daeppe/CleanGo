@@ -51,7 +51,7 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
 
   const submitReview = () => {
     const review = {
-      userId: service.userId,
+      userId: user?.partner ? service.userId : service.partnerId,
       score: stars,
       feedback: about,
     };
