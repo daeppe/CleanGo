@@ -223,7 +223,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           .get<ServiceData[]>(`services?opened=true`, {
             headers: { Authorization: `Bearer ${token}` },
           })
-          .then((response) => setServicesProgress(response.data))
+          .then((response) => setServices(response.data))
           .catch((err) => setError(true));
   };
 
@@ -253,27 +253,29 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     if (userId === 0) {
       return setError(true);
     }
-    completed === "true" &&
-      api
-        .get<ServiceData[]>(
-          `services?userId=${userId}&completed=${completed}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then((response: AxiosResponse) =>
-          setClientServices([...response.data])
-        )
-        .catch(() => setError(true));
-    api
-      .get<ServiceData[]>(
-        `services?userId=${userId}&opened=false&completed=${completed}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      .then((response: AxiosResponse) => setClientServices([...response.data]))
-      .catch(() => setError(true));
+    completed === "true"
+      ? api
+          .get<ServiceData[]>(
+            `services?userId=${userId}&completed=${completed}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+          .then((response: AxiosResponse) =>
+            setClientServices([...response.data])
+          )
+          .catch(() => setError(true))
+      : api
+          .get<ServiceData[]>(
+            `services?userId=${userId}&opened=false&completed=${completed}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+          .then((response: AxiosResponse) =>
+            setServicesProgress([...response.data])
+          )
+          .catch(() => setError(true));
   };
 
   const getOpenServices = (
