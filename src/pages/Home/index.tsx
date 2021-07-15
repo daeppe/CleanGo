@@ -37,15 +37,34 @@ import Carrosel2 from "../../asssets/images/home9.png";
 import Carrosel3 from "../../asssets/images/home10.png";
 import Video from "../../asssets/videos/home.mp4";
 
+import FirstSectionImg from "../../asssets/images/home1.png";
+
 import { useTheme } from "../../providers/Theme";
 import { useEffect } from "react";
 import { useState } from "react";
 import { FaAngleUp } from "react-icons/fa";
+import { useRef } from "react";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
 
 const HomePage = () => {
   const [beBoneIndex, setBeBoneIndex] = useState(0);
 
   const { handleBackground } = useTheme();
+
+  const ImageOne = useRef<HTMLImageElement>(null);
+  const ImageTwo = useRef<HTMLImageElement>(null);
+  const ImageThree = useRef<HTMLImageElement>(null);
+  const ImageFour = useRef<HTMLImageElement>(null);
+  const ImageFive = useRef<HTMLImageElement>(null);
+  const ImageSix = useRef<HTMLImageElement>(null);
+  const ImageSeven = useRef<HTMLImageElement>(null);
+
+  const HowWorkTitle = useRef<HTMLHeadingElement>(null);
+  const HowWorkSeparator = useRef<HTMLDivElement>(null);
+  const HowWorkSubTitle = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     handleBackground(false);
@@ -56,6 +75,103 @@ const HomePage = () => {
         setBeBoneIndex(0);
       }
     }, 6000);
+
+    // gsap.timeline()
+    gsap.registerPlugin(TextPlugin, ScrollTrigger);
+
+    gsap.from(ImageOne.current, {
+      opacity: 0,
+      translateX: -500,
+    });
+
+    gsap.from(HowWorkTitle.current, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: HowWorkSeparator.current,
+        start: "center 105%",
+        scrub: 1,
+        end: "center 50%",
+      },
+    });
+
+    gsap.from(ImageTwo.current, {
+      opacity: 0,
+      translateY: 400,
+      scrollTrigger: {
+        trigger: ImageTwo.current,
+        scrub: 2,
+        start: "top 110%",
+        end: "top 90%",
+      },
+    });
+
+    gsap.from(ImageThree.current, {
+      opacity: 0,
+      translateY: 400,
+      scrollTrigger: {
+        trigger: ImageThree.current,
+        scrub: 3,
+        start: "top 100%",
+        end: "top 90%",
+      },
+    });
+
+    gsap.from(ImageFour.current, {
+      opacity: 0,
+      translateY: 400,
+
+      scrollTrigger: {
+        trigger: ImageFour.current,
+        scrub: 1,
+        start: "top 150%",
+        end: "top 110%",
+      },
+    });
+
+    gsap.from(ImageFive.current, {
+      opacity: 0,
+      translateY: 400,
+
+      scrollTrigger: {
+        trigger: ImageFive.current,
+        scrub: 1,
+        start: "top 140%",
+        end: "top 110%",
+      },
+    });
+
+    gsap.from(ImageSix.current, {
+      width: 0,
+      scrollTrigger: {
+        trigger: ImageSix.current,
+        scrub: 1,
+        start: "top 90%",
+        end: "top 50%",
+      },
+    });
+
+    gsap.from(ImageSeven.current, {
+      width: 0,
+      scrollTrigger: {
+        trigger: ImageSeven.current,
+        scrub: 1,
+        start: "top 90%",
+        end: "top 50%",
+      },
+    });
+
+    // gsap.from(ImageSix.current, {
+    //   opacity: 0,
+    //   translateY: 400,
+
+    //   scrollTrigger: {
+    //     markers: true,
+    //     trigger: ImageSix.current,
+    //     scrub: 3,
+    //     start: "top 90%",
+    //     end: "top 80%",
+    //   },
+    // });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -77,19 +193,20 @@ const HomePage = () => {
               seu lar
             </p>
           </div>
+          <img src={FirstSectionImg} alt="Cozinha limpa" ref={ImageOne} />
         </FirstSection>
         <HowWorkSection>
           <HowWorkSectionTitle>
-            <h2>Veja como funciona</h2>
-            <div className="separator"></div>
-            <p>
+            <h2 ref={HowWorkTitle}>Veja como funciona</h2>
+            <div className="separator" ref={HowWorkSeparator}></div>
+            <p ref={HowWorkSubTitle}>
               Tenha um serviço de qualidade, de forma descomplicada e segura.
               Agende conosco sua limpeza!
             </p>
           </HowWorkSectionTitle>
 
           <Gallery>
-            <div>
+            <div ref={ImageTwo}>
               <img src={GalleryImg1} alt="" />
               <div className="content">
                 <h3>Escolha o serviço do seu jeito</h3>
@@ -100,7 +217,7 @@ const HomePage = () => {
                 </p>
               </div>
             </div>
-            <div>
+            <div ref={ImageThree}>
               <img src={GalleryImg2} alt="" />
               <div className="content">
                 <h3>No endereço e na data combinados</h3>
@@ -111,7 +228,7 @@ const HomePage = () => {
                 </p>
               </div>
             </div>
-            <div>
+            <div ref={ImageFour}>
               <img src={GalleryImg3} alt="" />
               <div className="content">
                 <h3>Conectamos os melhores profissionais</h3>
@@ -121,7 +238,7 @@ const HomePage = () => {
                 </p>
               </div>
             </div>
-            <div>
+            <div ref={ImageFive}>
               <img src={GalleryImg4} alt="" />
               <div className="content">
                 <h3>Sem dores de cabeça</h3>
@@ -143,8 +260,12 @@ const HomePage = () => {
             </h4>
           </div>
           <WrapperImages>
-            <img src={DoubleImg1} alt="" />
-            <img src={DoubleImg2} alt="" />
+            <div ref={ImageSix}>
+              <img src={DoubleImg1} alt="" />
+            </div>
+            <div ref={ImageSeven}>
+              <img src={DoubleImg2} alt="" />
+            </div>
           </WrapperImages>
         </ThirtySection>
         <BeDoneSection>

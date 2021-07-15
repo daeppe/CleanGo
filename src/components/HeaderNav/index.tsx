@@ -6,23 +6,18 @@ interface HeaderNavProps {
   whiteSchema?: boolean;
 }
 const HeaderNav = ({ whiteSchema = false }: HeaderNavProps) => {
-  const location = useLocation();
+  const { pathname } = useLocation();
+
   return (
     <Container>
-      {console.log(location.pathname)}
       <Links to="/sejaumparceiro" whiteSchema={whiteSchema}>
         Trabalhe com a CleanGo
       </Links>
       <Links to="/login" whiteSchema={whiteSchema}>
         Login
       </Links>
-
       <BtnLink
-        to={
-          location.pathname === "/sejaumparceiro"
-            ? "/cadastroparceiro"
-            : "/cadastro"
-        }
+        to={pathname === "/sejaumparceiro" ? "/cadastroparceiro" : "/cadastro"}
         whiteSchema={whiteSchema}
       >
         Cadastro
