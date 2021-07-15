@@ -16,6 +16,7 @@ import {
   LimitPieces,
   RoomsWrapper,
   DateWrapper,
+  WrapperDoubleInput,
 } from "./styles";
 import Input from "../Input";
 import InputNumber from "../InputNumber";
@@ -28,19 +29,19 @@ import FormServiceInfo from "../FormServiceInfo";
 import { useHistory } from "react-router-dom";
 
 interface servicesHoursElement {
-  minHour: number,
-  maxHour: number
+  minHour: number;
+  maxHour: number;
 }
 
 interface servicesHoursProps {
-  [Passadoria: string]: servicesHoursElement,
-  "Limpeza Residencial": servicesHoursElement
+  [Passadoria: string]: servicesHoursElement;
+  "Limpeza Residencial": servicesHoursElement;
 }
 
 interface basePriceProps {
-  [Studio: string]: number
-  Apartamento: number
-  Casa: number
+  [Studio: string]: number;
+  Apartamento: number;
+  Casa: number;
 }
 
 const RequestService = () => {
@@ -56,6 +57,8 @@ const RequestService = () => {
   const [bedroom, setBedrooms] = useState("1");
   const [bathroom, setBathrooms] = useState("1");
   const [address, setAddress] = useState("");
+  const [addressNumber, setAddressNumber] = useState("");
+  const [complement, setComplement] = useState("");
   const [cep, setCep] = useState("");
   const [city, setCity] = useState("");
   const [district, setDistrict] = useState("");
@@ -66,17 +69,17 @@ const RequestService = () => {
   const { user } = useAuth();
   const [dateError, setDateError] = useState(false);
   const [cepError, setCepError] = useState(false);
-  
-  const serviceHours: servicesHoursProps = ({
-    Passadoria:{
+
+  const serviceHours: servicesHoursProps = {
+    Passadoria: {
       minHour: 1,
       maxHour: 6,
     },
-    "Limpeza Residencial":{
+    "Limpeza Residencial": {
       minHour: 6,
       maxHour: 8,
-    }
-  })
+    },
+  };
 
   const basePrice: basePriceProps = {
     Studio: 120,
@@ -144,7 +147,9 @@ const RequestService = () => {
           opened: true,
           completed: false,
           partnerId: 0,
+          complement: complement,
           address: address,
+          addressNumber: addressNumber,
           cep: cep,
           uf: uf,
           district: district,
@@ -163,6 +168,8 @@ const RequestService = () => {
           completed: false,
           partnerId: 0,
           address: address,
+          complement: complement,
+          addressNumber: addressNumber,
           cep: cep,
           uf: uf,
           district: district,
@@ -177,6 +184,8 @@ const RequestService = () => {
       type: yup.string(),
       bedroom: yup.number(),
       bathroom: yup.number(),
+      addressNumber: yup.string().required("Todos os campos são obrigatórios"),
+      complement: yup.string(),
       cep: yup.string().required("Todos os campos são obrigatórios"),
       uf: yup.string().required("Todos os campos são obrigatórios"),
       address: yup.string().required("Todos os campos são obrigatórios"),
@@ -377,6 +386,28 @@ const RequestService = () => {
             }}
             value={cep}
           />
+          <WrapperDoubleInput>
+            <Input
+              label="Número"
+              inputType="text"
+              placeholder="Número"
+              errorMessage="Campo obrigatório"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setAddressNumber(e.target.value);
+              }}
+              value={addressNumber}
+            />
+            <Input
+              label="Complemento"
+              inputType="text"
+              placeholder="Apartameto / Bloco"
+              errorMessage="Campo obrigatório"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setComplement(e.target.value);
+              }}
+              value={complement}
+            />
+          </WrapperDoubleInput>
         </Column>
 
         <Column>
