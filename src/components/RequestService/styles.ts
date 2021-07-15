@@ -128,7 +128,7 @@ export const LimitPieces = styled.div`
   border-radius: 4px;
   margin-left: 0;
   @media screen and (min-width: 380px) {
-  margin-left: 2rem;
+    margin-left: 2rem;
   }
   @media screen and (min-width: 440px) {
     font-size: 18px;
@@ -141,5 +141,28 @@ export const DateWrapper = styled.div`
   width: 100%;
   @media screen and (min-width: 440px) {
     width: 240px;
+  }
+`;
+export const WrapperDoubleInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  div {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 480px) {
+    flex-direction: row;
+
+    div {
+      margin-right: 12px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 `;
