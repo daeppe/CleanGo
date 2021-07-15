@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
+import FeedCard from "../../../components/FeedCard";
 import ReviewsCards from "../../../components/ReviewsCards";
 import ReviewsTotal from "../../../components/ReviewsTotal";
 import { useAuth } from "../../../providers/Auth";
 import { useFeedback } from "../../../providers/Feedbacks";
 
-import {
-  Container,
-  FeaturesColumn,
-  FeedColumn,
-  WrapperSections,
-} from "./styles";
+import { Container, FeaturesColumn, WrapperSections } from "./styles";
 
 const Reviews = () => {
   const { user } = useAuth();
@@ -50,32 +46,7 @@ const Reviews = () => {
           <ReviewsTotal total={totalFeedback.toFixed(2)} />
         </WrapperSections>
       </FeaturesColumn>
-      <FeedColumn>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>{" "}
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>{" "}
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est dolores
-          ad alias excepturi ipsa quo minus mollitia tempora, quam, explicabo
-          praesentium ullam! Laudantium illo explicabo ipsa nesciunt, ad quaerat
-          iste?
-        </p>
-      </FeedColumn>
+      <FeedCard />
     </Container>
   );
 };

@@ -46,8 +46,16 @@ const HomePage = () => {
   const [beBoneIndex, setBeBoneIndex] = useState(0);
 
   const { handleBackground } = useTheme();
+
   useEffect(() => {
     handleBackground(false);
+    setInterval(() => {
+      if (beBoneIndex <= 1) {
+        setBeBoneIndex(beBoneIndex + 1);
+      } else {
+        setBeBoneIndex(0);
+      }
+    }, 6000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

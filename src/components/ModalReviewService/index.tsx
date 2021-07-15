@@ -3,7 +3,8 @@ import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
 import { FaStar, FaRegStar } from "react-icons/fa";
-
+import { useAuth } from "../../providers/Auth";
+import { useClients } from "../../providers/Clients";
 import {
   ContainerInfo,
   ContainerRow,
@@ -31,7 +32,8 @@ interface ModalProps {
 }
 const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
   const { newFeedback } = useFeedback();
-
+  const { user } = useAuth();
+  const { searchClient, client } = useClients();
   const [error, setError] = useState<boolean>(false);
   const [review, setReview] = useState(false);
   const [stars, setStars] = useState(0);
@@ -41,6 +43,8 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
   useEffect(() => {
     setReview(false);
     setStars(0);
+    searchClient(service.partnerId);
+    //eslint-disable-next-line
   }, [visible]);
 
   const submitReview = () => {
@@ -72,7 +76,9 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
       <ContainerInfo>
         {review ? (
           <>
-            <ServiceClass>Avaliar: {service.contractor}</ServiceClass>
+            <ServiceClass>
+              Avaliar: {user?.partner ? service.contractor : client.name}{" "}
+            </ServiceClass>
             {error && ""}
             <WrapperStars>
               <Stars onClick={() => setStars(1)}>
@@ -124,8 +130,17 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
             {error && ""}
             <Subtitles>Endereço:</Subtitles>
             <Adress>{`${service.address} - ${service.district},  ${service.city} - ${service.uf}, ${service.cep}`}</Adress>
-            <Subtitles>Contratante:</Subtitles>
-            <GeneralInfo>{service.contractor}</GeneralInfo>
+            {user?.partner ? (
+              <>
+                <Subtitles>Contratante:</Subtitles>
+                <GeneralInfo>{service.contractor}</GeneralInfo>
+              </>
+            ) : (
+              <>
+                <Subtitles>Contratado:</Subtitles>
+                <GeneralInfo>{client.name}</GeneralInfo>
+              </>
+            )}
             <ContainerRow>
               <ContainerInfo>
                 <Subtitles>Duração total:</Subtitles>
@@ -139,7 +154,12 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
                   {formatValue(service.price)}
                 </GeneralInfo>
               </ContainerInfo>
-              <Button onClickFunc={(e) => setReview(true)}>Avaliar</Button>
+              <Button
+                onClickFunc={(e) => setReview(true)}
+                disabled={!service.completed}
+              >
+                Avaliar
+              </Button>
             </ContainerRow>
           </>
         )}

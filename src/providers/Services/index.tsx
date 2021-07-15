@@ -10,9 +10,9 @@ import {
 import { ServiceData, AcceptService } from "../../types/ServiceData";
 import { useState } from "react";
 import { useAuth } from "../Auth";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { notification } from "antd";
-import { FaCheckCircle, FaTimes } from "react-icons/fa";
+import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 
 interface ServicesProviderProps {
   children: ReactNode;
@@ -20,7 +20,8 @@ interface ServicesProviderProps {
 interface ServicesProviderData {
   newService: (
     serviceData: ServiceData,
-    setError: Dispatch<SetStateAction<boolean>>
+    setError: Dispatch<SetStateAction<boolean>>,
+    history: History
   ) => void;
   acceptService: (
     data: AcceptService,
@@ -30,7 +31,8 @@ interface ServicesProviderData {
   finishService: (
     completed: boolean,
     setError: Dispatch<SetStateAction<boolean>>,
-    serviceId?: number
+    serviceId?: number,
+    setVisible?: Dispatch<SetStateAction<boolean>>
   ) => void;
   deleteService: (
     serviceId: number,
@@ -48,7 +50,7 @@ interface ServicesProviderData {
   ) => void;
   getClientServices: (
     setError: Dispatch<SetStateAction<boolean>>,
-    completed: boolean,
+    completed: string,
     userId?: number,
     page?: number,
     limit?: number
@@ -78,7 +80,8 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const [clientServices, setClientServices] = useState<ServiceData[]>([]);
   const newService = (
     serviceData: ServiceData,
-    setError: Dispatch<SetStateAction<boolean>>
+    setError: Dispatch<SetStateAction<boolean>>,
+    history: History
   ) => {
     api
       .post("services", serviceData, {
@@ -96,6 +99,8 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
             "Pedido de serviço concluído! Acompanhe detalhes na págine de serviços.",
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
+
+        history.push("/dashboardcliente/servicos");
       })
       .catch((err) => setError(true));
   };
@@ -110,7 +115,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response) => {
         getServicesAccepted(setError, user?.id);
         getServices(setError);
-        getClientServices(setError, false, response.data.userId);
+        getClientServices(setError, "false", response.data.userId);
         notification.open({
           message: "Sucesso",
           closeIcon: <FaTimes />,
@@ -127,7 +132,8 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const finishService = (
     completed: boolean,
     setError: Dispatch<SetStateAction<boolean>>,
-    serviceId?: number
+    serviceId?: number,
+    setVisible?: Dispatch<SetStateAction<boolean>>
   ) => {
     api
       .patch(
@@ -138,7 +144,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         }
       )
       .then(() => {
-        getClientServices(setError, false, user?.id);
+        getClientServices(setError, "false", user?.id);
         notification.open({
           message: "Sucesso",
           closeIcon: <FaTimes />,
@@ -149,7 +155,16 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           icon: <FaCheckCircle style={{ color: "green" }} />,
         });
       })
-      .catch(() => setError(true));
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Erro ao tentar concluir serviço. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+
+        setVisible && setVisible(false);
+      });
   };
   const deleteService = (
     serviceId: number,
@@ -205,7 +220,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   };
   const getClientServices = (
     setError: Dispatch<SetStateAction<boolean>>,
-    completed: boolean,
+    completed: string,
     userId: number = 0,
     page?: number,
     limit?: number

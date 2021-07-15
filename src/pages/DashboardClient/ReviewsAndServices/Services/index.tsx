@@ -13,7 +13,7 @@ const Services = () => {
   const [totalService, setTotalService] = useState(0);
 
   useEffect(() => {
-    getClientServices(setError, true, user?.id);
+    getClientServices(setError, "true", user?.id);
     //teste
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

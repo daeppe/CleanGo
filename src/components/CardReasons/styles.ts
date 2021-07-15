@@ -9,6 +9,7 @@ export const Container = styled.div`
   margin: 32px 0;
   @media only screen and (min-width: 768px) {
     flex-direction: row;
+    max-width: 1280px;
   }
 `;
 export const ContainerInner = styled(Container)`

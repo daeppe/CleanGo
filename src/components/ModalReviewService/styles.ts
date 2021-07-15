@@ -76,8 +76,28 @@ export const ContainerRow = styled(ContainerInfo)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   button {
-    display: none;
+    position: relative;
+
+    &:hover:disabled {
+      cursor: not-allowed;
+    }
+
+    &:hover:disabled::before {
+      content: "Serviço em andamento";
+      width: 100%;
+      position: absolute;
+      color: var(--white);
+      font-size: 0.7rem;
+      padding: 4px 2px;
+      background-color: var(--green);
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
   @media only screen and (min-width: 426px) {
     button {
