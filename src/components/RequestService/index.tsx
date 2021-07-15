@@ -47,7 +47,7 @@ const RequestService = () => {
   const [error, setError] = useState(false);
   const [price, setPrice] = useState(0);
   const { newService } = useServices();
-  const { idClient, user } = useAuth();
+  const { user } = useAuth();
   const [dateError, setDateError] = useState(false);
   const [cepError, setCepError] = useState(false);
 
@@ -105,6 +105,7 @@ const RequestService = () => {
   }
 
   const history = useHistory();
+  const idUser = localStorage.getItem("@CleanGo/idClient") || "0";
 
   const onSubmitFunction = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -113,7 +114,7 @@ const RequestService = () => {
 
     service === "Limpeza Residencial"
       ? (serviceF = {
-          userId: idClient,
+          userId: parseInt(idUser),
           date: dateISO,
           price: price,
           serviceDetails: {
@@ -134,7 +135,7 @@ const RequestService = () => {
           contractor: user?.name,
         })
       : (serviceF = {
-          userId: idClient,
+          userId: parseInt(idUser),
           date: dateISO,
           price: price,
           serviceDetails: {
@@ -169,6 +170,7 @@ const RequestService = () => {
     await schema
       .validate({ ...serviceF })
       .then((_) => {
+        console.log(idUser);
         newService(serviceF, setError, history);
         cep === "" && setCepError(true);
       })

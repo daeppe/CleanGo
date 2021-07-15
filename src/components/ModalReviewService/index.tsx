@@ -43,9 +43,11 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
   useEffect(() => {
     setReview(false);
     setStars(0);
-    searchClient(service.partnerId);
+    if (service.partnerId !== 0) {
+      searchClient(service.partnerId);
+    }
     //eslint-disable-next-line
-  }, [visible]);
+  }, [visible, service.partnerId]);
 
   const submitReview = () => {
     const review = {

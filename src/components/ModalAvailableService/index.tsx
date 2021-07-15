@@ -34,8 +34,12 @@ const ModalAvailableService = ({
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    searchClient(service.userId);
-  });
+    if (service.userId !== 0) {
+      searchClient(service.userId);
+    }
+    // eslint-disable-next-line
+  }, [service.userId]);
+
   const handleAccept = () => {
     acceptService(
       {
