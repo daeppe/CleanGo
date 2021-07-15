@@ -44,11 +44,6 @@ const Services = () => {
 
   useEffect(() => {
     getServices(setError, pageNumber, 12);
-    if (services.length === 0 || services.length < 12) {
-      setDisableNext(true);
-    } else {
-      setDisableNext(false);
-    }
     console.log(pageNumber);
     if (pageNumber === 1) {
       setDisablePrev(true);
