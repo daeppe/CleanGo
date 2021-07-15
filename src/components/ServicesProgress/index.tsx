@@ -19,7 +19,7 @@ const responsive = {
 
 const ServicesProgress = () => {
   const { user } = useAuth();
-  const { getClientServices, clientServices } = useServices();
+  const { getClientServices, servicesProgress } = useServices();
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const ServicesProgress = () => {
   return (
     <Container>
       <h2>Serviços em andamento</h2>
-      {clientServices.length === 0 || error ? (
+      {servicesProgress.length === 0 || error ? (
         <h3>Não há serviços em andamento</h3>
       ) : (
         <SliderWrapper>
@@ -38,7 +38,7 @@ const ServicesProgress = () => {
             mouseTracking
             disableDotsControls
             responsive={responsive}
-            items={clientServices.map((service) => (
+            items={servicesProgress.map((service) => (
               <CardServiceProgress service={service} key={service.id} />
             ))}
             paddingLeft={20}

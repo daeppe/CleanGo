@@ -66,6 +66,7 @@ interface ServicesProviderData {
   filteredServices: ServiceData[];
   filteredOpenServices: ServiceData[];
   servicesOpen: ServiceData[];
+  servicesProgress: ServiceData[];
   getServicesPaginated: (pageNumber: number, limit?: number) => void;
 }
 export const ServicesContext = createContext<ServicesProviderData>(
@@ -82,6 +83,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
   const [clientServices, setClientServices] = useState<ServiceData[]>([]);
   const [servicesOpen, setOpenServices] = useState<ServiceData[]>([]);
+  const [servicesProgress, setServicesProgress] = useState<ServiceData[]>([]);
   const newService = (
     serviceData: ServiceData,
     setError: Dispatch<SetStateAction<boolean>>,
@@ -221,7 +223,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
           .get<ServiceData[]>(`services?opened=true`, {
             headers: { Authorization: `Bearer ${token}` },
           })
-          .then((response) => setServices(response.data))
+          .then((response) => setServicesProgress(response.data))
           .catch((err) => setError(true));
   };
 
@@ -242,6 +244,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response: AxiosResponse) => setServicesAccept([...response.data]))
       .catch(() => setError(true));
   };
+
   const getClientServices = (
     setError: Dispatch<SetStateAction<boolean>>,
     completed: string,
@@ -250,29 +253,27 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
     if (userId === 0) {
       return setError(true);
     }
-    completed === "true"
-      ? api
-          .get<ServiceData[]>(
-            `services?userId=${userId}&completed=${completed}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          )
-          .then((response: AxiosResponse) =>
-            setClientServices([...response.data])
-          )
-          .catch(() => setError(true))
-      : api
-          .get<ServiceData[]>(
-            `services?userId=${userId}&opened=false&completed=${completed}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          )
-          .then((response: AxiosResponse) =>
-            setClientServices([...response.data])
-          )
-          .catch(() => setError(true));
+    completed === "true" &&
+      api
+        .get<ServiceData[]>(
+          `services?userId=${userId}&completed=${completed}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((response: AxiosResponse) =>
+          setClientServices([...response.data])
+        )
+        .catch(() => setError(true));
+    api
+      .get<ServiceData[]>(
+        `services?userId=${userId}&opened=false&completed=${completed}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response: AxiosResponse) => setClientServices([...response.data]))
+      .catch(() => setError(true));
   };
 
   const getOpenServices = (
@@ -325,6 +326,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   return (
     <ServicesContext.Provider
       value={{
+        servicesProgress,
         servicesOpen,
         getOpenServices,
         filterOpenServices,
