@@ -53,14 +53,14 @@ export const SectionReasons = styled(SectionStyled)`
   }
   padding: 5rem 0;
 
-  > button{
+  > button {
     background-color: var(--white);
     color: var(--green);
     margin-top: 20px;
   }
-  > button:hover{
+  > button:hover {
     background-color: var(--gray);
-    color: var(--dark-green)
+    color: var(--dark-green);
   }
 `;
 export const Title = styled.h1`
@@ -105,7 +105,7 @@ export const ContainerInner = styled.div`
 `;
 
 export const ProNav = styled.nav`
-display: flex;
+  display: flex;
   width: 100%;
   flex-direction: column;
   align-items: flex-end;
@@ -118,7 +118,6 @@ display: flex;
     justify-content: center;
     padding: 0;
   }
-  
 `;
 
 export const Links = styled(NavLink)`
@@ -163,7 +162,7 @@ export const BtnPro = styled(NavLink)`
     color: #1890ff;
   }
 
-   @media screen and (min-width: 840px) {
+  @media screen and (min-width: 840px) {
     margin-top: 0rem;
   }
 `;
