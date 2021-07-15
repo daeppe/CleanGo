@@ -225,7 +225,7 @@ const HomePage = () => {
         trigger: BeDoneCarrosel.current,
         scrub: 1,
         start: "top 90%",
-        end: "top 30%",
+        end: "top 50%",
       },
     });
     gsap.from(BeDoneIcons.current, {
@@ -235,7 +235,7 @@ const HomePage = () => {
         trigger: BeDoneCarrosel.current,
         scrub: 2,
         start: "top 90%",
-        end: "top 30%",
+        end: "top 50%",
       },
     });
     gsap.from(BeDoneText.current, {
@@ -245,7 +245,7 @@ const HomePage = () => {
         trigger: BeDoneCarrosel.current,
         scrub: 3,
         start: "top 90%",
-        end: "top 30%",
+        end: "top 50%",
       },
     });
 

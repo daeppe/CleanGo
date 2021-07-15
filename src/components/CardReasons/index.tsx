@@ -19,8 +19,6 @@ const CardReasons = () => {
       opacity: 0,
       scale: 0,
       transformOrigin: "center center",
-      translateX: 200,
-
       scrollTrigger: {
         trigger: CardOne.current,
         scrub: 2,
@@ -34,7 +32,7 @@ const CardReasons = () => {
       transformOrigin: "center center",
       scrollTrigger: {
         trigger: CardTwo.current,
-        scrub: 3,
+        scrub: 1.5,
         start: "top 90%",
         end: "top 70%",
       },
@@ -42,7 +40,6 @@ const CardReasons = () => {
     gsap.from(CardThree.current, {
       opacity: 0,
       transformOrigin: "center center",
-      translateX: -200,
       scale: 0,
       scrollTrigger: {
         trigger: CardThree.current,
