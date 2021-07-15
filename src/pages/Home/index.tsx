@@ -55,6 +55,8 @@ const HomePage = () => {
   const { handleBackground } = useTheme();
 
   const ImageOne = useRef<HTMLImageElement>(null);
+  const FirstSectionContent = useRef<HTMLDivElement>(null);
+
   const ImageTwo = useRef<HTMLImageElement>(null);
   const ImageThree = useRef<HTMLImageElement>(null);
   const ImageFour = useRef<HTMLImageElement>(null);
@@ -65,6 +67,15 @@ const HomePage = () => {
   const HowWorkTitle = useRef<HTMLHeadingElement>(null);
   const HowWorkSeparator = useRef<HTMLDivElement>(null);
   const HowWorkSubTitle = useRef<HTMLParagraphElement>(null);
+
+  const BeDoneTitle = useRef<HTMLHeadingElement>(null);
+  const BeDoneSeparator = useRef<HTMLDivElement>(null);
+  const BeDoneCarrosel = useRef<HTMLDivElement>(null);
+  const BeDoneIcons = useRef<HTMLDivElement>(null);
+  const BeDoneText = useRef<HTMLDivElement>(null);
+
+  const VideoElement = useRef<HTMLVideoElement>(null);
+  const VideoTitle = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     handleBackground(false);
@@ -83,6 +94,10 @@ const HomePage = () => {
       opacity: 0,
       translateX: -500,
     });
+    gsap.from(FirstSectionContent.current, {
+      opacity: 0,
+      translateX: 300,
+    });
 
     gsap.from(HowWorkTitle.current, {
       opacity: 0,
@@ -91,6 +106,48 @@ const HomePage = () => {
         start: "center 105%",
         scrub: 1,
         end: "center 50%",
+      },
+    });
+
+    gsap.from(HowWorkSeparator.current, {
+      opacity: 0,
+      translateX: 100,
+      scrollTrigger: {
+        trigger: HowWorkSeparator.current,
+        start: "center 100%",
+        scrub: 1,
+        end: "center 80%",
+      },
+    });
+
+    gsap.from(BeDoneTitle.current, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: BeDoneSeparator.current,
+        start: "center 105%",
+        scrub: 1,
+        end: "center 50%",
+      },
+    });
+
+    gsap.from(BeDoneSeparator.current, {
+      opacity: 0,
+      translateX: -100,
+      scrollTrigger: {
+        trigger: BeDoneSeparator.current,
+        start: "center 100%",
+        scrub: 1,
+        end: "center 80%",
+      },
+    });
+
+    gsap.from(HowWorkSubTitle.current, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: HowWorkSubTitle.current,
+        start: "center 100%",
+        scrub: 1,
+        end: "center 60%",
       },
     });
 
@@ -141,37 +198,79 @@ const HomePage = () => {
     });
 
     gsap.from(ImageSix.current, {
-      width: 0,
+      scale: 0,
+      opacity: 0,
       scrollTrigger: {
         trigger: ImageSix.current,
         scrub: 1,
         start: "top 90%",
-        end: "top 50%",
+        end: "top 70%",
       },
     });
 
     gsap.from(ImageSeven.current, {
-      width: 0,
+      scale: 0,
+      opacity: 0,
       scrollTrigger: {
         trigger: ImageSeven.current,
+        scrub: 2,
+        start: "top 90%",
+        end: "top 70%",
+      },
+    });
+    gsap.from(BeDoneCarrosel.current, {
+      opacity: 0,
+      translateX: -200,
+      scrollTrigger: {
+        trigger: BeDoneCarrosel.current,
         scrub: 1,
         start: "top 90%",
-        end: "top 50%",
+        end: "top 30%",
+      },
+    });
+    gsap.from(BeDoneIcons.current, {
+      opacity: 0,
+      translateX: -200,
+      scrollTrigger: {
+        trigger: BeDoneCarrosel.current,
+        scrub: 2,
+        start: "top 90%",
+        end: "top 30%",
+      },
+    });
+    gsap.from(BeDoneText.current, {
+      opacity: 0,
+      translateX: -200,
+      scrollTrigger: {
+        trigger: BeDoneCarrosel.current,
+        scrub: 3,
+        start: "top 90%",
+        end: "top 30%",
       },
     });
 
-    // gsap.from(ImageSix.current, {
-    //   opacity: 0,
-    //   translateY: 400,
+    gsap.from(VideoElement.current, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: VideoElement.current,
+        scrub: 3,
+        start: "top 80%",
+        end: "top 30%",
+      },
+    });
 
-    //   scrollTrigger: {
-    //     markers: true,
-    //     trigger: ImageSix.current,
-    //     scrub: 3,
-    //     start: "top 90%",
-    //     end: "top 80%",
-    //   },
-    // });
+    gsap.from(VideoTitle.current, {
+      opacity: 0,
+      translateX: 300,
+      delay: 1,
+      scrollTrigger: {
+        trigger: VideoTitle.current,
+        scrub: 3,
+        start: "top 90%",
+        end: "bottom 90%",
+      },
+    });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -183,7 +282,7 @@ const HomePage = () => {
       </Header>
       <Container>
         <FirstSection>
-          <div>
+          <div ref={FirstSectionContent}>
             <h2>
               A limpeza conectada, <br />
               por uma vida mais conectada.
@@ -270,12 +369,12 @@ const HomePage = () => {
         </ThirtySection>
         <BeDoneSection>
           <BeDoneSectionTitle>
-            <h2>Como iremos deixar seu lar</h2>
-            <div className="separator"></div>
+            <h2 ref={BeDoneTitle}>Como iremos deixar seu lar</h2>
+            <div className="separator" ref={BeDoneSeparator}></div>
           </BeDoneSectionTitle>
           <BeDoneContent>
             <BeDoneWrapperInfos>
-              <Icons>
+              <Icons ref={BeDoneIcons}>
                 <IconBed
                   active={beBoneIndex === 0}
                   onClick={() => setBeBoneIndex(0)}
@@ -289,7 +388,7 @@ const HomePage = () => {
                   onClick={() => setBeBoneIndex(2)}
                 />
               </Icons>
-              <Info index={beBoneIndex}>
+              <Info index={beBoneIndex} ref={BeDoneText}>
                 <div>
                   <InfoDetails active={beBoneIndex === 0}>
                     <h2>Quartos, sala de estar e áreas comuns</h2>
@@ -318,7 +417,7 @@ const HomePage = () => {
                 </div>
               </Info>
             </BeDoneWrapperInfos>
-            <Carrosel index={beBoneIndex}>
+            <Carrosel index={beBoneIndex} ref={BeDoneCarrosel}>
               <div>
                 <img src={Carrosel1} alt="" />
                 <img src={Carrosel2} alt="" />
@@ -329,12 +428,12 @@ const HomePage = () => {
         </BeDoneSection>
         <VideoSection>
           <div>
-            <video loop autoPlay muted>
+            <video loop autoPlay muted ref={VideoElement}>
               <source src={Video} type="video/mp4" />
             </video>
           </div>
           <VideoSectionTitle>
-            <h2>Conte com a gente na sua próxima limpeza!</h2>
+            <h2 ref={VideoTitle}>Conte com a gente na sua próxima limpeza!</h2>
           </VideoSectionTitle>
         </VideoSection>
         <ButtonUp
