@@ -116,7 +116,6 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setClient(response.data);
       })
       .catch((err) => console.log(err));

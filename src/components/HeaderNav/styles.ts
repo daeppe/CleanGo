@@ -22,8 +22,7 @@ export const Container = styled.div`
 `;
 
 export const Links = styled(NavLink)`
-  color: ${(props: LinksProps) =>
-    props.whiteSchema ? "var(--white)" : "var(--black)"};
+  color: var(--black);
   font-weight: 500;
   width: 100%;
   font-size: 1.2rem;
@@ -38,6 +37,8 @@ export const Links = styled(NavLink)`
   }
 
   @media screen and (min-width: 920px) {
+    color: ${(props: LinksProps) =>
+      props.whiteSchema ? "var(--white)" : "var(--black)"};
     margin-bottom: 0px;
     padding-bottom: 0;
     border-bottom: none;
@@ -49,11 +50,8 @@ export const Links = styled(NavLink)`
 `;
 
 export const BtnLink = styled(NavLink)`
-  color: ${(props: LinksProps) =>
-    props.whiteSchema ? "var(--dark-green)" : "var(--white)"};
-  background-color: ${(props: LinksProps) =>
-    props.whiteSchema ? "var(--gray)" : "var(--green)"};
-
+  color: var(--white);
+  background-color: var(--green);
   border-radius: 4px;
   padding: 6px 18px;
   font-size: 1.1rem;
@@ -68,5 +66,9 @@ export const BtnLink = styled(NavLink)`
 
   @media screen and (min-width: 920px) {
     margin-top: 0rem;
+    color: ${(props: LinksProps) =>
+      props.whiteSchema ? "var(--dark-green)" : "var(--white)"};
+    background-color: ${(props: LinksProps) =>
+      props.whiteSchema ? "var(--gray)" : "var(--green)"};
   }
 `;

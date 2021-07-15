@@ -35,9 +35,9 @@ interface ServicesProviderData {
     setVisible?: Dispatch<SetStateAction<boolean>>
   ) => void;
   deleteService: (
-    serviceId: number,
-    history: History,
-    setError: Dispatch<SetStateAction<boolean>>
+    setError: Dispatch<SetStateAction<boolean>>,
+    serviceId?: number,
+    setVisible?: Dispatch<SetStateAction<boolean>>
   ) => void;
   getServices: (
     setError: Dispatch<SetStateAction<boolean>>,
@@ -51,9 +51,11 @@ interface ServicesProviderData {
   getClientServices: (
     setError: Dispatch<SetStateAction<boolean>>,
     completed: string,
-    userId?: number,
-    page?: number,
-    limit?: number
+    userId?: number
+  ) => void;
+  getOpenServices: (
+    setError: Dispatch<SetStateAction<boolean>>,
+    userId?: number
   ) => void;
   services: ServiceData[];
   servicesAccept: ServiceData[];
@@ -63,6 +65,8 @@ interface ServicesProviderData {
   filterServices: (filter: string) => void;
   filteredServices: ServiceData[];
   filteredOpenServices: ServiceData[];
+  servicesOpen: ServiceData[];
+  servicesProgress: ServiceData[];
   getServicesPaginated: (pageNumber: number, limit?: number) => void;
 }
 export const ServicesContext = createContext<ServicesProviderData>(
@@ -78,6 +82,8 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   >([]);
   const [servicesAccept, setServicesAccept] = useState<ServiceData[]>([]);
   const [clientServices, setClientServices] = useState<ServiceData[]>([]);
+  const [servicesOpen, setOpenServices] = useState<ServiceData[]>([]);
+  const [servicesProgress, setServicesProgress] = useState<ServiceData[]>([]);
   const newService = (
     serviceData: ServiceData,
     setError: Dispatch<SetStateAction<boolean>>,
@@ -167,16 +173,36 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       });
   };
   const deleteService = (
-    serviceId: number,
-    history: History,
-    setError: Dispatch<SetStateAction<boolean>>
+    setError: Dispatch<SetStateAction<boolean>>,
+    serviceId?: number,
+    setVisible?: Dispatch<SetStateAction<boolean>>
   ) => {
     api
       .delete(`services/${serviceId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(() => history.push("/dashboardparceiro"))
-      .catch((err) => setError(true));
+      .then(() => {
+        getOpenServices(setError, user?.id);
+        notification.open({
+          message: "Sucesso",
+          closeIcon: <FaTimes />,
+          style: {
+            WebkitBorderRadius: 4,
+          },
+          description: "Serviço deletado",
+          icon: <FaCheckCircle style={{ color: "green" }} />,
+        });
+      })
+      .catch((err: AxiosError) => {
+        notification.open({
+          message: "Erro.",
+          closeIcon: <FaTimes />,
+          description: `Erro ao tentar excluir o serviço. ${err.response?.data}`,
+          icon: <FaTimesCircle style={{ color: "red" }} />,
+        });
+
+        setVisible && setVisible(false);
+      });
   };
   const getServices = (
     setError: Dispatch<SetStateAction<boolean>>,
@@ -218,33 +244,19 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
       .then((response: AxiosResponse) => setServicesAccept([...response.data]))
       .catch(() => setError(true));
   };
+
   const getClientServices = (
     setError: Dispatch<SetStateAction<boolean>>,
     completed: string,
-    userId: number = 0,
-    page?: number,
-    limit?: number
+    userId: number = 0
   ) => {
     if (userId === 0) {
-      console.log("err");
       return setError(true);
     }
-    completed
+    completed === "true"
       ? api
           .get<ServiceData[]>(
             `services?userId=${userId}&completed=${completed}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          )
-          .then((response: AxiosResponse) =>
-            setClientServices([...response.data])
-          )
-          .catch(() => setError(true))
-      : page && limit
-      ? api
-          .get<ServiceData[]>(
-            `services?userId=${userId}&opened=false&completed=${completed}&_page=${page}&_limit=${limit}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -261,9 +273,27 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
             }
           )
           .then((response: AxiosResponse) =>
-            setClientServices([...response.data])
+            setServicesProgress([...response.data])
           )
           .catch(() => setError(true));
+  };
+
+  const getOpenServices = (
+    setError: Dispatch<SetStateAction<boolean>>,
+    userId: number = 0
+  ) => {
+    if (userId === 0) {
+      return setError(true);
+    }
+    api
+      .get<ServiceData[]>(
+        `services?userId=${userId}&completed=false&opened=true`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response: AxiosResponse) => setOpenServices([...response.data]))
+      .catch(() => setError(true));
   };
 
   const filterServices = (filter: string) => {
@@ -298,6 +328,9 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
   return (
     <ServicesContext.Provider
       value={{
+        servicesProgress,
+        servicesOpen,
+        getOpenServices,
         filterOpenServices,
         getServices,
         acceptService,

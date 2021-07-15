@@ -15,8 +15,12 @@ const Services = () => {
   const [error, setError] = useState<boolean>(false);
   const [disableNext, setDisableNext] = useState<boolean>(false);
   const [disablePrev, setDisablePrev] = useState<boolean>(true);
-  const { getServices, services, filterServices, filteredServices } =
-    useServices();
+  const {
+    getServices,
+    services,
+    filterServices,
+    filteredServices,
+  } = useServices();
   const [option, setOption] = useState<string>("");
   const [pageNumber, setPageNumber] = useState<number>(1);
 
@@ -45,7 +49,7 @@ const Services = () => {
       setDisablePrev(true);
     }
     // eslint-disable-next-line
-  }, [pageNumber]);
+  }, [pageNumber, services]);
   return (
     <Container>
       <ContainerSelect>
