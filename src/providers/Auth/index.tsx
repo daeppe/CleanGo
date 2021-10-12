@@ -27,7 +27,8 @@ interface AuthProviderData {
   userLogin: (
     clientData: ClientLogin,
     setLoad: Dispatch<boolean>,
-    history: History
+    radioButton: String,
+    history: History,
   ) => void;
   userLogoff: (history: History) => void;
   token: string;
@@ -122,10 +123,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const userLogin = (
     clientData: ClientLogin,
     setLoad: Dispatch<boolean>,
+    radioButton: String,
     history: History
   ) => {
+    const loginURL = radioButton === 'Partner' ? 'partner/login' : 'customer/login';
+    
     api
-      .post("login", clientData)
+      .post(loginURL, clientData)
       .then((response: AxiosResponse) => {
         localStorage.setItem(
           "@CleanGo/token",

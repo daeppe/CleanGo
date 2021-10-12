@@ -4,10 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import Input from "../Input";
-import { ContainerForm } from "./styles";
+import { ContainerForm, RadioWrapper } from "./styles";
 import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
 import { FaSpinner } from "react-icons/fa";
+import InputRadio from '../InputRadio'
 
 interface FormValues {
   email: string;
@@ -17,6 +18,7 @@ interface FormValues {
 function FormLogin() {
   const { userLogin } = useAuth();
   const [load, setLoad] = useState<boolean>(false);
+  const [radioValue, setRadioValue] = useState<String>('Partner');
 
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório"),
@@ -36,7 +38,7 @@ function FormLogin() {
 
   const onSubmit = (data: FormValues) => {
     setLoad(true);
-    userLogin(data, setLoad, history);
+    userLogin(data, setLoad, radioValue, history);
   };
 
   return (
@@ -81,6 +83,29 @@ function FormLogin() {
           </Button>
         </div>
       </form>
+          <h3>Desejo logar como:</h3>
+          <RadioWrapper className='radio-wrapper'>
+          <InputRadio
+            name="service"
+            value="Customer"
+            selected={radioValue === "Customer"}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setRadioValue(e.target.value)
+            }
+          >
+            Empregador
+          </InputRadio>
+          <InputRadio
+            name="service"
+            value="Partner"
+            selected={radioValue === "Partner"}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setRadioValue(e.target.value)
+            }
+          >
+            Parceiro
+          </InputRadio> 
+        </RadioWrapper>
     </ContainerForm>
   );
 }
