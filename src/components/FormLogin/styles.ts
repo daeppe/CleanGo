@@ -103,4 +103,17 @@ export const ContainerForm = styled.div`
       }
     }
   }
+  h3 {
+    margin-bottom: .6rem;
+  }
+`;
+
+export const RadioWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 12px;
+
+  @media screen and (min-width: 480px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
