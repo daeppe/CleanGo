@@ -18,7 +18,7 @@ const FormUpdateProfile = () => {
   const { editPartner } = usePartners();
   const { editClient } = useClients();
   const { idClient, token, user } = useAuth();
-  const [name, setName] = useState(user?.name || "");
+  const [full_name, setName] = useState(user?.full_name || "");
   const [email, setEmail] = useState(user?.email || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [cep, setCep] = useState(user?.cep || "");
@@ -66,7 +66,7 @@ const FormUpdateProfile = () => {
     e.preventDefault();
 
     const updateObject: PartnerData = {
-      name,
+      full_name,
       email,
       phone,
       cep,
@@ -77,7 +77,7 @@ const FormUpdateProfile = () => {
       complement,
     };
     const schema = yup.object().shape({
-      name: yup.string(),
+      full_name: yup.string(),
       email: yup.string(),
       phone: yup.string(),
       cep: yup.string(),
@@ -94,7 +94,7 @@ const FormUpdateProfile = () => {
         user?.partner ? editPartner(v, idClient, token) : editClient(v);
       })
       .catch((err) => {
-        name === "" && setNameError(true);
+        full_name === "" && setNameError(true);
         email === "" && setEmailError(true);
         phone === "" && setPhoneError(true);
         cep === "" && setCepError(true);
@@ -117,7 +117,7 @@ const FormUpdateProfile = () => {
           setName(e.target.value);
           setNameError(false);
         }}
-        value={name}
+        value={full_name}
         required
       />
       <Input

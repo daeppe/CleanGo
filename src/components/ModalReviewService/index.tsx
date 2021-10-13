@@ -80,7 +80,7 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
         {review ? (
           <>
             <ServiceClass>
-              Avaliar: {user?.partner ? service.contractor : client.name}{" "}
+              Avaliar: {user?.partner ? service.contractor : client.full_name}{" "}
             </ServiceClass>
             {error && ""}
             <WrapperStars>
@@ -145,7 +145,7 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
             ) : (
               <>
                 <Subtitles>Contratado:</Subtitles>
-                <GeneralInfo>{client.name}</GeneralInfo>
+                <GeneralInfo>{client.full_name}</GeneralInfo>
               </>
             )}
             <Subtitles>Data:</Subtitles>

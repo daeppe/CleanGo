@@ -86,7 +86,7 @@ const ModalAvailableService = ({
           service.cep
         }`}</Adress>
         <Subtitles>Contratante:</Subtitles>
-        <GeneralInfo>{client.name}</GeneralInfo>
+        <GeneralInfo>{client.full_name}</GeneralInfo>
         <Subtitles>Data:</Subtitles>
         <GeneralInfo>{format(service.date, "dd MMM yyyy")}</GeneralInfo>
         <ContainerRow>

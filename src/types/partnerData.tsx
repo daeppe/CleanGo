@@ -1,6 +1,6 @@
 export interface UserData {
   partner?: boolean;
-  name: string;
+  full_name: string;
   email: string;
   password?: string;
   cpf: string;
@@ -19,7 +19,7 @@ export interface UserData {
 
 export interface PartnerData {
   partner?: boolean;
-  name?: string;
+  full_name?: string;
   email?: string;
   password?: string;
   cpf?: string;

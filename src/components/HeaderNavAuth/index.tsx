@@ -11,7 +11,7 @@ const HeaderNavAuth = () => {
 
   return (
     <Container>
-      <p>{`Olá, ${user?.name}`}</p>
+      <p>{`Olá, ${user?.full_name}`}</p>
       {user?.partner && (
         <Links onClick={() => history.push("/dashboardparceiro/configuracoes")}>
           <FaCog className="config" />

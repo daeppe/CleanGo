@@ -154,7 +154,7 @@ const RequestService = () => {
           uf: uf,
           district: district,
           city: city,
-          contractor: user?.name,
+          contractor: user?.full_name,
         })
       : (serviceF = {
           userId: parseInt(idUser),
@@ -174,7 +174,7 @@ const RequestService = () => {
           uf: uf,
           district: district,
           city: city,
-          contractor: user?.name,
+          contractor: user?.full_name,
         });
 
     const schema = yup.object().shape({

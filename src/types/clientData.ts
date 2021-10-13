@@ -7,7 +7,7 @@ export interface ClientData {
   // id?: number;
 
   partner?: boolean;
-  name: string;
+  full_name: string;
   email: string;
   password?: string;
   cpf: string;

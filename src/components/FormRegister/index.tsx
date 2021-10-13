@@ -11,18 +11,20 @@ import { ClientData } from "../../types/clientData";
 import { FaSpinner } from "react-icons/fa";
 
 interface FormData {
-  name: string;
+  full_name: string;
   email: string;
   cpf: string;
+  phone: string;
   password: string;
   passwordConfirm: string;
 }
 
 function FormRegister() {
   const schema = yup.object().shape({
-    name: yup.string().required("Campo obrigatório"),
+    full_name: yup.string().required("Campo obrigatório"),
     email: yup.string().required("Campo obrigatório"),
     cpf: yup.string().required("Campo obrigatório"),
+    phone: yup.string().required("Campo obrigatório"),
     password: yup
       .string()
       .min(6, "Mínimo de 6 dígitos")
@@ -45,9 +47,9 @@ function FormRegister() {
   const history = useHistory();
   const { newClient } = useClients();
 
-  const onSubmit = ({ cpf, email, name, password }: FormData) => {
+  const onSubmit = ({ cpf, email, full_name, phone, password }: FormData) => {
     setLoad(true);
-    const data: ClientData = { cpf, email, name, password };
+    const data: ClientData = { cpf, email, full_name, phone, password };
     newClient(data, setLoad, history);
   };
 
@@ -59,10 +61,10 @@ function FormRegister() {
         <Input
           inputType="text"
           label="Nome"
-          {...register("name")}
+          {...register("full_name")}
           placeholder="Digite seu nome"
-          error={!!errors.name}
-          errorMessage={errors.name?.message}
+          error={!!errors.full_name}
+          errorMessage={errors.full_name?.message}
         />
 
         <Input
@@ -81,6 +83,15 @@ function FormRegister() {
           data-mask="000.000.000-00"
           error={!!errors.cpf}
           errorMessage={errors.cpf?.message}
+        />
+        <Input
+          inputType="text"
+          label="Telefone"
+          {...register("phone")}
+          placeholder="Digite seu telefone"
+          data-mask="(00) 00000-0000"
+          error={!!errors.phone}
+          errorMessage={errors.phone?.message}
         />
 
         <Input

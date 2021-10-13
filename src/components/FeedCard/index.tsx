@@ -22,7 +22,7 @@ const FeedCard = () => {
   const feedData = (text: string) => {
     const data = {
       userId: user?.id,
-      name: user?.name,
+      full_name: user?.full_name,
       textPost: text,
       date: date.getTime(),
     };
@@ -63,11 +63,11 @@ const FeedCard = () => {
             .slice(0)
             .reverse()
             .map((elem, ind) => {
-              const { name, textPost, date } = elem;
+              const { full_name, textPost, date } = elem;
 
               return (
                 <FeedPost key={ind}>
-                  <h3>{name}</h3>
+                  <h3>{full_name}</h3>
                   <p>{textPost}</p>
                   <data>Publicado em {format(date, "dd-MM-yyyy")}</data>
                 </FeedPost>

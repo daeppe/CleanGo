@@ -137,7 +137,7 @@ const ModalProgressService = ({ service, visible, setVisible }: ModalProps) => {
               service.cep
             }`}</Adress>
             <Subtitles>Contratado:</Subtitles>
-            <GeneralInfo>{client.name}</GeneralInfo>
+            <GeneralInfo>{client.full_name}</GeneralInfo>
             <ContainerRow>
               <ContainerInfo>
                 <Subtitles>Duração total:</Subtitles>

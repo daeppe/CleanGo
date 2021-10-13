@@ -13,7 +13,7 @@ interface ClientProviderProps {
 }
 interface EditClient {
   partner?: boolean;
-  name?: string;
+  full_name?: string;
   email?: string;
   cpf?: string;
   password?: string;
@@ -55,7 +55,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
     };
 
     api
-      .post("register", client)
+      .post("customers", client)
       .then(() => {
         notification.open({
           message: "Sucesso",
@@ -72,6 +72,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
       })
       .catch(() => {
         setLoad(false);
+        console.log(client);
 
         notification.open({
           message: "Erro",
