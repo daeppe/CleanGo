@@ -51,7 +51,6 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
   ) => {
     const client: ClientData = {
       ...clientData,
-      partner: false,
     };
 
     api
