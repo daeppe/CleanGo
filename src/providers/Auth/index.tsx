@@ -13,6 +13,7 @@ import { ClientData } from "../../types/clientData";
 import { notification } from "antd";
 import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 import { AxiosError, AxiosResponse } from "axios";
+import internal from "stream";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -28,7 +29,7 @@ interface AuthProviderData {
     clientData: ClientLogin,
     setLoad: Dispatch<boolean>,
     radioButton: String,
-    history: History,
+    history: History
   ) => void;
   userLogoff: (history: History) => void;
   token: string;
@@ -39,7 +40,12 @@ interface AuthProviderData {
 }
 
 interface DecodeToken {
-  sub: string;
+  sub: {
+    id: number;
+    email: string;
+    full_name: string;
+    is_partner: boolean;
+  };
   iat: number;
   email: string;
   exp: number;
@@ -72,75 +78,39 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const [idClient, setIdClient] = useState<number>(0);
 
-  const getUser = (
-    id: string,
-    token: string,
-    history: History,
-    setLoad: Dispatch<boolean>
-  ) => {
-    api
-      .get(`users/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        setUser(response.data);
-        localStorage.setItem("@CleanGo/user", JSON.stringify(response.data));
-
-        notification.open({
-          message: "Sucesso",
-          closeIcon: <FaTimes />,
-          style: {
-            WebkitBorderRadius: 4,
-          },
-          description: "Login efetuado com sucesso",
-          icon: <FaCheckCircle style={{ color: "green" }} />,
-        });
-        setLoad(false);
-        if (response.data.partner) {
-          history.push("/dashboardparceiro");
-        } else {
-          history.push("/dashboardcliente");
-        }
-      })
-      .catch((err) => {
-        setLoad(false);
-
-        notification.open({
-          message: "Erro",
-          closeIcon: <FaTimes />,
-          style: {
-            WebkitBorderRadius: 4,
-          },
-          description:
-            "Erro no login. Verifique seu email e senha, tente novamente.",
-          icon: <FaTimesCircle style={{ color: "red" }} />,
-        });
-      });
-  };
-
   const userLogin = (
     clientData: ClientLogin,
     setLoad: Dispatch<boolean>,
     radioButton: String,
     history: History
   ) => {
-    const loginURL = radioButton === 'Partner' ? 'partner/login' : 'customer/login';
-    
+    const loginURL =
+      radioButton === "Partner" ? "partners/login" : "customers/login";
+
     api
       .post(loginURL, clientData)
       .then((response: AxiosResponse) => {
+        console.log(response);
         localStorage.setItem(
           "@CleanGo/token",
-          JSON.stringify(response.data.accessToken)
+          JSON.stringify(response.data.auth_token)
         );
-        const decodedToken: DecodeToken = jwt_decode(response.data.accessToken);
-        localStorage.setItem("@CleanGo/idClient", decodedToken.sub);
-        setIdClient(convertStringToNumber(decodedToken.sub));
+        const decodedToken: DecodeToken = jwt_decode(response.data.auth_token);
+        localStorage.setItem(
+          "@CleanGo/idClient",
+          JSON.stringify(decodedToken.sub.id)
+        );
+        localStorage.setItem("@CleanGo/user", JSON.stringify(decodedToken.sub));
+        setIdClient(decodedToken.sub.id);
 
-        setAuth(response.data.accessToken);
-        getUser(decodedToken.sub, response.data.accessToken, history, setLoad);
+        setAuth(response.data.auth_token);
+        setLoad(false);
+        if (decodedToken.sub.is_partner) {
+          history.push("/dashboardparceiro");
+        } else {
+          history.push("/dashboardcliente");
+        }
+        setUser(decodedToken.sub);
       })
       .catch((err: AxiosError) => {
         setLoad(false);
