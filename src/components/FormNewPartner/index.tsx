@@ -43,7 +43,7 @@ export const FormNewPartnerFirstStep = ({
   setNewPartnerState,
   setSectionForm,
 }: FormNewPartnerFirstStepProps) => {
-  const [name, setName] = useState("");
+  const [full_name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -88,7 +88,6 @@ export const FormNewPartnerFirstStep = ({
         setCpfError(true);
         setCpf("");
       } else {
-        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
         setCpf(value);
       }
     } else {
@@ -98,7 +97,6 @@ export const FormNewPartnerFirstStep = ({
 
   const phoneMask = (value: string) => {
     if (value.length === 11) {
-      value = value.replace(/(\d{2})(\d{5})(\d{4})/g, "($1) $2-$3");
       setPhone(value);
     } else {
       setPhone(value);
@@ -109,7 +107,7 @@ export const FormNewPartnerFirstStep = ({
     e.preventDefault();
 
     const partner = {
-      name,
+      full_name,
       email,
       cpf,
       birthday,
@@ -118,7 +116,7 @@ export const FormNewPartnerFirstStep = ({
     };
 
     const firstSchema = yup.object().shape({
-      name: yup.string().required("Todos os campos são obrigatórios"),
+      full_name: yup.string().required("Todos os campos são obrigatórios"),
       email: yup.string().required("Todos os campos são obrigatórios"),
       cpf: yup.string().required("Todos os campos são obrigatórios"),
       gender: yup.string().required("Todos os campos são obrigatórios"),
@@ -136,7 +134,7 @@ export const FormNewPartnerFirstStep = ({
         setSectionForm(2);
       })
       .catch((err) => {
-        name === "" && setNameError(true);
+        full_name === "" && setNameError(true);
         email === "" && setEmailError(true);
         cpf === "" && setCpfError(true);
         phone === "" && setPhoneError(true);
@@ -152,12 +150,12 @@ export const FormNewPartnerFirstStep = ({
         placeholder="Digite seu nome"
         errorMessage="Campo obrigatório"
         error={nameError}
-        name="name"
+        name="full_name"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setName(e.target.value);
           setNameError(false);
         }}
-        value={name}
+        value={full_name}
         required
       />
       <Input

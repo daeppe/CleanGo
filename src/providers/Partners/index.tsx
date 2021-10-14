@@ -48,12 +48,29 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
     setLoad: Dispatch<boolean>
   ) => {
     const partnerNew = {
-      ...partner,
-      partner: true,
+      full_name: partner.full_name,
+      email: partner.email,
+      password: partner.password,
+      gender: partner.gender?.split("")[0],
+      birthday: partner.birthday,
+      cpf: partner.cpf,
+      phone: partner.phone,
+      address: {
+        place: partner.address,
+        neighborhood: partner.district,
+        complements: partner.complement,
+        city: partner.city,
+        state: partner.uf,
+        cep: partner.cep?.replace("-", ""),
+        number: "100",
+      },
+      services: partner.service,
+      describe: partner.about,
     };
     api
-      .post("register", partnerNew)
+      .post("partners", partnerNew)
       .then(() => {
+        console.log(partnerNew);
         notification.open({
           message: "Parabéns",
           closeIcon: <FaTimes />,
@@ -65,6 +82,8 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
         history.push("/login");
       })
       .catch((error: AxiosError) => {
+        console.log(partnerNew);
+
         setLoad(false);
 
         notification.open({
