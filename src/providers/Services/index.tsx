@@ -17,8 +17,6 @@ import { useAuth } from "../Auth";
 import { AxiosError, AxiosResponse } from "axios";
 import { notification } from "antd";
 import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 
 interface ServicesProviderProps {
     children: ReactNode;
@@ -95,17 +93,27 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         setError: Dispatch<SetStateAction<boolean>>,
         history: History
     ) => {
-        const { hours, bedroom, bathroom, type } = serviceData.serviceDetails;
-        const dateFormated = format(serviceData.date, "dd-MM-yyyy");
+        const { hours, bedrooms, bathrooms, type } =
+            serviceData.service_details;
+        const { place, number, complements, cep, state, neighborhood, city } =
+            serviceData.address;
         const serviceDataFormated: ServiceDataBE = {
-            address: serviceData.address,
-            date: dateFormated,
+            address: {
+                place,
+                number,
+                complements,
+                cep: cep.replaceAll("-", ""),
+                state,
+                neighborhood,
+                city,
+            },
+            date: serviceData.date,
             hours,
             value: serviceData.price,
-            service: serviceData.serviceDetails.class,
+            service: serviceData.service_details.class,
             residence: type,
-            bathrooms: bathroom,
-            bedrooms: bedroom,
+            bathrooms,
+            bedrooms,
             opened: true,
             completed: false,
         };
@@ -272,7 +280,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         completed === "true"
             ? api
                   .get<ServiceData[]>(
-                      `services?userId=${userId}&completed=${completed}`,
+                      `orders?userId=${userId}&completed=${completed}`,
                       {
                           headers: { Authorization: `Bearer ${token}` },
                       }
@@ -283,7 +291,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
                   .catch(() => setError(true))
             : api
                   .get<ServiceData[]>(
-                      `services?userId=${userId}&opened=false&completed=${completed}`,
+                      `orders?userId=${userId}&opened=false&completed=${completed}`,
                       {
                           headers: { Authorization: `Bearer ${token}` },
                       }

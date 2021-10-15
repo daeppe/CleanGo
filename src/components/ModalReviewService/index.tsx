@@ -126,18 +126,19 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
                 ) : (
                     <>
                         <ServiceClass>
-                            {service.serviceDetails.class}
+                            {service.service_details.class}
                         </ServiceClass>
-                        {service.serviceDetails.class.toLowerCase() !==
+                        {service.service_details.class.toLowerCase() !==
                             "passadoria" && (
                             <>
                                 <Subtitles>Detalhes:</Subtitles>
                                 <ServiceDetails>
                                     <li>
-                                        {service.serviceDetails.bedroom} quartos
+                                        {service.service_details.bedrooms}{" "}
+                                        quartos
                                     </li>
                                     <li>
-                                        {service.serviceDetails.bathroom}{" "}
+                                        {service.service_details.bathrooms}{" "}
                                         banheiros
                                     </li>
                                 </ServiceDetails>
@@ -148,11 +149,11 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
                         <Adress>{`${service.address.place}, ${
                             service.address.number
                         } ${
-                            service.address.complement &&
-                            service?.address.complement
-                        } - ${service.address.district},  ${
+                            service.address.complements &&
+                            service?.address.complements
+                        } - ${service.address.neighborhood},  ${
                             service.address.city
-                        } - ${service.address.uf}, ${
+                        } - ${service.address.state}, ${
                             service.address.cep
                         }`}</Adress>
                         {user?.is_partner ? (
@@ -167,14 +168,12 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
                             </>
                         )}
                         <Subtitles>Data:</Subtitles>
-                        <GeneralInfo>
-                            {format(service.date, "dd MMM yyyy")}
-                        </GeneralInfo>
+                        <GeneralInfo>{service.date}</GeneralInfo>
                         <ContainerRow>
                             <ContainerInfo>
                                 <Subtitles>Duração total:</Subtitles>
                                 <GeneralInfo className="hours">
-                                    {service.serviceDetails.hours} horas
+                                    {service.service_details.hours} horas
                                 </GeneralInfo>
                             </ContainerInfo>
                             <ContainerInfo>

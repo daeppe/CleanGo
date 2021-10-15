@@ -28,6 +28,7 @@ import FormServiceInfo from "../FormServiceInfo";
 import { useHistory } from "react-router-dom";
 import { ContainerSelect, SelectStyled } from "../FormUpdateProfile/styles";
 import { LabelStyled } from "../Input/styles";
+import { format } from "date-fns";
 
 interface servicesHoursElement {
     minHour: number;
@@ -59,11 +60,11 @@ const RequestService = () => {
     const [bathroom, setBathrooms] = useState("1");
     const [place, setAddress] = useState("");
     const [number, setNumber] = useState("");
-    const [complement, setComplement] = useState("");
+    const [complements, setComplement] = useState("");
     const [cep, setCep] = useState("");
     const [city, setCity] = useState("");
-    const [district, setDistrict] = useState("");
-    const [uf, setUf] = useState("AC");
+    const [neighborhood, setDistrict] = useState("");
+    const [state, setUf] = useState("AC");
     const [error, setError] = useState(false);
     const [price, setPrice] = useState(0);
     const { newService } = useServices();
@@ -136,58 +137,61 @@ const RequestService = () => {
         e.preventDefault();
 
         let serviceF: ServiceData = {} as ServiceData;
-
+        let dateF = format(dateISO, "dd-MM-yyyy");
         service === "Limpeza Residencial"
             ? (serviceF = {
                   userId: parseInt(idUser),
-                  date: dateISO,
+                  date: dateF,
                   price: price,
-                  serviceDetails: {
+                  service_details: {
                       class: service,
                       hours: parseInt(hours),
                       type: home,
-                      bedroom: parseInt(bedroom),
-                      bathroom: parseInt(bathroom),
+                      bedrooms: parseInt(bedroom),
+                      bathrooms: parseInt(bathroom),
                   },
                   opened: true,
                   completed: false,
                   partnerId: 0,
                   address: {
                       place,
-                      complement,
+                      complements,
                       number,
                       cep,
-                      uf,
-                      district,
+                      state,
+                      neighborhood,
                       city,
                   },
                   contractor: user?.full_name,
               })
             : (serviceF = {
                   userId: parseInt(idUser),
-                  date: dateISO,
+                  date: dateF,
                   price: price,
-                  serviceDetails: {
+                  service_details: {
                       class: service,
                       hours: parseInt(hours),
+                      type: "Casa",
+                      bedrooms: 0,
+                      bathrooms: 0,
                   },
                   opened: true,
                   completed: false,
                   partnerId: 0,
                   address: {
                       place,
-                      complement,
+                      complements,
                       number,
                       cep,
-                      uf,
-                      district,
+                      state,
+                      neighborhood,
                       city,
                   },
                   contractor: user?.full_name,
               });
 
         const schema = yup.object().shape({
-            date: yup.number().required("Selecione uma data"),
+            date: yup.string().required("Selecione uma data"),
             class: yup.string(),
             hours: yup.string(),
             type: yup.string(),
@@ -431,7 +435,7 @@ const RequestService = () => {
                         />
                         <ContainerSelect>
                             <LabelStyled htmlFor="uf">Estado</LabelStyled>
-                            <SelectStyled name="uf" id="uf" value={uf}>
+                            <SelectStyled name="uf" id="uf" value={state}>
                                 <option value="AC">Acre</option>
                                 <option value="AL">Alagoas</option>
                                 <option value="AP">Amapá</option>
@@ -499,7 +503,7 @@ const RequestService = () => {
                             placeholder="Digite seu bairro"
                             errorMessage="Campo obrigatório"
                             error={districtError}
-                            value={district}
+                            value={neighborhood}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>
                             ) => {
@@ -535,7 +539,7 @@ const RequestService = () => {
                             ) => {
                                 setComplement(e.target.value);
                             }}
-                            value={complement}
+                            value={complements}
                         />
                     </WrapperDoubleInput>
                 </Column>

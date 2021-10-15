@@ -1,14 +1,14 @@
 export interface ServiceData {
     userId: number;
     contractor?: string;
-    date: number;
+    date: string;
     price: number;
-    serviceDetails: {
+    service_details: {
         class: string;
         hours: number;
         type?: string;
-        bedroom?: number;
-        bathroom?: number;
+        bedrooms?: number;
+        bathrooms?: number;
     };
     opened: boolean;
     completed: boolean;
@@ -18,10 +18,10 @@ export interface ServiceData {
     address: {
         place: string;
         number: string;
-        complement?: string;
+        complements: string | undefined;
         cep: string;
-        uf: string;
-        district: string;
+        state: string;
+        neighborhood: string;
         city: string;
     };
 }
@@ -42,10 +42,10 @@ export interface ServiceDataBE {
     address: {
         place: string;
         number: string;
-        complement?: string;
+        complements?: string;
         cep: string;
-        uf: string;
-        district: string;
+        state: string;
+        neighborhood: string;
         city: string;
     };
 }

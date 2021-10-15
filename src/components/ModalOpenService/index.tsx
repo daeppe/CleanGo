@@ -47,7 +47,7 @@ const ModalOpenService = ({ service, visible, setVisible }: ModalProps) => {
 
     const submitReview = () => {
         const review = {
-            userId: service.userId,
+            userId: service?.userId,
             score: stars,
             feedback: about,
         };
@@ -58,11 +58,11 @@ const ModalOpenService = ({ service, visible, setVisible }: ModalProps) => {
     };
 
     useEffect(() => {
-        if (service.partnerId !== 0) {
-            searchClient(service.partnerId);
+        if (service?.partnerId !== 0) {
+            searchClient(service?.partnerId);
         }
         // eslint-disable-next-line
-    }, [service.partnerId]);
+    }, [service?.partnerId]);
 
     return (
         <CustomModal
@@ -81,7 +81,7 @@ const ModalOpenService = ({ service, visible, setVisible }: ModalProps) => {
                 {completed ? (
                     <>
                         <ServiceClass>
-                            Avaliar: {service.contractor}
+                            Avaliar: {service?.contractor}
                         </ServiceClass>
                         {error && ""}
                         <WrapperStars>
@@ -124,18 +124,19 @@ const ModalOpenService = ({ service, visible, setVisible }: ModalProps) => {
                 ) : (
                     <>
                         <ServiceClass>
-                            {service.serviceDetails.class}
+                            {service.service_details?.class}
                         </ServiceClass>
-                        {service.serviceDetails.class.toLowerCase() !==
+                        {service?.service_details?.class.toLowerCase() !==
                             "passadoria" && (
                             <>
                                 <Subtitles>Detalhes:</Subtitles>
                                 <ServiceDetails>
                                     <li>
-                                        {service.serviceDetails.bedroom} quartos
+                                        {service?.service_details?.bedrooms}{" "}
+                                        quartos
                                     </li>
                                     <li>
-                                        {service.serviceDetails.bathroom}{" "}
+                                        {service?.service_details?.bathrooms}{" "}
                                         banheiros
                                     </li>
                                 </ServiceDetails>
@@ -143,33 +144,31 @@ const ModalOpenService = ({ service, visible, setVisible }: ModalProps) => {
                         )}
                         {error && ""}
                         <Subtitles>Endereço:</Subtitles>
-                        <Adress>{`${service.address.place}, ${
-                            service.address.number
+                        <Adress>{`${service?.address?.place}, ${
+                            service?.address?.number
                         } ${
-                            service.address.complement &&
-                            service?.address.complement
-                        } - ${service.address.district},  ${
-                            service.address.city
-                        } - ${service.address.uf}, ${
-                            service.address.cep
+                            service?.address?.complements &&
+                            service?.address?.complements
+                        } - ${service?.address?.neighborhood},  ${
+                            service?.address?.city
+                        } - ${service?.address?.state}, ${
+                            service?.address?.cep
                         }`}</Adress>
                         <Subtitles>Contratado:</Subtitles>
-                        <GeneralInfo>{client.full_name}</GeneralInfo>
+                        <GeneralInfo>{client?.full_name}</GeneralInfo>
                         <Subtitles>Data:</Subtitles>
-                        <GeneralInfo>
-                            {format(service.date, "dd MMM yyyy")}
-                        </GeneralInfo>
+                        <GeneralInfo>{service?.date}</GeneralInfo>
                         <ContainerRow>
                             <ContainerInfo>
                                 <Subtitles>Duração total:</Subtitles>
                                 <GeneralInfo className="hours">
-                                    {service.serviceDetails.hours} horas
+                                    {service?.service_details?.hours} horas
                                 </GeneralInfo>
                             </ContainerInfo>
                             <ContainerInfo>
                                 <Subtitles>Valor</Subtitles>
                                 <GeneralInfo className="price">
-                                    {formatValue(service.price)}
+                                    {formatValue(service?.price)}
                                 </GeneralInfo>
                             </ContainerInfo>
                             <Button onClickFunc={handleCancel}>Cancelar</Button>

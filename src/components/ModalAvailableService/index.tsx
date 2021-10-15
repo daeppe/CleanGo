@@ -35,18 +35,18 @@ const ModalAvailableService = ({
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        if (service.userId !== 0) {
-            searchClient(service.userId);
+        if (service?.userId !== 0) {
+            searchClient(service?.userId);
         }
         // eslint-disable-next-line
-    }, [service.userId]);
+    }, [service?.userId]);
 
     const handleAccept = () => {
         acceptService(
             {
                 opened: false,
                 partnerId: user?.id,
-                serviceId: service.id,
+                serviceId: service?.id,
             },
             setError
         );
@@ -68,39 +68,48 @@ const ModalAvailableService = ({
         >
             {/* <TitleModal>Serviço disponível</TitleModal> */}
             <ContainerInfo>
-                <ServiceClass>{service.serviceDetails.class}</ServiceClass>
-                {service.serviceDetails.class.toLowerCase() !==
+                <ServiceClass>{service?.service_details?.class}</ServiceClass>
+                {service?.service_details?.class.toLowerCase() !==
                     "passadoria" && (
                     <>
                         <Subtitles>Detalhes:</Subtitles>
                         <ServiceDetails>
-                            <li>{service.serviceDetails.bedroom} quartos</li>
-                            <li>{service.serviceDetails.bathroom} banheiros</li>
+                            <li>
+                                {service?.service_details?.bedrooms} quartos
+                            </li>
+                            <li>
+                                {service?.service_details?.bathrooms} banheiros
+                            </li>
                         </ServiceDetails>
                     </>
                 )}
                 {error && ""}
                 <Subtitles>Endereço:</Subtitles>
-                <Adress>{`${service.address.place}, ${service.address.number} ${
-                    service.address.complement && service?.address.complement
-                } - ${service.address.district},  ${service.address.city} - ${
-                    service.address.uf
-                }, ${service.address.cep}`}</Adress>
+                <Adress>{`${service?.address?.place}, ${
+                    service?.address?.number
+                } ${
+                    service?.address?.complements &&
+                    service?.address?.complements
+                } - ${service?.address?.neighborhood},  ${
+                    service?.address?.city
+                } - ${service?.address?.state}, ${
+                    service?.address?.cep
+                }`}</Adress>
                 <Subtitles>Contratante:</Subtitles>
                 <GeneralInfo>{client.full_name}</GeneralInfo>
                 <Subtitles>Data:</Subtitles>
-                <GeneralInfo>{format(service.date, "dd MMM yyyy")}</GeneralInfo>
+                <GeneralInfo>{service?.date}</GeneralInfo>
                 <ContainerRow>
                     <ContainerInfo>
                         <Subtitles>Duração total:</Subtitles>
                         <GeneralInfo className="hours">
-                            {service.serviceDetails.hours} horas
+                            {service?.service_details?.hours} horas
                         </GeneralInfo>
                     </ContainerInfo>
                     <ContainerInfo>
                         <Subtitles>Valor</Subtitles>
                         <GeneralInfo className="price">
-                            {formatValue(service.price)}
+                            {formatValue(service?.price)}
                         </GeneralInfo>
                     </ContainerInfo>
                     <Button onClickFunc={handleAccept}>Aceitar</Button>
