@@ -8,75 +8,76 @@ import formatValue from "../../utils/formatedPrice";
 // import { notification } from "antd";
 // import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import {
-  ContainerInfo,
-  ContainerRow,
-  CloseIcon,
-  ServiceClass,
-  Subtitles,
-  GeneralInfo,
-  Adress,
-  ServiceDetails,
-  CustomModal,
+    ContainerInfo,
+    ContainerRow,
+    CloseIcon,
+    ServiceClass,
+    Subtitles,
+    GeneralInfo,
+    Adress,
+    ServiceDetails,
+    CustomModal,
 } from "./styles";
 // import { useState } from "react";
 interface ModalProps {
-  visible: boolean;
-  setVisible: Dispatch<SetStateAction<boolean>>;
-  service: ServiceData;
+    visible: boolean;
+    setVisible: Dispatch<SetStateAction<boolean>>;
+    service: ServiceData;
 }
 const ModalDetailsService = ({ service, visible, setVisible }: ModalProps) => {
-  return (
-    <CustomModal
-      visible={visible}
-      centered
-      onOk={() => setVisible(false)}
-      onCancel={() => setVisible(false)}
-      footer={null}
-      closeIcon={<CloseIcon />}
-      width={600}
-      title="Serviço aceito"
-      okText="Criar"
-      cancelText="Cancelar"
-    >
-      {/* <TitleModal>Serviço disponível</TitleModal> */}
-      <ContainerInfo>
-        <ServiceClass>{service.serviceDetails.class}</ServiceClass>
-        {service.serviceDetails.class.toLowerCase() !== "passadoria" && (
-          <>
-            <Subtitles>Detalhes:</Subtitles>
-            <ServiceDetails>
-              <li>{service.serviceDetails.bedroom} quartos</li>
-              <li>{service.serviceDetails.bathroom} banheiros</li>
-            </ServiceDetails>
-          </>
-        )}
-        <Subtitles>Endereço:</Subtitles>
-        <Adress>{`${service.address}, ${service.addressNumber} ${
-          service.complement && service?.complement
-        } - ${service.district},  ${service.city} - ${service.uf}, ${
-          service.cep
-        }`}</Adress>
-        <Subtitles>Contratante:</Subtitles>
-        <GeneralInfo>{service.contractor}</GeneralInfo>
-        <Subtitles>Data:</Subtitles>
-        <GeneralInfo>{format(service.date, "dd MMM yyyy")}</GeneralInfo>
-        <ContainerRow>
-          <ContainerInfo>
-            <Subtitles>Duração total:</Subtitles>
-            <GeneralInfo className="hours">
-              {service.serviceDetails.hours} horas
-            </GeneralInfo>
-          </ContainerInfo>
-          <ContainerInfo>
-            <Subtitles>Valor</Subtitles>
-            <GeneralInfo className="price">
-              {formatValue(service.price)}
-            </GeneralInfo>
-          </ContainerInfo>
-          {/* <Button onClickFunc={handleAccept}>Aceitar</Button> */}
-        </ContainerRow>
-      </ContainerInfo>
-    </CustomModal>
-  );
+    return (
+        <CustomModal
+            visible={visible}
+            centered
+            onOk={() => setVisible(false)}
+            onCancel={() => setVisible(false)}
+            footer={null}
+            closeIcon={<CloseIcon />}
+            width={600}
+            title="Serviço aceito"
+            okText="Criar"
+            cancelText="Cancelar"
+        >
+            {/* <TitleModal>Serviço disponível</TitleModal> */}
+            <ContainerInfo>
+                <ServiceClass>{service.serviceDetails.class}</ServiceClass>
+                {service.serviceDetails.class.toLowerCase() !==
+                    "passadoria" && (
+                    <>
+                        <Subtitles>Detalhes:</Subtitles>
+                        <ServiceDetails>
+                            <li>{service.serviceDetails.bedroom} quartos</li>
+                            <li>{service.serviceDetails.bathroom} banheiros</li>
+                        </ServiceDetails>
+                    </>
+                )}
+                <Subtitles>Endereço:</Subtitles>
+                <Adress>{`${service.address.place}, ${service.address.number} ${
+                    service.address.complement && service?.address.complement
+                } - ${service.address.district},  ${service.address.city} - ${
+                    service.address.uf
+                }, ${service.address.cep}`}</Adress>
+                <Subtitles>Contratante:</Subtitles>
+                <GeneralInfo>{service.contractor}</GeneralInfo>
+                <Subtitles>Data:</Subtitles>
+                <GeneralInfo>{format(service.date, "dd MMM yyyy")}</GeneralInfo>
+                <ContainerRow>
+                    <ContainerInfo>
+                        <Subtitles>Duração total:</Subtitles>
+                        <GeneralInfo className="hours">
+                            {service.serviceDetails.hours} horas
+                        </GeneralInfo>
+                    </ContainerInfo>
+                    <ContainerInfo>
+                        <Subtitles>Valor</Subtitles>
+                        <GeneralInfo className="price">
+                            {formatValue(service.price)}
+                        </GeneralInfo>
+                    </ContainerInfo>
+                    {/* <Button onClickFunc={handleAccept}>Aceitar</Button> */}
+                </ContainerRow>
+            </ContainerInfo>
+        </CustomModal>
+    );
 };
 export default ModalDetailsService;

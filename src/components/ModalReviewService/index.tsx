@@ -145,12 +145,15 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
                         )}
                         {error && ""}
                         <Subtitles>Endereço:</Subtitles>
-                        <Adress>{`${service.address}, ${
-                            service.addressNumber
-                        } ${service.complement && service?.complement} - ${
-                            service.district
-                        },  ${service.city} - ${service.uf}, ${
-                            service.cep
+                        <Adress>{`${service.address.place}, ${
+                            service.address.number
+                        } ${
+                            service.address.complement &&
+                            service?.address.complement
+                        } - ${service.address.district},  ${
+                            service.address.city
+                        } - ${service.address.uf}, ${
+                            service.address.cep
                         }`}</Adress>
                         {user?.is_partner ? (
                             <>
