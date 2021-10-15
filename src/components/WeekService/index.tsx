@@ -45,6 +45,7 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
         let newDate = date.split("-").reverse().join("-");
         return new Date(newDate);
     };
+    console.log(services);
     return (
         <Container>
             <h2>Serviços da semana</h2>

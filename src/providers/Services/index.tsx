@@ -51,7 +51,7 @@ interface ServicesProviderData {
     ) => void;
     getServicesAccepted: (
         setError: Dispatch<SetStateAction<boolean>>,
-        partnerId?: number
+        partner_id?: number
     ) => void;
     getClientServices: (
         setError: Dispatch<SetStateAction<boolean>>,
@@ -144,7 +144,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         setError: Dispatch<SetStateAction<boolean>>
     ) => {
         const dataF: AcceptServiceBE = {
-            partner_id: data.partnerId,
+            partner_id: data.partner_id,
             opened: data.opened,
         };
         api.patch(`orders/${data.serviceId}`, dataF, {
@@ -259,13 +259,13 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
 
     const getServicesAccepted = (
         setError: Dispatch<SetStateAction<boolean>>,
-        partnerId: number = 0
+        partner_id: number = 0
     ) => {
-        if (partnerId === 0) {
+        if (partner_id === 0) {
             return setError(true);
         }
 
-        api.get<ServiceData[]>(`orders?partnerId=${partnerId}`, {
+        api.get<ServiceData[]>(`orders?partner_id=${partner_id}`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response: AxiosResponse) =>

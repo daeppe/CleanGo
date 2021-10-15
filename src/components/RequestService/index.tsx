@@ -152,7 +152,7 @@ const RequestService = () => {
                   },
                   opened: true,
                   completed: false,
-                  partnerId: 0,
+                  partner_id: 0,
                   address: {
                       place,
                       complements,
@@ -177,7 +177,7 @@ const RequestService = () => {
                   },
                   opened: true,
                   completed: false,
-                  partnerId: 0,
+                  partner_id: 0,
                   address: {
                       place,
                       complements,

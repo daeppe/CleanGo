@@ -7,6 +7,7 @@ import { notification } from "antd";
 import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
+import { PartnerData } from "../../types/partnerData";
 
 interface ClientProviderProps {
     children: ReactNode;
@@ -42,7 +43,6 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
     const { token, idClient } = useAuth();
     const [clients, setClients] = useState<ClientData[]>([]);
     const [client, setClient] = useState<ClientData>({} as ClientData);
-
     // registrar cliente
     const newClient = (
         clientData: ClientData,
@@ -118,6 +118,7 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
             });
     };
     const searchClient = (idClient: number) => {
+        console.log(idClient);
         api.get(`customers/${idClient}`, {
             headers: {
                 Authorization: "Bearer " + token,
@@ -139,7 +140,6 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
                 });
             });
     };
-
     // const getAllClients = () => {
     //     api.get(`customers?partner=false`, {
     //         headers: {

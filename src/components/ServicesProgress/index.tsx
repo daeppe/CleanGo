@@ -9,45 +9,50 @@ import { useAuth } from "../../providers/Auth";
 import CardServiceProgress from "../CardServiceProgress";
 
 const responsive = {
-  0: { items: 1 },
-  350: { items: 1.5 },
-  720: { items: 1 },
-  968: { items: 2 },
-  1200: { items: 3 },
-  1600: { items: 4.5 },
+    0: { items: 1 },
+    350: { items: 1.5 },
+    720: { items: 1 },
+    968: { items: 2 },
+    1200: { items: 3 },
+    1600: { items: 4.5 },
 };
 
 const ServicesProgress = () => {
-  const { user } = useAuth();
-  const { getClientServices, servicesProgress } = useServices();
-  const [error, setError] = useState(false);
+    const { user } = useAuth();
+    const { getClientServices, servicesProgress } = useServices();
+    const [error, setError] = useState(false);
 
-  useEffect(() => {
-    getClientServices(setError, "false", user?.id);
-    // eslint-disable-next-line
-  }, []);
+    useEffect(() => {
+        if (user !== undefined) {
+            getClientServices(setError, "false", user?.id);
+        }
+        // eslint-disable-next-line
+    }, []);
 
-  return (
-    <Container>
-      <h2>Serviços em andamento</h2>
-      {servicesProgress.length === 0 || error ? (
-        <h3>Não há serviços em andamento</h3>
-      ) : (
-        <SliderWrapper>
-          <AliceCarousel
-            mouseTracking
-            disableDotsControls
-            responsive={responsive}
-            items={servicesProgress.map((service) => (
-              <CardServiceProgress service={service} key={service.id} />
-            ))}
-            paddingLeft={20}
-            paddingRight={20}
-          />
-        </SliderWrapper>
-      )}
-    </Container>
-  );
+    return (
+        <Container>
+            <h2>Serviços em andamento</h2>
+            {servicesProgress.length === 0 || error ? (
+                <h3>Não há serviços em andamento</h3>
+            ) : (
+                <SliderWrapper>
+                    <AliceCarousel
+                        mouseTracking
+                        disableDotsControls
+                        responsive={responsive}
+                        items={servicesProgress.map((service) => (
+                            <CardServiceProgress
+                                service={service}
+                                key={service.id}
+                            />
+                        ))}
+                        paddingLeft={20}
+                        paddingRight={20}
+                    />
+                </SliderWrapper>
+            )}
+        </Container>
+    );
 };
 
 export default ServicesProgress;

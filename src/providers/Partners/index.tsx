@@ -1,10 +1,16 @@
-import { createContext, Dispatch, ReactNode, useContext } from "react";
+import {
+    createContext,
+    Dispatch,
+    ReactNode,
+    useContext,
+    useState,
+} from "react";
 import api from "../../services/api";
 import { notification } from "antd";
 import { FaTimesCircle, FaTimes, FaCheckCircle } from "react-icons/fa";
 import { PartnerData } from "../../types/partnerData";
 import { History } from "history";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 // interface Partner {
 //   name: string;
@@ -31,6 +37,8 @@ interface PartnersContextProps {
         setLoad: Dispatch<boolean>
     ) => void;
     editPartner: (partner: PartnerData, id: number, token: string) => void;
+    getPartner: (partnerId: number, token: string) => void;
+    partner: PartnerData;
 }
 
 interface PartnersProviderProps {
@@ -42,6 +50,7 @@ const PartnersContext = createContext<PartnersContextProps>(
 );
 
 export const PartnersProvider = ({ children }: PartnersProviderProps) => {
+    const [partner, setPartner] = useState<PartnerData>({} as PartnerData);
     const newPartner = (
         partner: PartnerData,
         history: History,
@@ -92,7 +101,7 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
     };
 
     const editPartner = (partner: PartnerData, id: number, token: string) => {
-        api.patch(`users/${id}`, partner, {
+        api.patch(`partners/${id}`, partner, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -124,9 +133,17 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
                 })
             );
     };
-
+    const getPartner = (partnerId: number = 1, token: string) => {
+        api.get<PartnerData>(`partners/${partnerId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then((response: AxiosResponse) => setPartner(response.data));
+    };
     return (
-        <PartnersContext.Provider value={{ newPartner, editPartner }}>
+        <PartnersContext.Provider
+            value={{ newPartner, editPartner, getPartner, partner }}
+        >
             {children}
         </PartnersContext.Provider>
     );

@@ -5,6 +5,7 @@ import LastGains from "../../../components/LastGains";
 import ReviewsTotal from "../../../components/ReviewsTotal";
 import WeekService from "../../../components/WeekService";
 import { useAuth } from "../../../providers/Auth";
+// import { useFeed } from "../../../providers/Feed";
 import { useFeedback } from "../../../providers/Feedbacks";
 import { useServices } from "../../../providers/Services";
 import { ServiceData } from "../../../types/ServiceData";
@@ -14,15 +15,16 @@ const Main = () => {
     const { user } = useAuth();
     const { getAllFeedback, feedbacks } = useFeedback();
     const { getServicesAccepted, servicesAccept } = useServices();
-
+    // const {callFeed} = useFeed()
     const [servicesAcc, setServicesAcc] = useState<ServiceData[]>([]);
     const [error, setError] = useState(false);
     const [totalFeedback, setTotalFeedback] = useState(0);
     const [totalService, setTotalService] = useState(0);
 
     useEffect(() => {
-        getAllFeedback(user?.id || 0, setError);
+        // getAllFeedback(user?.id || 0, setError);
         getServicesAccepted(setError, user?.id);
+        // callFeed()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -44,15 +44,16 @@ const ModalReviewService = ({ service, visible, setVisible }: ModalProps) => {
     useEffect(() => {
         setReview(false);
         setStars(0);
-        if (service.partnerId !== 0) {
-            searchClient(service.partnerId);
+        console.log("modal review", service);
+        if (service.partner_id !== 0) {
+            searchClient(service.partner_id);
         }
         //eslint-disable-next-line
-    }, [visible, service.partnerId]);
+    }, [visible, service.partner_id]);
 
     const submitReview = () => {
         const review = {
-            userId: user?.is_partner ? service.customer_id : service.partnerId,
+            userId: user?.is_partner ? service.customer_id : service.partner_id,
             score: stars,
             feedback: about,
         };

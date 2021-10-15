@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { SetStateAction, Dispatch } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
@@ -67,7 +66,7 @@ const ModalDetailsService = ({ service, visible, setVisible }: ModalProps) => {
                     service?.address?.cep
                 }`}</Adress>
                 <Subtitles>Contratante:</Subtitles>
-                <GeneralInfo>{service?.contractor}</GeneralInfo>
+                <GeneralInfo>{service?.customer}</GeneralInfo>
                 <Subtitles>Data:</Subtitles>
                 <GeneralInfo>{service?.date.replaceAll("-", "/")}</GeneralInfo>
                 <ContainerRow>

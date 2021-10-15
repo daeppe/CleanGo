@@ -3,7 +3,6 @@ import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
 import { useAuth } from "../../providers/Auth";
-import { useClients } from "../../providers/Clients";
 import { useServices } from "../../providers/Services";
 import {
     ContainerInfo,
@@ -17,8 +16,6 @@ import {
     CustomModal,
 } from "./styles";
 import { useState } from "react";
-import { useEffect } from "react";
-import { format } from "date-fns";
 interface ModalProps {
     visible: boolean;
     setVisible: Dispatch<SetStateAction<boolean>>;
@@ -30,22 +27,14 @@ const ModalAvailableService = ({
     setVisible,
 }: ModalProps) => {
     const { user } = useAuth();
-    const { searchClient, client } = useClients();
     const { acceptService } = useServices();
     const [error, setError] = useState<boolean>(false);
-
-    useEffect(() => {
-        if (service?.customer_id !== 0) {
-            searchClient(service?.customer_id);
-        }
-        // eslint-disable-next-line
-    }, [service?.customer_id]);
 
     const handleAccept = () => {
         acceptService(
             {
                 opened: false,
-                partnerId: user?.id,
+                partner_id: user?.id,
                 serviceId: service?.id,
             },
             setError
@@ -66,7 +55,6 @@ const ModalAvailableService = ({
             okText="Criar"
             cancelText="Cancelar"
         >
-            {/* <TitleModal>Serviço disponível</TitleModal> */}
             <ContainerInfo>
                 <ServiceClass>{service?.service_details?.class}</ServiceClass>
                 {service?.service_details?.class.toLowerCase() !==
@@ -96,7 +84,7 @@ const ModalAvailableService = ({
                     service?.address?.cep
                 }`}</Adress>
                 <Subtitles>Contratante:</Subtitles>
-                <GeneralInfo>{client.full_name}</GeneralInfo>
+                <GeneralInfo>{service.customer}</GeneralInfo>
                 <Subtitles>Data:</Subtitles>
                 <GeneralInfo>{service?.date.replaceAll("-", "/")}</GeneralInfo>
                 <ContainerRow>

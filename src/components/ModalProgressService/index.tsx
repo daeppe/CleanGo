@@ -1,4 +1,4 @@
-import { SetStateAction, Dispatch, useEffect, useState } from "react";
+import { SetStateAction, Dispatch, useState } from "react";
 import { ServiceData } from "../../types/ServiceData";
 import formatValue from "../../utils/formatedPrice";
 import Button from "../Button";
@@ -20,7 +20,6 @@ import {
     TextAreaStyled,
     ErrorMessage,
 } from "./styles";
-import { useClients } from "../../providers/Clients";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { useFeedback } from "../../providers/Feedbacks";
 interface ModalProps {
@@ -34,8 +33,6 @@ const ModalProgressService = ({ service, visible, setVisible }: ModalProps) => {
     const [stars, setStars] = useState(0);
     const [about, setAbout] = useState("");
     const [aboutError, setAboutError] = useState(false);
-
-    const { searchClient, client } = useClients();
     const { newFeedback } = useFeedback();
     const { finishService } = useServices();
 
@@ -56,13 +53,6 @@ const ModalProgressService = ({ service, visible, setVisible }: ModalProps) => {
         setError(false);
         setAboutError(false);
     };
-
-    useEffect(() => {
-        if (service?.partnerId !== 0) {
-            searchClient(service?.partnerId);
-        }
-        // eslint-disable-next-line
-    }, [service?.partnerId]);
 
     return (
         <CustomModal
@@ -155,7 +145,7 @@ const ModalProgressService = ({ service, visible, setVisible }: ModalProps) => {
                             service?.address?.cep
                         }`}</Adress>
                         <Subtitles>Contratado:</Subtitles>
-                        <GeneralInfo>{client?.full_name}</GeneralInfo>
+                        <GeneralInfo>{service?.partner}</GeneralInfo>
                         <ContainerRow>
                             <ContainerInfo>
                                 <Subtitles>Duração total:</Subtitles>
