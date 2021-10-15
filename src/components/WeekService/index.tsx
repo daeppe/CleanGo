@@ -26,7 +26,6 @@ interface TasksProps {
 
 const Tasks = ({ date, now, service }: TasksProps) => {
     const [visible, setVisible] = useState<boolean>(false);
-
     return (
         <>
             <Task past={date < now} onClick={() => setVisible(true)}>
@@ -42,6 +41,10 @@ const Tasks = ({ date, now, service }: TasksProps) => {
 };
 
 const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
+    const invertDate = (date: string): Date => {
+        let newDate = date.split("-").reverse().join("-");
+        return new Date(newDate);
+    };
     return (
         <Container>
             <h2>Serviços da semana</h2>
@@ -57,11 +60,13 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                         <DayTasks>
                             {services
                                 .filter((service) => {
-                                    let date = new Date(service.date);
+                                    let date = invertDate(service.date);
                                     return date.getDay() === 1;
                                 })
                                 .map((service) => {
-                                    let date = new Date(service.date).getTime();
+                                    let date = invertDate(
+                                        service.date
+                                    ).getTime();
                                     let now = new Date().getTime();
 
                                     return (
@@ -79,11 +84,13 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                         <DayTasks>
                             {services
                                 .filter((service) => {
-                                    let date = new Date(service.date);
+                                    let date = invertDate(service.date);
                                     return date.getDay() === 2;
                                 })
                                 .map((service) => {
-                                    let date = new Date(service.date).getTime();
+                                    let date = invertDate(
+                                        service.date
+                                    ).getTime();
                                     let now = new Date().getTime();
 
                                     return (
@@ -101,11 +108,13 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                         <DayTasks>
                             {services
                                 .filter((service) => {
-                                    let date = new Date(service.date);
+                                    let date = invertDate(service.date);
                                     return date.getDay() === 3;
                                 })
                                 .map((service) => {
-                                    let date = new Date(service.date).getTime();
+                                    let date = invertDate(
+                                        service.date
+                                    ).getTime();
                                     let now = new Date().getTime();
 
                                     return (
@@ -123,11 +132,13 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                         <DayTasks>
                             {services
                                 .filter((service) => {
-                                    let date = new Date(service.date);
+                                    let date = invertDate(service.date);
                                     return date.getDay() === 4;
                                 })
                                 .map((service) => {
-                                    let date = new Date(service.date).getTime();
+                                    let date = invertDate(
+                                        service.date
+                                    ).getTime();
                                     let now = new Date().getTime();
 
                                     return (
@@ -145,11 +156,13 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                         <DayTasks>
                             {services
                                 .filter((service) => {
-                                    let date = new Date(service.date);
+                                    let date = invertDate(service.date);
                                     return date.getDay() === 5;
                                 })
                                 .map((service) => {
-                                    let date = new Date(service.date).getTime();
+                                    let date = invertDate(
+                                        service.date
+                                    ).getTime();
                                     let now = new Date().getTime();
 
                                     return (
@@ -167,11 +180,13 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                         <DayTasks>
                             {services
                                 .filter((service) => {
-                                    let date = new Date(service.date);
+                                    let date = invertDate(service.date);
                                     return date.getDay() === 6;
                                 })
                                 .map((service) => {
-                                    let date = new Date(service.date).getTime();
+                                    let date = invertDate(
+                                        service.date
+                                    ).getTime();
                                     let now = new Date().getTime();
 
                                     return (
@@ -189,11 +204,13 @@ const WeekService = ({ services, servicesAccept, error }: WeekServiceProps) => {
                         <DayTasks>
                             {services
                                 .filter((service) => {
-                                    let date = new Date(service.date);
+                                    let date = invertDate(service.date);
                                     return date.getDay() === 0;
                                 })
                                 .map((service) => {
-                                    let date = new Date(service.date).getTime();
+                                    let date = invertDate(
+                                        service.date
+                                    ).getTime();
                                     let now = new Date().getTime();
 
                                     return (
