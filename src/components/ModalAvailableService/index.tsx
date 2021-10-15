@@ -35,7 +35,6 @@ const ModalAvailableService = ({
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        console.log(service);
         if (service?.customer_id !== 0) {
             searchClient(service?.customer_id);
         }

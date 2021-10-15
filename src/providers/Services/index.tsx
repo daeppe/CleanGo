@@ -118,7 +118,7 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
             opened: true,
             completed: false,
         };
-        console.log(serviceDataFormated);
+
         api.post("orders", serviceDataFormated, {
             headers: { Authorization: `Bearer ${token}` },
         })

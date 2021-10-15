@@ -71,7 +71,6 @@ export const ClientProvider = ({ children }: ClientProviderProps) => {
             })
             .catch(() => {
                 setLoad(false);
-                console.log(client);
 
                 notification.open({
                     message: "Erro",

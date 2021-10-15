@@ -208,7 +208,7 @@ const RequestService = () => {
                 complement: yup.string(),
             }),
         });
-        console.log(serviceF);
+
         await schema
             .validate({ ...serviceF })
             .then((_) => {
@@ -216,7 +216,6 @@ const RequestService = () => {
                 cep === "" && setCepError(true);
             })
             .catch((err) => {
-                console.log(err);
                 notification.open({
                     message: "Erro.",
                     closeIcon: <FaTimes />,

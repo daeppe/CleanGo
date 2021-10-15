@@ -80,8 +80,6 @@ export const PartnersProvider = ({ children }: PartnersProviderProps) => {
                 history.push("/login");
             })
             .catch((error: AxiosError) => {
-                console.log(partnerNew);
-
                 setLoad(false);
 
                 notification.open({
