@@ -140,7 +140,7 @@ const RequestService = () => {
         let dateF = format(dateISO, "dd-MM-yyyy");
         service === "Limpeza Residencial"
             ? (serviceF = {
-                  userId: parseInt(idUser),
+                  customer_id: parseInt(idUser),
                   date: dateF,
                   price: price,
                   service_details: {
@@ -165,7 +165,7 @@ const RequestService = () => {
                   contractor: user?.full_name,
               })
             : (serviceF = {
-                  userId: parseInt(idUser),
+                  customer_id: parseInt(idUser),
                   date: dateF,
                   price: price,
                   service_details: {
@@ -361,33 +361,39 @@ const RequestService = () => {
                             <Subtitle>
                                 Você pode escolher quantas horas quiser
                             </Subtitle>
-                            <InputNumberWrapper>
-                                {home === "Studio" ? (
-                                    <InputNumber
-                                        name="type"
-                                        value={hours}
-                                        maxValue={5}
-                                        minValue={5}
-                                        setValue={handleHours}
-                                    />
-                                ) : (
-                                    <InputNumber
-                                        name="type"
-                                        value={hours}
-                                        maxValue={serviceHours[service].maxHour}
-                                        minValue={serviceHours[service].minHour}
-                                        setValue={handleHours}
-                                    />
-                                )}
+                            <WrapperDoubleInput>
+                                <InputNumberWrapper>
+                                    {home === "Studio" ? (
+                                        <InputNumber
+                                            name="type"
+                                            value={hours}
+                                            maxValue={5}
+                                            minValue={5}
+                                            setValue={handleHours}
+                                        />
+                                    ) : (
+                                        <InputNumber
+                                            name="type"
+                                            value={hours}
+                                            maxValue={
+                                                serviceHours[service].maxHour
+                                            }
+                                            minValue={
+                                                serviceHours[service].minHour
+                                            }
+                                            setValue={handleHours}
+                                        />
+                                    )}
 
-                                <InputNumberLabel>Horas</InputNumberLabel>
+                                    <InputNumberLabel>Horas</InputNumberLabel>
 
-                                {service === "Passadoria" && (
-                                    <LimitPieces>{`Limite de ${
-                                        parseInt(hours) * 15
-                                    } peças`}</LimitPieces>
-                                )}
-                            </InputNumberWrapper>
+                                    {service === "Passadoria" && (
+                                        <LimitPieces>{`Limite de ${
+                                            parseInt(hours) * 15
+                                        } peças`}</LimitPieces>
+                                    )}
+                                </InputNumberWrapper>
+                            </WrapperDoubleInput>
                         </Column>
                         <Column>
                             <SectionTitle>Qual a data?</SectionTitle>

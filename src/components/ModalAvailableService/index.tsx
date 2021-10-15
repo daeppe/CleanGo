@@ -35,11 +35,12 @@ const ModalAvailableService = ({
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        if (service?.userId !== 0) {
-            searchClient(service?.userId);
+        console.log(service);
+        if (service?.customer_id !== 0) {
+            searchClient(service?.customer_id);
         }
         // eslint-disable-next-line
-    }, [service?.userId]);
+    }, [service?.customer_id]);
 
     const handleAccept = () => {
         acceptService(
@@ -98,7 +99,7 @@ const ModalAvailableService = ({
                 <Subtitles>Contratante:</Subtitles>
                 <GeneralInfo>{client.full_name}</GeneralInfo>
                 <Subtitles>Data:</Subtitles>
-                <GeneralInfo>{service?.date}</GeneralInfo>
+                <GeneralInfo>{service?.date.replaceAll("-", "/")}</GeneralInfo>
                 <ContainerRow>
                     <ContainerInfo>
                         <Subtitles>Duração total:</Subtitles>

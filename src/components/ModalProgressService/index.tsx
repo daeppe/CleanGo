@@ -47,7 +47,7 @@ const ModalProgressService = ({ service, visible, setVisible }: ModalProps) => {
 
     const submitReview = () => {
         const review = {
-            userId: service?.userId,
+            userId: service?.customer_id,
             score: stars,
             feedback: about,
         };

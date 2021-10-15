@@ -11,6 +11,7 @@ import {
     ServiceData,
     AcceptService,
     ServiceDataBE,
+    AcceptServiceBE,
 } from "../../types/ServiceData";
 import { useState } from "react";
 import { useAuth } from "../Auth";
@@ -142,7 +143,11 @@ export const ServiceProvider = ({ children }: ServicesProviderProps) => {
         data: AcceptService,
         setError: Dispatch<SetStateAction<boolean>>
     ) => {
-        api.patch(`orders/${data.serviceId}`, data, {
+        const dataF: AcceptServiceBE = {
+            partner_id: data.partnerId,
+            opened: data.opened,
+        };
+        api.patch(`orders/${data.serviceId}`, dataF, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((response) => {

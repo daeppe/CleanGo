@@ -16,7 +16,7 @@ interface TableRowElementProps {
 
 const TableRowElement = ({ service }: TableRowElementProps) => {
     const [visible, setVisible] = useState<boolean>(false);
-    const date = service.date;
+    const date = service.date.replaceAll("-", "/");
 
     return (
         <>

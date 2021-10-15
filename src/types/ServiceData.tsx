@@ -1,5 +1,5 @@
 export interface ServiceData {
-    userId: number;
+    customer_id: number;
     contractor?: string;
     date: string;
     price: number;
@@ -53,4 +53,8 @@ export interface AcceptService {
     partnerId: number | undefined;
     opened: boolean;
     serviceId: number | undefined;
+}
+export interface AcceptServiceBE {
+    partner_id: number | undefined;
+    opened: boolean;
 }

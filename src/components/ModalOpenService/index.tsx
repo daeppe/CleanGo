@@ -47,7 +47,7 @@ const ModalOpenService = ({ service, visible, setVisible }: ModalProps) => {
 
     const submitReview = () => {
         const review = {
-            userId: service?.userId,
+            userId: service?.customer_id,
             score: stars,
             feedback: about,
         };
@@ -157,7 +157,9 @@ const ModalOpenService = ({ service, visible, setVisible }: ModalProps) => {
                         <Subtitles>Contratado:</Subtitles>
                         <GeneralInfo>{client?.full_name}</GeneralInfo>
                         <Subtitles>Data:</Subtitles>
-                        <GeneralInfo>{service?.date}</GeneralInfo>
+                        <GeneralInfo>
+                            {service?.date.replaceAll("-", "/")}
+                        </GeneralInfo>
                         <ContainerRow>
                             <ContainerInfo>
                                 <Subtitles>Duração total:</Subtitles>

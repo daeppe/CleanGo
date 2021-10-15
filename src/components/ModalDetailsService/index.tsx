@@ -69,7 +69,7 @@ const ModalDetailsService = ({ service, visible, setVisible }: ModalProps) => {
                 <Subtitles>Contratante:</Subtitles>
                 <GeneralInfo>{service?.contractor}</GeneralInfo>
                 <Subtitles>Data:</Subtitles>
-                <GeneralInfo>{service?.date}</GeneralInfo>
+                <GeneralInfo>{service?.date.replaceAll("-", "/")}</GeneralInfo>
                 <ContainerRow>
                     <ContainerInfo>
                         <Subtitles>Duração total:</Subtitles>
