@@ -21,6 +21,7 @@ import {
 import { usePartners } from "../../providers/Partners";
 import { PartnerData } from "../../types/partnerData";
 import { FaSpinner } from "react-icons/fa";
+import { format } from "date-fns";
 
 interface FormNewPartnerFirstStepProps {
     setNewPartnerState: Dispatch<{}>;
@@ -48,6 +49,10 @@ export const FormNewPartnerFirstStep = ({
     const [cpf, setCpf] = useState("");
     const [cpfMasked, setCpfMasked] = useState("");
     const [birthday, setBirthday] = useState("");
+    const [birthdayISO, setBirthdayISO] = useState<number>(() => {
+        const now = new Date();
+        return now.getTime();
+    });
     const [gender, setGender] = useState("masculino");
     const [phone, setPhone] = useState("");
     const [phoneMasked, setPhoneMasked] = useState("");
@@ -98,12 +103,7 @@ export const FormNewPartnerFirstStep = ({
         await firstSchema
             .validate({ ...partner })
             .then((v) => {
-                const { birthday } = v;
-
-                let birthdayFormatted = new Date(birthday)
-                    .toLocaleDateString()
-                    .replaceAll("/", "-");
-
+                let birthdayFormatted = format(birthdayISO, "dd-MM-yyyy");
                 setNewPartnerState({ ...v, birthday: birthdayFormatted });
                 setSectionForm(2);
             })
@@ -169,7 +169,12 @@ export const FormNewPartnerFirstStep = ({
                     error={birthdayError}
                     name="birthday"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setBirthday(e.target.value);
+                        const value = e.target.valueAsDate;
+                        if (value) {
+                            const date = new Date(value);
+                            setBirthdayISO(date.getTime());
+                            setBirthday(e.target.value);
+                        }
                         setBirthdayError(false);
                     }}
                     value={birthday}
