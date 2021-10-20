@@ -11,9 +11,8 @@ import api from "../../services/api";
 import { PartnerData } from "../../types/partnerData";
 import { ClientData } from "../../types/clientData";
 import { notification } from "antd";
-import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
+import { FaTimes, FaTimesCircle } from "react-icons/fa";
 import { AxiosError, AxiosResponse } from "axios";
-import internal from "stream";
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -54,10 +53,6 @@ interface DecodeToken {
 const AuthContext = createContext<AuthProviderData>({} as AuthProviderData);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const convertStringToNumber = (str: string): number => {
-        return parseInt(str);
-    };
-
     //  login de cliente
     const [auth, setAuth] = useState<string>(() => {
         let token = localStorage.getItem("@CleanGo/token");

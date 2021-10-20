@@ -13,7 +13,7 @@ import { Container, FeaturesColumn, WrapperSections } from "./styles";
 
 const Main = () => {
     const { user } = useAuth();
-    const { getAllFeedback, feedbacks } = useFeedback();
+    const { feedbacks } = useFeedback();
     const { getServicesAccepted, servicesAccept } = useServices();
     // const {callFeed} = useFeed()
     const [servicesAcc, setServicesAcc] = useState<ServiceData[]>([]);

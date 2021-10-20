@@ -7,7 +7,6 @@ import { notification } from "antd";
 import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 import { useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
-import { PartnerData } from "../../types/partnerData";
 
 interface ClientProviderProps {
     children: ReactNode;
@@ -41,7 +40,7 @@ const ClientContext = createContext<ClientProviderData>(
 
 export const ClientProvider = ({ children }: ClientProviderProps) => {
     const { token, idClient } = useAuth();
-    const [clients, setClients] = useState<ClientData[]>([]);
+    const [clients] = useState<ClientData[]>([]);
     const [client, setClient] = useState<ClientData>({} as ClientData);
     // registrar cliente
     const newClient = (
