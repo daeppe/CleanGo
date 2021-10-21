@@ -103,7 +103,9 @@ export const FormNewPartnerFirstStep = ({
         await firstSchema
             .validate({ ...partner })
             .then((v) => {
-                let birthdayFormatted = format(birthdayISO, "dd-MM-yyyy");
+                let birthdayFormatted = format(birthdayISO, "yyyy-MM-dd");
+                console.log(typeof birthdayFormatted);
+
                 setNewPartnerState({ ...v, birthday: birthdayFormatted });
                 setSectionForm(2);
             })

@@ -137,7 +137,7 @@ const RequestService = () => {
         e.preventDefault();
 
         let serviceF: ServiceData = {} as ServiceData;
-        let dateF = format(dateISO, "dd-MM-yyyy");
+        let dateF = format(dateISO, "yyyy-MM-dd");
         service === "Limpeza Residencial"
             ? (serviceF = {
                   customer_id: parseInt(idUser),
